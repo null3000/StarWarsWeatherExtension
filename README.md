@@ -33,4 +33,5 @@ Privacy is incredibly important, that's why this project is open source. This  e
 ## Contributing
 Like the project? Please consider contributing to this project, lots of improvements and optimazations can be made
 
-## Mozilla Add-on Store Status: PENDING
+## Mozilla Add-on Store Status: APPROVED
+Working [Link](https://addons.mozilla.org/en-US/firefox/addon/star-wars-weather/)
