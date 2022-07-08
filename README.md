@@ -1,6 +1,6 @@
 # StarWarsWeather
 Open a new tab page display a star wars background based on the weather!
-This extension is for Firefox
+This extension is for Firefox, a chrome verison is in development.
 
 ## Background
 A while back there was a website by Tom Scott that would get the weather in an area and compare it to a Star Wars planet. This website has since stopped working due to reasons listed [here](https://www.tomscott.com/weather/starwars/). My project revives and expands on this idea, there are now 10 planets, and each one has 2 images for day and night. This also uses more data about the climate like humidity, wind speeds and elevation.
