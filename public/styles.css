@@ -1,0 +1,239 @@
+
+* {
+    font-family: "Open Sans", sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0; 
+}
+
+p{
+    width: fit-content;
+}
+
+#background {
+    position: relative;
+    width: auto;
+    height: 100vh;
+    background-position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #000;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: black;
+}
+
+.loading {
+   font-size: 43pt; 
+}
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+/* cold/rain/fog day */
+.hoth{
+    background: url("/public//assets/hoth.jpeg");
+    animation: opacityUp 3s ease;
+}
+.endor{
+    background: url("/public//assets/endor.png");
+    animation: opacityUp 3s ease;
+}
+.kamino{
+    background: url("/public//assets/kamino.jpeg");
+    animation: opacityUp 3s ease;
+}
+.naboo{
+    background: url("/public//assets/naboo.jpeg");
+    animation: opacityUp 3s ease;
+}
+
+/* cold/rain/fog night */
+.hothNight{
+    background: url("/public//assets/hothNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+.endorNight{
+    background: url("/public//assets/endorNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+.kaminoNight{
+    background: url("/public//assets/kaminoNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+.nabooNight{
+    background: url("/public//assets/nabooNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+
+/* warm/ high  day*/
+
+.tatooine{
+    background: url("/public//assets/tatooine.jpeg");
+    animation: opacityUp 3s ease;
+}
+.dagobah{
+    background: url("/public//assets/dagobah.jpeg");
+    animation: opacityUp 3s ease;
+}
+.bespin{
+    background: url("/public//assets/bespin.jpeg");
+    animation: opacityUp 3s ease;
+}
+.coruscant{
+    background: url("/public//assets/coruscant.jpeg");
+    animation: opacityUp 3s ease;
+}
+.scarif{
+    background: url("/public/assets/scarif.jpeg");
+    animation: opacityUp 3s ease;
+}
+
+.mustafar{
+    background: url("/public//assets/mustafar.jpeg");
+    animation: opacityUp 3s ease;
+}
+
+/* warm/high night */
+.tatooineNight{
+    background: url("/public//assets/tatooineNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+.dagobahNight{
+    background: url("/public//assets/dagobahNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+.bespinNight{
+    background: url("/public//assets/bespinNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+.coruscantNight{
+    background: url("/public//assets/coruscantNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+.scarifNight{
+    background: url("/public/assets/scarifNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+.mustafarNight{
+    background: url("/public//assets/mustafarNight.jpeg");
+    animation: opacityUp 3s ease;
+}
+
+/* animation slowly increases opcaity from 0 to 1 */
+@keyframes opacityUp {
+    0% {
+        opacity: .9;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.top {
+    position: fixed;
+    left: 15%;
+    top: 10%;
+    transform: translate(-25%, -25%);
+    font-size: 14pt;
+    font-weight: 400;
+}
+
+.center {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center1 {
+    font-weight: 500;
+    font-size: 14pt;
+}
+
+.center1Text {
+    float: left;
+    padding-left: 65px;
+}
+
+.center2 {
+    font-size: 65pt;
+}
+
+.center3 {
+    font-size: 14pt;
+    font-weight: 500;
+    right: 180px;
+}
+
+.planetText {
+    letter-spacing: 2.5px;
+    padding-left: 8px;
+}
+
+
+.center3Text {
+    float: right;
+    padding-right: 65px;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 5%;
+    bottom: 10%;
+    transform: translate(-15%, -15%);
+    font-size: 12pt;
+    font-weight: 400;
+}
+
+.bottomText {
+    position: relative;
+    flex-wrap: wrap;
+    font-size: 16pt;
+    font-weight: 400;
+    flex-grow: 2;
+    max-width: 100%;
+    padding-bottom: 30px;
+}
+
+.footer {
+    display: flex;
+    position: absolute;
+    color: #fff;
+    bottom: 0;
+    width: 100%;
+    padding: 5px;
+    opacity: 90%;
+}
+
+#footer {
+    position: fixed;
+    justify-content: space-between;
+    color: lightgray;
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    bottom: 10px;
+    margin: 0;
+    padding: 0 20px;
+  }
+
+ /* make link highlight when hovered */
+a:hover {
+    color: blue;
+}
+
+/* if link visted, make purple */
+a:visited {
+    color: darkmagenta;
+}

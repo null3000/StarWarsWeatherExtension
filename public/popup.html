@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta http-equiv="Content-Security-Policy" script-src='unsafe-inline';>
+</head>
+<body>
+    <style>
+    .main {
+        height: 100px;
+        width: 220px;
+        outline: none;
+        margin: 10px;
+        border: none;
+        border-radius: 2px;
+      }</style>
+    <div class="main">
+        <p id="test">Like the extension? Please consider rating it on the Chrome Web Store.</p>
+        <p>Report a  <a href="https://www.github.com/null3000/StarWarsWeatherFirefox/issues">bug</a></p>
+        <p>Check out the source code on <a href="https://www.github.com/null3000/StarWarsWeatherFirefox">Github</a></p>
+        <p>Made by <a href="https://www.github.com/null3000">vwbosu</a> inspired by <a href="https://www.tomscott.com/weather/starwars/">Tom Scott</a></p>
+        <p>
+            <!-- when Fahrenheit is checked trigger a function in popup.js -->
+            <input id="farenheit" type="radio" name="temp" value="fahrenheit" checked>Fahrenheit
+            <!-- when Celsius is checked trigger a function popup.js -->
+            <input id="celsius" type="radio" name="temp" value="celsius">Celsius
+        </p>
+        <p>You may need to refresh the current tab or open a new tab for a unit change to take effect.</p>
+        <br>
+    </div>
+    <script src="/src/popup.js"></script>
+</body>
+</html>

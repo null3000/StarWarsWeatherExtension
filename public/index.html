@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    <title>New Tab</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <div class="hyperspace" id="background">
+        <div id="test" class="video-wrapper">
+            <video autoplay loop muted>
+                <source src="assets/hyperspace.mp4" type="video/mp4">
+            </video>
+          </div>
+        <section class="top">
+            <p id="message"></p>
+        </section>
+
+        <section class="center">
+            <div class="center1">
+                <p class="center1Text" id="center1Text"></p>
+            </div>
+            <div class="center2">
+                <p class="planetText" id="planet"></p>
+                <p class="loading" id="loading"></p>
+            </div>
+            <div class="center3">
+                <p class="center3Text" id="center3Text"></p>
+            </div>
+        </section>
+
+        <section class="bottom">
+            <div class="bottomText">
+                <p id="description"></p>
+            </div>
+        </section>
+        <script src="/src/app.js"></script>
+    </div>
+</body>
+</html>
