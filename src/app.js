@@ -239,6 +239,12 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
     if(celsius){
       message = tempC + "°C, a Cool " + timeofdaydisplay;
     }
+    if (temp >= 70) {
+      message = temp + "°F, a Comfortable " + timeofdaydisplay;
+      if(celsius){
+        message = tempC + "°C, a Comfortable " + timeofdaydisplay;
+      }
+    }
     planetName = "Coruscant";
     if (timeofday === "morning" || timeofday ==="afternoon") {
       planet = "coruscant";
