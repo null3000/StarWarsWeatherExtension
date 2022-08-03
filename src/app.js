@@ -4,6 +4,7 @@ const options = {
   timeout: 5000,
   maximumAge: 600000,
 };
+
 function error() {
   navigator.geolocation.getCurrentPosition(getPos, error, options);
 }
@@ -63,9 +64,9 @@ function cacheData() {
 // get the current weather at the user's location
 async function getWeather(lat, long) {
   console.log("getting weather from API");
-  // this is a free API KEY, dont take mine, just get an account here https://www.weatherapi.com/
-  const API_KEY = "API_KEY";
-  const url = "http://api.weatherapi.com/v1/current.json?key=" + API_KEY + "&q=" + lat + "," +long + "&aqi=no";
+  // this is a free API KEY, dont take mine, just get an account here https://openweathermap.org/
+  const API_KEY = "3e37ed79af4d522cce81de42a9d2c5ef";
+  const url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=" + API_KEY +"&units=imperial"
   // const elevationURL ="https://api.opentopodata.org/v1/test-dataset?locations=" + lat + "," + long;
 
   // let elevationresponse = await fetch(elevationURL);
@@ -82,17 +83,18 @@ async function getWeather(lat, long) {
 
   let timeofday;
   // if time of day is between 5am and 12pm set time of day to morning
+
   if (hour >= 5 && hour < 12) {
     timeofday = "morning";
     timeofdaydisplay = "Morning";
   }
   // if time of day is between 12pm and 4pm set time of day to afternoon
-  else if (hour >= 12 && hour < 16) {
+  else if (hour >= 12 && hour <= 16) {
     timeofday = "afternoon";
     timeofdaydisplay = "Afternoon";
   }
   // if time of day is between 5pm and 8pm set time of day to evening
-  else if (hour >= 16 && hour < 20) {
+  else if (hour > 16 && hour < 20) {
     timeofday = "evening";
     timeofdaydisplay = "Evening";
   }
@@ -103,11 +105,12 @@ async function getWeather(lat, long) {
   }
 
   // get the temp, conditions, humidity, and wind speeds
-  let temp = Math.round(data.current.temp_f);
-  let conditions = data.current.condition.text;
+  let temp = Math.round(data.main.temp);
+  let conditions = data.weather[0].main;
   conditions = conditions.toLowerCase();
-  let humidity = data.current.humidity;
-  let wind = data.current.wind_mph;
+  let humidity = data.main.humidity;
+  let wind = data.wind.speed;
+  console.log(temp, conditions, humidity, wind);
   // let elevation = elevationdata.results[0].elevation ;
   let elevation = 0;
   definePlanet(temp, conditions, humidity, wind, timeofday, elevation);
@@ -121,17 +124,18 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
   let planetName;
   let celsius = false;
   let tempC = (temp - 32) * 5 / 9;
-  tempC = Math.round(tempC * 10) / 10;
+  tempC = Math.round(tempC * 2) / 2;
+  
   // decide between celcius and fahrenheit
   let unit = localStorage.getItem("unit");
   console.log(unit);
-  if (unit == "celsius") {
+  if (unit === "celsius") {
     celsius=true;
   }
   console.log(celsius);
 
   //set hoth
-  if (conditions.includes("snow") || conditions.includes("sleet") || conditions.includes("ice") || conditions.includes("hail") || conditions === "blizzard" || temp <= 32) {
+  if (conditions === "Snow" || temp <= 32) {
     message = temp + "°F, Wow! Cold " + timeofdaydisplay;
     if(celsius){
       message = tempC + "°C, Wow! Cold " + timeofdaydisplay;
@@ -145,7 +149,7 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
     }
   }
   //set endor
-  if (conditions === "fog" || conditions === "mist") {
+  if (conditions === "Fog" || conditions === "Mist") {
     message = temp + "°F, and a Foggy " + timeofdaydisplay;
     if(celsius){
       message = tempC + "°C, and a Foggy " + timeofdaydisplay;
@@ -187,7 +191,7 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
     }
   }
   // set kamino
-  else if (conditions.includes("rain") || conditions.includes("thundery")) {
+  else if (conditions === "Rain" || conditions === "Drizzle" || conditions === "Thunderstorm") {
     message = temp + "°F, and a Rainy " + timeofdaydisplay;
     if(celsius){
       message = tempC + "°C, and a Rainy " + timeofdaydisplay;
@@ -198,6 +202,20 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
       planet = "kamino";
     } else {
       planet = "kaminoNight";
+    }
+  }
+  // set to scarif
+  else if (temp >= 70 && temp <= 80 && conditions === "Clear") {
+    description = "A Remote, Tropical Planet in the Outer Rim";
+    message = temp + "°F, a Great " + timeofdaydisplay;
+    if(celsius){
+      message = tempC + "°C, a Great " + timeofdaydisplay;
+    }
+    planetName = "Scarif";
+    if (timeofday === "morning" || timeofday === "afternoon") {
+      planet = "scarif";
+    } else {
+      planet = "scarifNight";
     }
   }
   //set naboo
@@ -215,7 +233,7 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
     }
   }
   // set coruscant
-  else if (temp >= 50 && temp <= 69) {
+  else if (temp >= 50 && temp <= 80) {
     description = "Capital of the Galaxy";
     message = temp + "°F, a Cool " + timeofdaydisplay;
     if(celsius){
@@ -228,22 +246,8 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
       planet = "coruscantNight";
     }
   }
-  // set to scarif
-  else if (temp >= 70 && temp <= 85) {
-    description = "A Remote, Tropical Planet in the Outer Rim";
-    message = temp + "°F, a Great " + timeofdaydisplay;
-    if(celsius){
-      message = tempC + "°C, a Great " + timeofdaydisplay;
-    }
-    planetName = "Scarif";
-    if (timeofday === "morning" || timeofday === "afternoon") {
-      planet = "scarif";
-    } else {
-      planet = "scarifNight";
-    }
-  }
   //set tatooine
-  else if (temp >= 85 && temp <= 95) {
+  else if (temp > 80 && temp <= 95) {
     description = "It's a Hot " + timeofday + ", Go to Mos Eisley for a Drink";
     message = temp + "°F, a Hot " + timeofdaydisplay;
     if(celsius){

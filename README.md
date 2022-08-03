@@ -8,8 +8,8 @@ A while back there was a website by Tom Scott that would get the weather in an a
 ## How does it work?
 1. This extension gets the users location.
 2. Get the time and deterime day or night.
-3. Gives the location info to two APIS found here: [Elevation API](https://www.open-elevation.com/) as well as [Weather API](https://www.weatherapi.com/).
-4. These two API gather the following data temperature, conditions, humidity, wind, elevation.
+3. Gives the location info to a[Weather API](https://openweathermap.org/).
+4. This API gather the following data temperature, conditions, humidity, wind.
 5. It use these parameters to deterime the planet. See exact details below.
 6. It gets the image (depending on time of day), description and message and edits the HTML to display them.
 
@@ -19,7 +19,7 @@ Each planet has specific reasons for when it will be used here they are:
 **Hoth**: used when snow, hail, ice or a blizzard is present. Or if temps are below freezing  
 **Endor**: used when it is misty or foggy  
 **Dagobah**: used when humidity is above 80%  
-**Bespin**: used when elevation is above 6000ft AND wind speeds are above 8mph  
+**Bespin**: used when wind speeds are at ot above 35mph  
 **Kamino**: used when it is raining or there is a storm  
 **Naboo** used when temps are between 33-49F  
 **Coruscant** used when temps are between 50-69F  
