@@ -55,6 +55,11 @@ function cacheData() {
     updateMessage(message);
     updateImage(planet);
     updateDescription(description);
+    // get the curent time
+    var today = new Date();
+    let hour = today.getHours();
+    let minute = today.getMinutes();
+    document.getElementById("LastUpdated").innerText = "Last Updated: " + hour + ":00";
   } else {
     console.log("start");
     navigator.geolocation.getCurrentPosition(getPos, error, options);
@@ -107,17 +112,17 @@ async function getWeather(lat, long) {
   // get the temp, conditions, humidity, and wind speeds
   let temp = Math.round(data.main.temp);
   let conditions = data.weather[0].main;
-  conditions = conditions.toLowerCase();
   let humidity = data.main.humidity;
   let wind = data.wind.speed;
-  console.log(temp, conditions, humidity, wind);
+  let detailedconditions = data.weather[0].description;
+  console.log(temp, conditions, humidity, wind, detailedconditions);
   // let elevation = elevationdata.results[0].elevation ;
   let elevation = 0;
-  definePlanet(temp, conditions, humidity, wind, timeofday, elevation);
+  definePlanet(temp, conditions, humidity, wind, timeofday, elevation, detailedconditions);
 }
 
 // define planet based on the temp, conditions, humidity, and wind speeds
-function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
+function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, detailedconditions) {
   let message;
   let description;
   let planet;
@@ -148,8 +153,22 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
       planet = "hothNight";
     }
   }
+  // set kamino
+  else if (conditions === "Rain" || conditions === "Drizzle" || conditions === "Thunderstorm") {
+    message = temp + "°F, and a Rainy " + timeofdaydisplay;
+    if(celsius){
+      message = tempC + "°C, and a Rainy " + timeofdaydisplay;
+    }
+    description = "A Planet of Endless Oceans and Storms";
+    planetName = "Kamino";
+    if (timeofday === "morning" || timeofday === "afternoon") {
+      planet = "kamino";
+    } else {
+      planet = "kaminoNight";
+    }
+  }
   //set endor
-  if (conditions === "Fog" || conditions === "Mist") {
+  else if (conditions === "Fog" || conditions === "Mist") {
     message = temp + "°F, and a Foggy " + timeofdaydisplay;
     if(celsius){
       message = tempC + "°C, and a Foggy " + timeofdaydisplay;
@@ -190,22 +209,8 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
       planet = "bespinNight";
     }
   }
-  // set kamino
-  else if (conditions === "Rain" || conditions === "Drizzle" || conditions === "Thunderstorm") {
-    message = temp + "°F, and a Rainy " + timeofdaydisplay;
-    if(celsius){
-      message = tempC + "°C, and a Rainy " + timeofdaydisplay;
-    }
-    description = "A Planet of Endless Oceans and Storms";
-    planetName = "Kamino";
-    if (timeofday === "morning" || timeofday === "afternoon") {
-      planet = "kamino";
-    } else {
-      planet = "kaminoNight";
-    }
-  }
   // set to scarif
-  else if (temp >= 70 && temp <= 80 && conditions === "Clear") {
+  else if (temp >= 70 && temp <= 85 && (conditions === "Clear" || detailedconditions === "few clouds")) {
     description = "A Remote, Tropical Planet in the Outer Rim";
     message = temp + "°F, a Great " + timeofdaydisplay;
     if(celsius){
@@ -233,17 +238,14 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
     }
   }
   // set coruscant
-  else if (temp >= 50 && temp <= 80) {
+  else if (temp >= 50 && temp < 80) {
     description = "Capital of the Galaxy";
     message = temp + "°F, a Cool " + timeofdaydisplay;
+    if(temp > 70 && temp < 80){
+      message = temp + "°F, a Comfortable " + timeofdaydisplay;
+    }
     if(celsius){
       message = tempC + "°C, a Cool " + timeofdaydisplay;
-    }
-    if (temp >= 70) {
-      message = temp + "°F, a Comfortable " + timeofdaydisplay;
-      if(celsius){
-        message = tempC + "°C, a Comfortable " + timeofdaydisplay;
-      }
     }
     planetName = "Coruscant";
     if (timeofday === "morning" || timeofday ==="afternoon") {
@@ -253,7 +255,7 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation) {
     }
   }
   //set tatooine
-  else if (temp > 80 && temp <= 95) {
+  else if (temp > 85 && temp <= 95) {
     description = "It's a Hot " + timeofday + ", Go to Mos Eisley for a Drink";
     message = temp + "°F, a Hot " + timeofdaydisplay;
     if(celsius){

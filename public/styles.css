@@ -237,3 +237,14 @@ a:hover {
 a:visited {
     color: darkmagenta;
 }
+
+#footer {
+    position: fixed;
+    justify-content: space-between;
+    width: 97%;
+    bottom: 10px;
+    margin: 0;
+    padding: 0 20px;
+    color: lightgray;
+    font-family: Helvetica, sans-serif;
+  }
