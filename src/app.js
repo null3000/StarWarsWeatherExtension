@@ -6,6 +6,7 @@ const options = {
 };
 
 function error() {
+  alert("Unable to retrieve your location, make sure you have location services for your browser enabled, and whitelist this extension");
   navigator.geolocation.getCurrentPosition(getPos, error, options);
 }
 
@@ -93,13 +94,13 @@ async function getWeather(lat, long) {
     timeofday = "morning";
     timeofdaydisplay = "Morning";
   }
-  // if time of day is between 12pm and 4pm set time of day to afternoon
-  else if (hour >= 12 && hour <= 16) {
+  // if time of day is between 12pm and 5pm set time of day to afternoon
+  else if (hour >= 12 && hour < 17) {
     timeofday = "afternoon";
     timeofdaydisplay = "Afternoon";
   }
-  // if time of day is between 5pm and 8pm set time of day to evening
-  else if (hour > 16 && hour < 20) {
+  // if time of day is between 6pm and 8pm set time of day to evening
+  else if (hour >= 17 && hour <= 20) {
     timeofday = "evening";
     timeofdaydisplay = "Evening";
   }
@@ -255,7 +256,7 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
     }
   }
   //set tatooine
-  else if (temp > 85 && temp <= 95) {
+  else if (temp >= 80 && temp <= 95) {
     description = "It's a Hot " + timeofday + ", Go to Mos Eisley for a Drink";
     message = temp + "°F, a Hot " + timeofdaydisplay;
     if(celsius){
