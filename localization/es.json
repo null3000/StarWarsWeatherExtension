@@ -1,0 +1,45 @@
+{
+    "messages":{
+        "hoth":{
+            "message":", Es un () Muy Frio ",
+            "description":"Un Mundo de Nieve y Hielo, rodeado de Lunas Numerosas, y Casa a Criaturas Mortales como la Wampa"
+        },
+        "kamino":{
+            "message":", Es un () Lluvioso ",
+            "description":"Un Planeta de Océanos Sin Fin, Tormentas y Ciclones"
+        },
+        "endor":{
+            "message":", y un () Nublado ",
+            "description":"Ewok Seca es un Bocadillo Popular en el Borde Exterior"
+        },
+        "dagobah":{
+            "message":", y un  () Muy Húmedo ",
+            "description":"Refugio del Maestro Yoda, lo es."
+        },
+        "bespin":{
+            "message":", y es un () Muy Ventoso ",
+            "description":"Famoso por la Ciudad Nube "
+        },
+        "scarif":{
+            "message":", Es un () Soleado ",
+            "description":"Un Remoto, Planeta Tropical en el Borde Exterior"
+        },
+        "naboo":{
+            "message":", Es un  () Resfriado ",
+            "description":"Este Hogar de Jar-Jar Binks"
+        },
+        "coruscant":{
+            "message":", Es un () Frio ",
+            "description":"Capital de la Galaxia"
+        },
+        "tatooine":{
+            "message":", Es un () Caliente ",
+            "description":"Ir a Mos Eisley por un Trago"
+        },
+        "mustafar":{
+            "message":", Es un () Muy Caliente ",
+            "description":"Hogar de Darth Vader"
+        }
+
+    }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,22 +11,31 @@
     <style>
     .main {
         height: 100px;
-        width: 220px;
+        width: 300px;
         outline: none;
         margin: 10px;
         border: none;
         border-radius: 2px;
-      }</style>
+    }
+    </style>
     <div class="main">
-        <p id="test">Like the extension? Please consider rating it on the Chrome Web Store.</p>
-        <p>Report a  <a href="https://www.github.com/null3000/StarWarsWeatherFirefox/issues" target="_blank" rel="noopener">bug</a></p>
-        <p>Check out the source code on <a href="https://www.github.com/null3000/StarWarsWeatherFirefox" target="_blank" rel="noopener">Github</a></p>
-        <p>Made by <a href="https://www.github.com/null3000" target="_blank" rel="noopener">vwbosu</a> inspired by <a href="https://www.tomscott.com/weather/starwars/" target="_blank" rel="noopener">Tom Scott</a></p>
+        <p id="test">Like the extension? Please consider rating it on the <a href="https://chrome.google.com/webstore/detail/star-wars-weather/hjphhbgleggdljkdlmlblbamlnkmdgag" target="_blank" rel="noopener">Chrome Web Store</a>.</p>
+        <p>Find a Bug? Please Report it <a href="https://github.com/null3000/StarWarsWeatherExtension/issues" target="_blank" rel="noopener">here</a>.</p>
+        <p>Check out the source code on <a href="https://github.com/null3000/StarWarsWeatherExtension" target="_blank" rel="noopener">Github</a>.</p>
+        <p>Made by <a href="https://www.github.com/null3000" target="_blank" rel="noopener">vwbosu</a> inspired by <a href="https://www.tomscott.com/weather/starwars/" target="_blank" rel="noopener">Tom Scott</a>.</p>
+        <hr>
         <p>
             <input id="farenheit" type="radio" name="temp" value="fahrenheit" checked>Fahrenheit
             <input id="celsius" type="radio" name="temp" value="celsius">Celsius
         </p>
         <p>You may need to refresh the current tab or open a new tab for a unit change to take effect.</p>
+        <hr>
+        <p>
+            <input id="en" type="radio" name="lang" value="English" checked>🇺🇸 English
+            <input id="es" type="radio" name="lang" value="Spanish">🇪🇸 Español
+        </p>
+        <p>Translations may not be perfect.</p>
+        <p>You may need to refresh the current tab or open a new tab for a language change to take effect.</p>
         <br>
     </div>
     <script src="/src/popup.js"></script>

@@ -1,0 +1,45 @@
+{
+    "messages":{
+        "hoth":{
+            "message":", It's a Very Cold ",
+            "description":"A World of Snow and Ice, Surrounded by Numerous Moons, and Home to Deadly Creatures like the Wampa."
+        },
+        "kamino":{
+            "message":", It's a Rainy ",
+            "description":"A Planet of Endless Oceans, Storms and Clones"
+        },
+        "endor":{
+            "message":", and a Foggy ",
+            "description":"Ewok Jerky is a Popular Snack in the Outer Rim"
+        },
+        "dagobah":{
+            "message":", and a Very Humid ",
+            "description":"Refuge of Master Yoda, This is."
+        },
+        "bespin":{
+            "message":", and It's a Very Windy ",
+            "description":"Famous for the Cloud City"
+        },
+        "scarif":{
+            "message":", It's a Sunny ",
+            "description":"A Remote, Tropical Planet in the Outer Rim"
+        },
+        "naboo":{
+            "message":", It's a Chilly ",
+            "description":"This Home of Jar-Jar Binks"
+        },
+        "coruscant":{
+            "message":", It's a Cool ",
+            "description":"Capital of the Galaxy"
+        },
+        "tatooine":{
+            "message":", It's a Hot ",
+            "description":"Go to Mos Eisley for a Drink"
+        },
+        "mustafar":{
+            "message":", It's a Very Hot ",
+            "description":"Home of Darth Vader"
+        }
+
+    }
+}

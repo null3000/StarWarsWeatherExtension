@@ -6,7 +6,13 @@ const options = {
 };
 
 function error() {
-  alert("Unable to retrieve your location, make sure you have location services for your browser enabled, and whitelist this extension");
+  if (localStorage.getItem("alerted") == "true") {
+    console.log("error");
+    return;
+  } else{
+    alert("Unable to retrieve your location, make sure you have location services for your browser enabled, and whitelist this extension");
+  }
+  localStorage.setItem("alerted", "true");
   navigator.geolocation.getCurrentPosition(getPos, error, options);
 }
 
@@ -71,7 +77,7 @@ function cacheData() {
 async function getWeather(lat, long) {
   console.log("getting weather from API");
   // this is a free API KEY, dont take mine, just get an account here https://openweathermap.org/
-  const API_KEY = "API_KEY";
+  const API_KEY = "";
   const url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=" + API_KEY +"&units=imperial"
   // const elevationURL ="https://api.opentopodata.org/v1/test-dataset?locations=" + lat + "," + long;
 
@@ -89,25 +95,46 @@ async function getWeather(lat, long) {
 
   let timeofday;
   // if time of day is between 5am and 12pm set time of day to morning
+  language = "en";
+  language = localStorage.getItem("language");
+  console.log(language);
+  let jsonURL;
+  if (language == "en") {
+    jsonURL = chrome.runtime.getURL('_locales/en.json');
+  } else if (language == "es") {
+    jsonURL = chrome.runtime.getURL('_locales/es.json');
+  }
 
   if (hour >= 5 && hour < 12) {
     timeofday = "morning";
     timeofdaydisplay = "Morning";
+    if(language =="es"){
+      timeofdaydisplay = "Mañana";
+    }
   }
   // if time of day is between 12pm and 5pm set time of day to afternoon
   else if (hour >= 12 && hour < 17) {
     timeofday = "afternoon";
     timeofdaydisplay = "Afternoon";
+    if(language =="es"){
+      timeofdaydisplay = "Tarde";
+    }
   }
   // if time of day is between 6pm and 8pm set time of day to evening
   else if (hour >= 17 && hour <= 20) {
     timeofday = "evening";
     timeofdaydisplay = "Evening";
+    if(language =="es"){
+      timeofdaydisplay = "Tarde";
+    }
   }
   // else set night
   else {
     timeofday = "night";
     timeofdaydisplay = "Night";
+    if(language =="es"){
+      timeofdaydisplay = "Noche";
+    }
   }
 
   // get the temp, conditions, humidity, and wind speeds
@@ -123,7 +150,7 @@ async function getWeather(lat, long) {
 }
 
 // define planet based on the temp, conditions, humidity, and wind speeds
-function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, detailedconditions) {
+async function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, detailedconditions) {
   let message;
   let description;
   let planet;
@@ -131,36 +158,58 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
   let celsius = false;
   let tempC = (temp - 32) * 5 / 9;
   tempC = Math.round(tempC * 2) / 2;
+
+
+  let language = "en";
+  language = localStorage.getItem("language");
+  console.log(language);
+  let jsonURL;
+   if (language == "es") {
+    jsonURL = chrome.runtime.getURL('localization/es.json');
+  }  else {
+    jsonURL = chrome.runtime.getURL('localization/en.json');
+  }
+  let response = await fetch(jsonURL);
+  let data = await response.json();
+  console.log(data);
   
   // decide between celcius and fahrenheit
   let unit = localStorage.getItem("unit");
   console.log(unit);
   if (unit === "celsius") {
-    celsius=true;
+    const celsius = true;
+  }
+  if(language == "es"){
+    const spanish = true;
   }
   console.log(celsius);
 
   //set hoth
   if (conditions === "Snow" || temp <= 32) {
-    message = temp + "°F, Wow! Cold " + timeofdaydisplay;
     if(celsius){
-      message = tempC + "°C, Wow! Cold " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.hoth.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.hoth.message + timeofdaydisplay;
     }
-    description = "A world of Snow and Ice, Surrounded by Numerous Moons, and Home to Deadly Creatures like the Wampa.";
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.hoth.description;
     planetName = "Hoth";
     if (timeofday === "morning" || timeofday === "afternoon") {
       planet = "hoth";
-    } else {
-      planet = "hothNight";
+    }
+    else {
+      planet = "hothNight"
     }
   }
   // set kamino
   else if (conditions === "Rain" || conditions === "Drizzle" || conditions === "Thunderstorm") {
-    message = temp + "°F, and a Rainy " + timeofdaydisplay;
     if(celsius){
-      message = tempC + "°C, and a Rainy " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.kamino.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.kamino.message + timeofdaydisplay;
     }
-    description = "A Planet of Endless Oceans and Storms";
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.kamino.description;
     planetName = "Kamino";
     if (timeofday === "morning" || timeofday === "afternoon") {
       planet = "kamino";
@@ -170,11 +219,13 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
   }
   //set endor
   else if (conditions === "Fog" || conditions === "Mist") {
-    message = temp + "°F, and a Foggy " + timeofdaydisplay;
     if(celsius){
-      message = tempC + "°C, and a Foggy " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.endor.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.endor.message + timeofdaydisplay;
     }
-    description = "Ewok Jerky is a Popular Snack in the Outer Rim";
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.endor.description;
     planetName = "Endor";
     if (timeofday === "morning" || timeofday === "afternoon") {
       planet = "endor";
@@ -184,11 +235,13 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
   }
   //set dagobah
   else if (humidity >= 80) {
-    message = temp + "°F, and a Very Humid " + timeofdaydisplay;
     if(celsius){
-      message = tempC + "°C, and a Very Humid " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.dagobah.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.dagobah.message + timeofdaydisplay;
     }
-    description = "Refuge of Master Yoda, This is.";
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.dagobah.description;
     planetName = "Dagobah";
     if (timeofday === "morning" || timeofday === "afternoon") {
       planet = "dagobah";
@@ -198,11 +251,13 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
   }
   //set bespin
   else if (wind >= 35) {
-    message = temp + "°F, and It's a Very Windy " + timeofdaydisplay;
     if(celsius){
-      message = tempC + "°C, and a Very Windy " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.bespin.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.bespin.message + timeofdaydisplay;
     }
-    description = "Famous for the cities in the clouds";
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.bespin.description;
     planetName = "Bespin";
     if (timeofday === "morning" || timeofday === "afternoon") {
       planet = "bespin";
@@ -212,11 +267,13 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
   }
   // set to scarif
   else if (temp >= 70 && temp <= 85 && (conditions === "Clear" || detailedconditions === "few clouds")) {
-    description = "A Remote, Tropical Planet in the Outer Rim";
-    message = temp + "°F, a Great " + timeofdaydisplay;
     if(celsius){
-      message = tempC + "°C, a Great " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.scarif.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.scarif.message + timeofdaydisplay;
     }
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.scarif.description;
     planetName = "Scarif";
     if (timeofday === "morning" || timeofday === "afternoon") {
       planet = "scarif";
@@ -226,11 +283,13 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
   }
   //set naboo
   else if (temp >= 33 && temp <= 49) {
-    description = "This Planet is the Home of Jar-Jar Binks";
-    message = temp + "°F, What a Chilly " + timeofdaydisplay;
     if(celsius){
-      message = tempC + "°C, What a Chilly " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.naboo.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.naboo.message + timeofdaydisplay;
     }
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.naboo.description;
     planetName = "Naboo";
     if (timeofday === "morning" || timeofday === "afternoon") {
       planet = "naboo";
@@ -240,14 +299,13 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
   }
   // set coruscant
   else if (temp >= 50 && temp < 80) {
-    description = "Capital of the Galaxy";
-    message = temp + "°F, a Cool " + timeofdaydisplay;
-    if(temp > 70 && temp < 80){
-      message = temp + "°F, a Comfortable " + timeofdaydisplay;
-    }
     if(celsius){
-      message = tempC + "°C, a Cool " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.coruscant.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.coruscant.message + timeofdaydisplay;
     }
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.coruscant.description; 
     planetName = "Coruscant";
     if (timeofday === "morning" || timeofday ==="afternoon") {
       planet = "coruscant";
@@ -257,11 +315,13 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
   }
   //set tatooine
   else if (temp >= 80 && temp <= 95) {
-    description = "It's a Hot " + timeofday + ", Go to Mos Eisley for a Drink";
-    message = temp + "°F, a Hot " + timeofdaydisplay;
     if(celsius){
-      message = tempC + "°C, a Hot " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.tatooine.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.tatooine.message + timeofdaydisplay;
     }
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.tatooine.description;
     planetName = "Tatooine";
     if (timeofday === "morning" || timeofday === "afternoon") {
       planet = "tatooine";
@@ -271,11 +331,13 @@ function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, de
   }
   // set mustafar
   else if (temp >= 96) {
-    description = "Home of Darth Vader";
-    message = temp + "°F! It's a Very Hot " + timeofdaydisplay;
     if(celsius){
-      message = tempC + "°C! It's a Very Hot " + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.mustafar.message + timeofdaydisplay;
+    } else{
+      message = temp + "°F" + data.messages.mustafar.message + timeofdaydisplay;
     }
+    message = message.replace("()", timeofdaydisplay);
+    description = data.messages.mustafar.description;
     planetName = "Mustafar";
     if (timeofday === "morning" || timeofday === "afternoon") {
       planet = "mustafar";

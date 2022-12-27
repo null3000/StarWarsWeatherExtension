@@ -26,6 +26,36 @@ function setProperUnit(){
         document.getElementById("farenheit").checked = true;
     }
 }
+
+document.getElementById("en").addEventListener("click", english);
+document.getElementById("es").addEventListener("click", spanish);
+
+function english(){
+    console.log("english");
+    localStorage.clear();
+    localStorage.setItem("language", "en");
+}
+
+function spanish(){
+    console.log("spanish");
+    localStorage.clear();
+    localStorage.setItem("language", "es");
+}
+
+function setProperLanguage(){
+    let language = localStorage.getItem("language");
+    if (language === "es"){
+        console.log("showing spanish");
+        document.getElementById("en").checked = false;
+        document.getElementById("es").checked = true;
+    } else {
+        console.log("showing english");
+        document.getElementById("en").checked = true;
+        document.getElementById("es").checked = false;
+    }
+}
+
+setProperLanguage();
 setProperUnit();
 
 
