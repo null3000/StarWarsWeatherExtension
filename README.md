@@ -8,7 +8,7 @@ A while back there was a website by Tom Scott that would get the weather in an a
 ## How does it work?
 1. This extension gets the users location.
 2. Get the time and deterime day or night.
-3. Gives the location info to a[Weather API](https://openweathermap.org/).
+3. Gives the location info to a [Weather API](https://openweathermap.org/).
 4. This API gather the following data temperature, conditions, humidity, wind.
 5. It use these parameters to deterime the planet. See exact details below.
 6. It gets the image (depending on time of day), description and message and edits the HTML to display them.

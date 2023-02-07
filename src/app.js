@@ -176,8 +176,8 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   // decide between celcius and fahrenheit
   let unit = localStorage.getItem("unit");
   console.log(unit);
-  if (unit === "celsius") {
-    const celsius = true;
+  if (unit == "celsius") {
+    celsius = true;
   }
   if(language == "es"){
     const spanish = true;
@@ -187,9 +187,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   //set hoth
   if (conditions === "Snow" || temp <= 32) {
     if(celsius){
-      message = tempC + "°C" + data.messages.hoth.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.hoth.message;
     } else{
-      message = temp + "°F" + data.messages.hoth.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.hoth.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.hoth.description;
@@ -204,9 +204,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   // set kamino
   else if (conditions === "Rain" || conditions === "Drizzle" || conditions === "Thunderstorm") {
     if(celsius){
-      message = tempC + "°C" + data.messages.kamino.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.kamino.message;
     } else{
-      message = temp + "°F" + data.messages.kamino.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.kamino.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.kamino.description;
@@ -220,9 +220,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   //set endor
   else if (conditions === "Fog" || conditions === "Mist") {
     if(celsius){
-      message = tempC + "°C" + data.messages.endor.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.endor.message;
     } else{
-      message = temp + "°F" + data.messages.endor.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.endor.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.endor.description;
@@ -236,9 +236,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   //set dagobah
   else if (humidity >= 80) {
     if(celsius){
-      message = tempC + "°C" + data.messages.dagobah.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.dagobah.message;
     } else{
-      message = temp + "°F" + data.messages.dagobah.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.dagobah.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.dagobah.description;
@@ -252,9 +252,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   //set bespin
   else if (wind >= 35) {
     if(celsius){
-      message = tempC + "°C" + data.messages.bespin.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.bespin.message;
     } else{
-      message = temp + "°F" + data.messages.bespin.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.bespin.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.bespin.description;
@@ -268,9 +268,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   // set to scarif
   else if (temp >= 70 && temp <= 85 && (conditions === "Clear" || detailedconditions === "few clouds")) {
     if(celsius){
-      message = tempC + "°C" + data.messages.scarif.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.scarif.message;
     } else{
-      message = temp + "°F" + data.messages.scarif.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.scarif.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.scarif.description;
@@ -284,9 +284,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   //set naboo
   else if (temp >= 33 && temp <= 49) {
     if(celsius){
-      message = tempC + "°C" + data.messages.naboo.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.naboo.message;
     } else{
-      message = temp + "°F" + data.messages.naboo.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.naboo.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.naboo.description;
@@ -300,9 +300,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   // set coruscant
   else if (temp >= 50 && temp < 80) {
     if(celsius){
-      message = tempC + "°C" + data.messages.coruscant.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.coruscant.message;
     } else{
-      message = temp + "°F" + data.messages.coruscant.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.coruscant.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.coruscant.description; 
@@ -316,9 +316,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   //set tatooine
   else if (temp >= 80 && temp <= 95) {
     if(celsius){
-      message = tempC + "°C" + data.messages.tatooine.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.tatooine.message;
     } else{
-      message = temp + "°F" + data.messages.tatooine.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.tatooine.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.tatooine.description;
@@ -332,9 +332,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   // set mustafar
   else if (temp >= 96) {
     if(celsius){
-      message = tempC + "°C" + data.messages.mustafar.message + timeofdaydisplay;
+      message = tempC + "°C" + data.messages.mustafar.message;
     } else{
-      message = temp + "°F" + data.messages.mustafar.message + timeofdaydisplay;
+      message = temp + "°F" + data.messages.mustafar.message;
     }
     message = message.replace("()", timeofdaydisplay);
     description = data.messages.mustafar.description;

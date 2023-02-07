@@ -3,14 +3,26 @@ document.getElementById("farenheit").addEventListener("click", farenheit);
 
 function farenheit(){
     console.log("farenheit");
-    localStorage.clear();
+    localStorage.removeItem("planet");
+    localStorage.removeItem("message");
+    localStorage.removeItem("description");
+    localStorage.removeItem("planetName");
+    localStorage.removeItem("date");
+    localStorage.removeItem("unit");
+    console.log("cache cleared");;
     localStorage.setItem("unit", "farenheit");
 
 }
 
 function celsius(){
     console.log("celsius");
-    localStorage.clear();
+    localStorage.removeItem("planet");
+    localStorage.removeItem("message");
+    localStorage.removeItem("description");
+    localStorage.removeItem("planetName");
+    localStorage.removeItem("date");
+    localStorage.removeItem("unit");
+    console.log("cache cleared");
     localStorage.setItem("unit", "celsius");
 }
 
@@ -32,13 +44,25 @@ document.getElementById("es").addEventListener("click", spanish);
 
 function english(){
     console.log("english");
-    localStorage.clear();
+    localStorage.removeItem("planet");
+    localStorage.removeItem("message");
+    localStorage.removeItem("description");
+    localStorage.removeItem("planetName");
+    localStorage.removeItem("date");
+    localStorage.removeItem("language");
+    console.log("cache cleared");
     localStorage.setItem("language", "en");
 }
 
 function spanish(){
     console.log("spanish");
-    localStorage.clear();
+    localStorage.removeItem("planet");
+    localStorage.removeItem("message");
+    localStorage.removeItem("description");
+    localStorage.removeItem("planetName");
+    localStorage.removeItem("date");
+    localStorage.removeItem("language");
+    console.log("cache cleared");
     localStorage.setItem("language", "es");
 }
 
@@ -57,9 +81,5 @@ function setProperLanguage(){
 
 setProperLanguage();
 setProperUnit();
-
-
-
-
 
 
