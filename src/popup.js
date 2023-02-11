@@ -11,7 +11,6 @@ function farenheit(){
     localStorage.removeItem("unit");
     console.log("cache cleared");;
     localStorage.setItem("unit", "farenheit");
-
 }
 
 function celsius(){
@@ -67,7 +66,14 @@ function spanish(){
 }
 
 function setProperLanguage(){
-    let language = localStorage.getItem("language");
+    if(localStorage.getItem("language") == null){
+        language = navigator.language;
+        language = language.substring(0, 2);
+      } else{
+        language = localStorage.getItem("language");
+      }
+      console.log(language);
+      
     if (language === "es"){
         console.log("showing spanish");
         document.getElementById("en").checked = false;

@@ -8,6 +8,8 @@ const options = {
 function error() {
   if (localStorage.getItem("alerted") == "true") {
     console.log("error");
+    location.reload();
+    console.log("reloaded");
     return;
   } else{
     alert("Unable to retrieve your location, make sure you have location services for your browser enabled, and whitelist this extension");
@@ -77,7 +79,7 @@ function cacheData() {
 async function getWeather(lat, long) {
   console.log("getting weather from API");
   // this is a free API KEY, dont take mine, just get an account here https://openweathermap.org/
-  const API_KEY = "";
+  const API_KEY = "94a8f0267e773b5906fe0df1341f7ceb";
   const url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=" + API_KEY +"&units=imperial"
   // const elevationURL ="https://api.opentopodata.org/v1/test-dataset?locations=" + lat + "," + long;
 
@@ -160,8 +162,14 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   tempC = Math.round(tempC * 2) / 2;
 
 
-  let language = "en";
-  language = localStorage.getItem("language");
+  let language;
+  
+  if(localStorage.getItem("language") == null){
+    language = navigator.language;
+    language = language.substring(0, 2);
+  } else{
+    language = localStorage.getItem("language");
+  }
   console.log(language);
   let jsonURL;
    if (language == "es") {
