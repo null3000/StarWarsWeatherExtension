@@ -79,7 +79,7 @@ function cacheData() {
 async function getWeather(lat, long) {
   console.log("getting weather from API");
   // this is a free API KEY, dont take mine, just get an account here https://openweathermap.org/
-  const API_KEY = "94a8f0267e773b5906fe0df1341f7ceb";
+  const API_KEY = "";
   const url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=" + API_KEY +"&units=imperial"
   // const elevationURL ="https://api.opentopodata.org/v1/test-dataset?locations=" + lat + "," + long;
 
