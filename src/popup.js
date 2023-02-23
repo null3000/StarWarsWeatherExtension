@@ -62,7 +62,7 @@ function spanish(){
     localStorage.removeItem("date");
     localStorage.removeItem("language");
     console.log("cache cleared");
-    localStorage.setItem("language", "es");
+    localStorage.setItem("language", "es");   
 }
 
 function setProperLanguage(){

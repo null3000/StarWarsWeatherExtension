@@ -1,0 +1,12 @@
+.main {
+    height: 425px;
+    width: 300px;
+    outline: none;
+    margin: 10px;
+    border: none;
+    border-radius: 2px;
+}
+body {
+    font-family: "Open Sans", sans-serif !important;
+    font-size: 15px !important;
+}

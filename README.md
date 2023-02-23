@@ -19,7 +19,7 @@ Each planet has specific reasons for when it will be used here they are:
 **Hoth**: used when snow, hail, ice or a blizzard is present. Or if temps are below freezing  
 **Endor**: used when it is misty or foggy  
 **Dagobah**: used when humidity is above 80%  
-**Bespin**: used when wind speeds are at ot above 35mph  
+**Bespin**: used when wind speeds are at or above 35mph  
 **Kamino**: used when it is raining or there is a storm  
 **Naboo** used when temps are between 33-49F  
 **Coruscant** used when temps are between 50-69F  
@@ -31,10 +31,9 @@ Each planet has specific reasons for when it will be used here they are:
 Privacy is incredibly important, that's why this project is open source. This extension is ran on the machine which installed it. This extension does NOT store any location data. Any stored data is on the users machine and not accessible anywher else.
 
 ## Contributing
-Like the project? Please consider contributing to this project, lots of improvements and optimazations can be made
+Like the project? Please consider contributing to this project, lots of improvements and optimazations can be made.
+
+[![Available in the Chrome Web Store](https://user-images.githubusercontent.com/19192015/132961666-64cf372a-ad35-47ad-b378-4de4b4a07d6d.png)](https://chrome.google.com/webstore/detail/star-wars-weather/hjphhbgleggdljkdlmlblbamlnkmdgag)
 
 ## Mozilla Add-on Store Status: APPROVED
 Working [Link](https://addons.mozilla.org/en-US/firefox/addon/star-wars-weather/)
-
-## Chrome Web Store Status: APPROVED
-Working [Link](https://chrome.google.com/webstore/detail/star-wars-weather/hjphhbgleggdljkdlmlblbamlnkmdgag)

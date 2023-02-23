@@ -2,7 +2,7 @@
 <head>
     <title>New Tab</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/public/styles.css">
+    <link rel="stylesheet" href="/public/index.css">
 </head>
 <body>
     <div class="hyperspace" id="background">
@@ -39,7 +39,9 @@
             </div>
         </section>
 
-        <script src="/src/app.js"></script>
+        <script src="/node_modules/webextension-polyfill/dist/browser-polyfill.min.js"></script>
+        <script src="/src/env.js"></script>
+        <script type="module" src="/src/app.js"></script>
     </div>
 </body>
 </html>

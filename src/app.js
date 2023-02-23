@@ -79,7 +79,6 @@ function cacheData() {
 async function getWeather(lat, long) {
   console.log("getting weather from API");
   // this is a free API KEY, dont take mine, just get an account here https://openweathermap.org/
-  const API_KEY = "";
   const url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&appid=" + API_KEY +"&units=imperial"
   // const elevationURL ="https://api.opentopodata.org/v1/test-dataset?locations=" + lat + "," + long;
 
@@ -93,19 +92,21 @@ async function getWeather(lat, long) {
 
   // get the current time
   var today = new Date();
-  hour = today.getHours();
+  let hour = today.getHours();
 
   let timeofday;
   // if time of day is between 5am and 12pm set time of day to morning
-  language = "en";
+  let language = "en";
   language = localStorage.getItem("language");
   console.log(language);
   let jsonURL;
   if (language == "en") {
-    jsonURL = chrome.runtime.getURL('_locales/en.json');
+    jsonURL = browser.runtime.getURL('_locales/en.json');
   } else if (language == "es") {
-    jsonURL = chrome.runtime.getURL('_locales/es.json');
+    jsonURL = browser.runtime.getURL('_locales/es.json');
   }
+
+  let timeofdaydisplay;
 
   if (hour >= 5 && hour < 12) {
     timeofday = "morning";
@@ -148,11 +149,11 @@ async function getWeather(lat, long) {
   console.log(temp, conditions, humidity, wind, detailedconditions);
   // let elevation = elevationdata.results[0].elevation ;
   let elevation = 0;
-  definePlanet(temp, conditions, humidity, wind, timeofday, elevation, detailedconditions);
+  definePlanet(temp, conditions, humidity, wind, timeofday, elevation, detailedconditions, timeofdaydisplay);
 }
 
 // define planet based on the temp, conditions, humidity, and wind speeds
-async function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, detailedconditions) {
+async function definePlanet(temp, conditions, humidity, wind, timeofday, elevation, detailedconditions, timeofdaydisplay) {
   let message;
   let description;
   let planet;
@@ -173,9 +174,9 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   console.log(language);
   let jsonURL;
    if (language == "es") {
-    jsonURL = chrome.runtime.getURL('localization/es.json');
+    jsonURL = browser.runtime.getURL('localization/es.json');
   }  else {
-    jsonURL = chrome.runtime.getURL('localization/en.json');
+    jsonURL = browser.runtime.getURL('localization/en.json');
   }
   let response = await fetch(jsonURL);
   let data = await response.json();

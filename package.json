@@ -1,0 +1,23 @@
+{
+  "name": "starwarsweather",
+  "version": "1.0.0",
+  "description": "Open a new tab page display a star wars background based on the weather! This extension is for Firefox and Chrome",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/null3000/StarWarsWeatherExtension.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/null3000/StarWarsWeatherExtension/issues"
+  },
+  "homepage": "https://github.com/null3000/StarWarsWeatherExtension#readme",
+  "devDependencies": {
+    "webextension-polyfill": "^0.10.0"
+  }
+}

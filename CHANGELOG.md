@@ -47,3 +47,10 @@
 # v1.3.3
 - now automatically sets the language to the browser's language
 - bug fixes for dealing with errors in getting location
+
+# v1.3.4
+- added options page, now you can change the language and unit on the pop up or the options page
+- added env.js to hide API keys (env.js is not included in the repo)
+- fixed support for firefox, firefox users can download the extension from the firefox addon store 
+- updated the readme
+- changed the popup css
