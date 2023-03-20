@@ -60,3 +60,4 @@
 - onboarding page added (opens when you first install the extension)
 - added a link to the FAQ page on the popup
 - changed png images to webp images to reduce file sizes
+- now redirects to a survey when extension is uninstalled
