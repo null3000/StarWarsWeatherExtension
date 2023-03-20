@@ -38,91 +38,91 @@ p{
 
 /* cold/rain/fog day */
 .hoth{
-    background: url("/public//assets/hoth.jpeg");
+    background: url("/public/assets/hoth.webp");
     animation: opacityUp 3s ease;
 }
 .endor{
-    background: url("/public//assets/endor.png");
+    background: url("/public/assets/endor.webp");
     animation: opacityUp 3s ease;
 }
 .kamino{
-    background: url("/public//assets/kamino.jpeg");
+    background: url("/public/assets/kamino.webp");
     animation: opacityUp 3s ease;
 }
 .naboo{
-    background: url("/public//assets/naboo.jpeg");
+    background: url("/public/assets/naboo.webp");
     animation: opacityUp 3s ease;
 }
 
 /* cold/rain/fog night */
 .hothNight{
-    background: url("/public//assets/hothNight.jpeg");
+    background: url("/public/assets/hothNight.webp");
     animation: opacityUp 3s ease;
 }
 .endorNight{
-    background: url("/public//assets/endorNight.jpeg");
+    background: url("/public/assets/endorNight.webp");
     animation: opacityUp 3s ease;
 }
 .kaminoNight{
-    background: url("/public//assets/kaminoNight.jpeg");
+    background: url("/public/assets/kaminoNight.webp");
     animation: opacityUp 3s ease;
 }
 .nabooNight{
-    background: url("/public//assets/nabooNight.jpeg");
+    background: url("/public/assets/nabooNight.webp");
     animation: opacityUp 3s ease;
 }
 
 /* warm/ high  day*/
 
 .tatooine{
-    background: url("/public//assets/tatooine.jpeg");
+    background: url("/public/assets/tatooine.webp");
     animation: opacityUp 3s ease;
 }
 .dagobah{
-    background: url("/public//assets/dagobah.jpeg");
+    background: url("/public/assets/dagobah.webp");
     animation: opacityUp 3s ease;
 }
 .bespin{
-    background: url("/public//assets/bespin.jpeg");
+    background: url("/public/assets/bespin.webp");
     animation: opacityUp 3s ease;
 }
 .coruscant{
-    background: url("/public//assets/coruscant.jpeg");
+    background: url("/public/assets/coruscant.webp");
     animation: opacityUp 3s ease;
 }
 .scarif{
-    background: url("/public/assets/scarif.jpeg");
+    background: url("/public/assets/scarif.webp");
     animation: opacityUp 3s ease;
 }
 
 .mustafar{
-    background: url("/public//assets/mustafar.jpeg");
+    background: url("/public/assets/mustafar.webp");
     animation: opacityUp 3s ease;
 }
 
 /* warm/high night */
 .tatooineNight{
-    background: url("/public//assets/tatooineNight.jpeg");
+    background: url("/public/assets/tatooineNight.webp");
     animation: opacityUp 3s ease;
 }
 .dagobahNight{
-    background: url("/public//assets/dagobahNight.jpeg");
+    background: url("/public/assets/dagobahNight.webp");
     animation: opacityUp 3s ease;
 }
 .bespinNight{
-    background: url("/public//assets/bespinNight.jpeg");
+    background: url("/public/assets/bespinNight.webp");
     animation: opacityUp 3s ease;
 }
 .coruscantNight{
-    background: url("/public//assets/coruscantNight.jpeg");
+    background: url("/public/assets/coruscantNight.webp");
     animation: opacityUp 3s ease;
 }
 .scarifNight{
-    background: url("/public/assets/scarifNight.jpeg");
+    background: url("/public/assets/scarifNight.webp");
     animation: opacityUp 3s ease;
 }
 .mustafarNight{
-    background: url("/public//assets/mustafarNight.jpeg");
+    background: url("/public/assets/mustafarNight.webp");
     animation: opacityUp 3s ease;
 }
 

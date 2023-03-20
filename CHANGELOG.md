@@ -54,3 +54,9 @@
 - fixed support for firefox, firefox users can download the extension from the firefox addon store 
 - updated the readme
 - changed the popup css
+
+# v1.3.5
+- Created offical new logo/icon for the extension!
+- onboarding page added (opens when you first install the extension)
+- added a link to the FAQ page on the popup
+- changed png images to webp images to reduce file sizes
