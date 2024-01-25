@@ -95,7 +95,7 @@ async function getWeather(lat, long) {
   let hour = today.getHours();
 
   let timeofday;
-  // if time of day is between 5am and 12pm set time of day to morning
+  // if time of day is between 5am and 12pm set of day to morning
   let language = "en";
   language = localStorage.getItem("language");
   console.log(language);
@@ -161,8 +161,6 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
   let celsius = false;
   let tempC = (temp - 32) * 5 / 9;
   tempC = Math.round(tempC * 2) / 2;
-
-
   let language;
   
   if(localStorage.getItem("language") == null){
@@ -242,22 +240,6 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
       planet = "endorNight";
     }
   }
-  //set dagobah
-  else if (humidity >= 80) {
-    if(celsius){
-      message = tempC + "°C" + data.messages.dagobah.message;
-    } else{
-      message = temp + "°F" + data.messages.dagobah.message;
-    }
-    message = message.replace("()", timeofdaydisplay);
-    description = data.messages.dagobah.description;
-    planetName = "Dagobah";
-    if (timeofday === "morning" || timeofday === "afternoon") {
-      planet = "dagobah";
-    } else {
-      planet = "dagobahNight";
-    }
-  }
   //set bespin
   else if (wind >= 35) {
     if(celsius){
@@ -290,8 +272,24 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
       planet = "scarifNight";
     }
   }
+    // set dagobah
+    else if (humidity >= 93 && temp >= 80) {
+      if(celsius){
+        message = tempC + "°C" + data.messages.dagobah.message;
+      } else{
+        message = temp + "°F" + data.messages.dagobah.message;
+      }
+      message = message.replace("()", timeofdaydisplay);
+      description = data.messages.dagobah.description;
+      planetName = "Dagobah";
+      if (timeofday === "morning" || timeofday === "afternoon") {
+        planet = "dagobah";
+      } else {
+        planet = "dagobahNight";
+      }
+    }
   //set naboo
-  else if (temp >= 33 && temp <= 49) {
+  else if (temp >= 33 && temp <= 54) {
     if(celsius){
       message = tempC + "°C" + data.messages.naboo.message;
     } else{
@@ -307,7 +305,7 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
     }
   }
   // set coruscant
-  else if (temp >= 50 && temp < 80) {
+  else if (temp >= 55 && temp < 80) {
     if(celsius){
       message = tempC + "°C" + data.messages.coruscant.message;
     } else{
@@ -319,7 +317,7 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
     if (timeofday === "morning" || timeofday ==="afternoon") {
       planet = "coruscant";
     } else {
-      planet = "coruscantNight";
+      plnet = "coruscantNight";
     }
   }
   //set tatooine

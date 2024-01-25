@@ -5,8 +5,18 @@
     margin: 10px;
     border: none;
     border-radius: 2px;
+    background-color: #333;
+    color: #fff;
 }
 body {
     font-family: "Open Sans", sans-serif !important;
     font-size: 15px !important;
+    background-color: #333;
+    color: #fff;
 }
+a {
+    color: #fff;
+}
+
+
+
