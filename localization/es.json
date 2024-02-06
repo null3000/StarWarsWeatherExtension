@@ -2,7 +2,7 @@
     "messages":{
         "hoth":{
             "message":", Es un () Muy Frio ",
-            "description":"Un Mundo de Nieve y Hielo, rodeado de Lunas Numerosas, y Casa a Criaturas Mortales como la Wampa"
+            "description":"Un Mundo de Nieve y Hielo, rodeado de Numerosas Lunas y Casa de Criaturas Mortales como la Wampa"
         },
         "kamino":{
             "message":", Es un () Lluvioso ",
@@ -10,7 +10,7 @@
         },
         "endor":{
             "message":", y un () Nublado ",
-            "description":"Ewok Seca es un Bocadillo Popular en el Borde Exterior"
+            "description":"Ewok Jerky es un Bocadillo Popular en el Borde Exterior"
         },
         "dagobah":{
             "message":", y un  () Muy Húmedo ",
@@ -22,11 +22,11 @@
         },
         "scarif":{
             "message":", Es un () Soleado ",
-            "description":"Un Remoto, Planeta Tropical en el Borde Exterior"
+            "description":"Un Remoto Planeta Tropical en el Borde Exterior"
         },
         "naboo":{
             "message":", Es un  () Resfriado ",
-            "description":"Este Hogar de Jar-Jar Binks"
+            "description":"El hogar de Jar-Jar Binks"
         },
         "coruscant":{
             "message":", Es un () Frio ",
@@ -34,7 +34,7 @@
         },
         "tatooine":{
             "message":", Es un () Caliente ",
-            "description":"Ir a Mos Eisley por un Trago"
+            "description":"Vaya a Mos Eisley por un Trago"
         },
         "mustafar":{
             "message":", Es un () Muy Caliente ",
