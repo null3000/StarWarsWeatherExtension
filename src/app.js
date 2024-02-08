@@ -317,7 +317,7 @@ async function definePlanet(temp, conditions, humidity, wind, timeofday, elevati
     if (timeofday === "morning" || timeofday ==="afternoon") {
       planet = "coruscant";
     } else {
-      plnet = "coruscantNight";
+      planet = "coruscantNight";
     }
   }
   //set tatooine
