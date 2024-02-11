@@ -1,43 +1,43 @@
 {
     "messages":{
         "hoth":{
-            "message":", Es un () Muy Frio ",
+            "message":", Es una () Muy Fria",
             "description":"Un Mundo de Nieve y Hielo, rodeado de Numerosas Lunas y Casa de Criaturas Mortales como la Wampa"
         },
         "kamino":{
-            "message":", Es un () Lluvioso ",
+            "message":", Es una () Lluviosa",
             "description":"Un Planeta de Océanos Sin Fin, Tormentas y Ciclones"
         },
         "endor":{
-            "message":", y un () Nublado ",
+            "message":", y una () Nublada",
             "description":"Ewok Jerky es un Bocadillo Popular en el Borde Exterior"
         },
         "dagobah":{
-            "message":", y un  () Muy Húmedo ",
+            "message":", y una () Muy Húmeda",
             "description":"Refugio del Maestro Yoda, lo es."
         },
         "bespin":{
-            "message":", y es un () Muy Ventoso ",
+            "message":", y es una () Muy Ventosa",
             "description":"Famoso por la Ciudad Nube "
         },
         "scarif":{
-            "message":", Es un () Soleado ",
+            "message":", Es una () Soleada",
             "description":"Un Remoto Planeta Tropical en el Borde Exterior"
         },
         "naboo":{
-            "message":", Es un  () Resfriado ",
+            "message":", Es una () Fresca ",
             "description":"El hogar de Jar-Jar Binks"
         },
         "coruscant":{
-            "message":", Es un () Frio ",
+            "message":", Es una () Fria",
             "description":"Capital de la Galaxia"
         },
         "tatooine":{
-            "message":", Es un () Caliente ",
+            "message":", Es una () Calurosa",
             "description":"Vaya a Mos Eisley por un Trago"
         },
         "mustafar":{
-            "message":", Es un () Muy Caliente ",
+            "message":", Es una () Muy Calurosa",
             "description":"Hogar de Darth Vader"
         }
 
