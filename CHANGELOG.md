@@ -67,3 +67,10 @@
 - updated the FAQ page
 - updated the onboarding page
 - updated the options page
+
+
+# v1.3.6.1
+- fixed typo in code
+
+# v1.3.6.2
+- thanks to @martinedelman for fixing spanish translations

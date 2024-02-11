@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Star Wars Weather",
-  "version": "1.3.6",
+  "version": "1.3.6.2",
   "description": "Open a new tab page display a star wars background based on the weather!",
   "icons": {
     "16": "/public/assets/icons/icon16.png",
