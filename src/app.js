@@ -136,7 +136,11 @@ async function getWeather(lat, long) {
     timeofday = "night";
     timeofdaydisplay = "Night";
     if(language =="es"){
-      timeofdaydisplay = "Noche";
+      if(hour > 0 && hour < 5){
+        timeofdaydisplay = "Madrugada";
+      } else {
+        timeofdaydisplay = "Noche";
+      }
     }
   }
 
