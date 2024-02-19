@@ -12,7 +12,7 @@ function error() {
     console.log("reloaded");
     return;
   } else{
-    alert("Unable to retrieve your location, make sure you have location services for your browser enabled, and whitelist this extension");
+    alert("Unable to retrieve your location, make sure you have location services for your browser enabled, and whitelist this extension. Check the FAQ for more information.");
   }
   localStorage.setItem("alerted", "true");
   navigator.geolocation.getCurrentPosition(getPos, error, options);
