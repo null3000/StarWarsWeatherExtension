@@ -6,7 +6,7 @@ This extension is for Firefox and Chrome
 A while back there was a website by Tom Scott that would get the weather in an area and compare it to a Star Wars planet. This website has since stopped working due to reasons listed [here](https://www.tomscott.com/weather/starwars/). My project revives and expands on this idea, there are now 10 planets, and each one has 2 images for day and night. This also uses more data about the climate like humidity, wind speeds and elevation. This extension has options for Fahrenheit and Celsius.
 
 ## How does it work?
-1. This extension gets the users location.
+1. This extension gets the user's location (or uses a saved manual city if you've configured one in the popup/options).
 2. Get the time and deterime day or night.
 3. Gives the location info to a [Weather API](https://openweathermap.org/).
 4. This API gather the following data temperature, conditions, humidity, wind.
@@ -28,10 +28,10 @@ Each planet has specific reasons for when it will be used here they are:
 **Mustafar** used when temps are above 96F  
 
 ## Privacy
-Privacy is incredibly important, that's why this project is open source. This extension is ran on the machine which installed it. This extension does NOT store any location data. Any stored data is on the users machine and not accessible anywher else.
+Privacy is incredibly important, that's why this project is open source. This extension is ran on the machine which installed it. This extension does NOT store any location data. Any stored data is on the users machine and not accessible anywhere else.
 
 ## Contributing
-Like the project? Please consider contributing to this project, lots of improvements and optimazations can be made.
+Like the project? Please consider contributing to this project, lots of improvements and optimizations can be made.
 
 [![Available in the Chrome Web Store](https://user-images.githubusercontent.com/19192015/132961666-64cf372a-ad35-47ad-b378-4de4b4a07d6d.png)](https://chrome.google.com/webstore/detail/star-wars-weather/hjphhbgleggdljkdlmlblbamlnkmdgag)
 

@@ -4,34 +4,74 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pop Up</title>
+    <title>__MSG_popup_title__</title>
     <meta http-equiv="Content-Security-Policy" script-src='unsafe-inline';>
     <link rel="stylesheet" href="/public/popup.css">
 </head>
 <body>
     <div class="main">
-        <p id="test">Like the extension? Please consider rating it on the <a href="https://chrome.google.com/webstore/detail/star-wars-weather/hjphhbgleggdljkdlmlblbamlnkmdgag" target="_blank" rel="noopener">Chrome Web Store</a>.</p>
-        <p>Find a Bug? Please Report it <a href="https://github.com/null3000/StarWarsWeatherExtension/issues" target="_blank" rel="noopener">here</a>.</p>
-        <p>Check out the source code on <a href="https://github.com/null3000/StarWarsWeatherExtension" target="_blank" rel="noopener">Github</a>.</p>
-        <p>Made by <a href="https://www.github.com/null3000" target="_blank" rel="noopener">vwbosu</a> inspired by <a href="https://www.tomscott.com/weather/starwars/" target="_blank" rel="noopener">Tom Scott</a>.</p>
-        <p><a href="./FAQ.html" target="_blank" rel="noopener">FAQ</a></p>
-        <p>Take a <a href="https://forms.gle/NdQuhGarp7cKoZTp7" target="_blank" rel="noopener">survey</a> to help me improve this project</p>
-        <p>This extension is free to use but your support is always appericated! <a href="https://www.buymeacoffee.com/null3000" target="_blank" rel="noopener"> Buy me a coffee</a></p>
-        <hr>
-        <p>
-            <input id="farenheit" type="radio" name="temp" value="fahrenheit" checked>Fahrenheit
-            <input id="celsius" type="radio" name="temp" value="celsius">Celsius
-        </p>
-        <p>You may need to refresh the current tab or open a new tab for a unit change to take effect.</p>
-        <hr>
-        <p>
-            <input id="en" type="radio" name="lang" value="English" checked>🇺🇸 English
-            <input id="es" type="radio" name="lang" value="Spanish">🇪🇸 Español
-        </p>
-        <p>Translations may not be perfect.</p>
-        <p>You may need to refresh the current tab or open a new tab for a language change to take effect.</p>
-        <br>
+        <header class="hero">
+            <h1 class="hero__title" data-i18n="popup_title"></h1>
+            <p class="hero__subtitle" id="test" data-i18n="popup_subtitle"></p>
+        </header>
+
+        <div class="card-grid">
+            <section class="card">
+                <h2 class="card__title" data-i18n="popup_units_title"></h2>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input id="fahrenheit" type="radio" name="temp" value="fahrenheit" checked>
+                        <span data-i18n="units_fahrenheit_label"></span>
+                    </label>
+                    <label class="radio-option">
+                        <input id="celsius" type="radio" name="temp" value="celsius">
+                        <span data-i18n="units_celsius_label"></span>
+                    </label>
+                </div>
+                <p class="hint" data-i18n="popup_units_hint"></p>
+            </section>
+
+            <section class="card">
+                <h2 class="card__title" data-i18n="popup_language_title"></h2>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input id="en" type="radio" name="lang" value="English" checked>
+                        <span data-i18n="language_english_label"></span>
+                    </label>
+                    <label class="radio-option">
+                        <input id="es" type="radio" name="lang" value="Spanish">
+                        <span data-i18n="language_spanish_label"></span>
+                    </label>
+                </div>
+                <p class="hint" data-i18n="popup_language_hint"></p>
+            </section>
+
+            <section class="card">
+                <h2 class="card__title" data-i18n="popup_manual_location_title"></h2>
+                <div class="input-group">
+                    <div class="input-row">
+                        <input id="manualLocationInput" type="text" class="text-input" data-i18n-placeholder="popup_manual_location_placeholder">
+                        <button type="button" id="manualLocationSearch" class="button button--primary" data-i18n="popup_manual_location_search"></button>
+                        <button type="button" id="manualLocationClear" class="button" data-i18n="popup_manual_location_clear"></button>
+                    </div>
+                    <div id="manualLocationResults" class="selection-list" role="listbox"></div>
+                </div>
+                <p class="hint" data-i18n="popup_manual_location_hint"></p>
+            </section>
+
+            <section class="card">
+                <h2 class="card__title" data-i18n="popup_links_title"></h2>
+                <ul class="link-list">
+                    <li data-i18n-html="popup_link_rate"></li>
+                    <li data-i18n-html="popup_link_bug"></li>
+                    <li data-i18n-html="popup_link_source"></li>
+                    <li data-i18n-html="popup_link_author"></li>
+                    <li data-i18n-html="popup_link_survey"></li>
+                </ul>
+            </section>
+        </div>
     </div>
-    <script src="/src/popup.js"></script>
+    <script src="/src/env.js"></script>
+    <script type="module" src="/src/popup.js"></script>
 </body>
 </html>

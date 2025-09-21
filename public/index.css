@@ -23,6 +23,37 @@ p{
     background-color: black;
 }
 
+#background::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.6) 100%),
+        radial-gradient(circle at 20% 20%, rgba(0, 0, 0, 0.3), transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+#background > * {
+    z-index: 1;
+}
+
+#background p,
+#background span,
+#background h1,
+#background h2,
+#background h3,
+#background h4,
+#background h5,
+#background h6 {
+    text-shadow:
+        -0.5px -0.5px 0 rgba(0, 0, 0, 0.8),
+         0.5px -0.5px 0 rgba(0, 0, 0, 0.8),
+        -0.5px  0.5px 0 rgba(0, 0, 0, 0.8),
+         0.5px  0.5px 0 rgba(0, 0, 0, 0.8),
+         0px  1px 4px rgba(0, 0, 0, 0.5);
+}
+
 .loading {
    font-size: 43pt; 
 }
@@ -146,6 +177,13 @@ p{
     font-weight: 400;
 }
 
+.locationLabel {
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+}
+
 .center {
     position: absolute;
     display: flex;
@@ -208,25 +246,22 @@ p{
 }
 
 .footer {
+    position: fixed;
+    bottom: 16px;
+    right: 24px;
     display: flex;
-    position: absolute;
-    color: #fff;
-    bottom: 0;
-    width: 100%;
-    padding: 5px;
-    opacity: 90%;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: "Open Sans", sans-serif;
+    text-align: right;
 }
 
-#footer {
-    position: fixed;
-    justify-content: space-between;
-    color: lightgray;
-    font-family: Helvetica, sans-serif;
-    width: 100%;
-    bottom: 10px;
-    margin: 0;
-    padding: 0 20px;
-  }
+#LastUpdated {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
 
  /* make link highlight when hovered */
 a:hover {
@@ -238,13 +273,4 @@ a:visited {
     color: darkmagenta;
 }
 
-#footer {
-    position: fixed;
-    justify-content: space-between;
-    width: 97%;
-    bottom: 10px;
-    margin: 0;
-    padding: 0 20px;
-    color: lightgray;
-    font-family: Helvetica, sans-serif;
-  }
+/* legacy footer styles removed */

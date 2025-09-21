@@ -1,0 +1,221 @@
+{
+  "extensionName": {
+    "message": "Star Wars Weather"
+  },
+  "extensionDescription": {
+    "message": "¡Abre una nueva pestaña con un fondo de Star Wars basado en el clima!"
+  },
+  "loading_weather": {
+    "message": "Cargando el clima..."
+  },
+  "error_weather_unavailable": {
+    "message": "No se puede obtener el clima en este momento."
+  },
+  "alert_geolocation_error": {
+    "message": "No se puede obtener tu ubicación. Activa los servicios de ubicación para esta extensión. Consulta las preguntas frecuentes para más información."
+  },
+  "center_heading_prefix": {
+    "message": "SE SIENTE COMO"
+  },
+  "center_heading_suffix": {
+    "message": "AFUERA"
+  },
+  "location_display": {
+    "message": "Mostrando el clima en: $1"
+  },
+  "location_display_unknown": {
+    "message": "Mostrando el clima en: tu área"
+  },
+  "last_updated_placeholder": {
+    "message": "Última actualización: --"
+  },
+  "last_updated_time": {
+    "message": "Última actualización: $1"
+  },
+  "last_updated_date_time": {
+    "message": "Última actualización: $1 $2"
+  },
+  "time_of_day_morning": {
+    "message": "Mañana"
+  },
+  "time_of_day_afternoon": {
+    "message": "Tarde"
+  },
+  "time_of_day_evening": {
+    "message": "Atardecer"
+  },
+  "time_of_day_night": {
+    "message": "Noche"
+  },
+  "time_of_day_pre_dawn": {
+    "message": "Madrugada"
+  },
+  "planet_hoth_name": {
+    "message": "Hoth"
+  },
+  "planet_hoth_summary": {
+    "message": "$1, Es una $2 muy fría"
+  },
+  "planet_hoth_description": {
+    "message": "Un mundo de nieve y hielo, rodeado de numerosas lunas y hogar de criaturas mortales como la wampa."
+  },
+  "planet_kamino_name": {
+    "message": "Kamino"
+  },
+  "planet_kamino_summary": {
+    "message": "$1, Es una $2 lluviosa"
+  },
+  "planet_kamino_description": {
+    "message": "Un planeta de océanos infinitos, tormentas y clones"
+  },
+  "planet_endor_name": {
+    "message": "Endor"
+  },
+  "planet_endor_summary": {
+    "message": "$1, y una $2 nublada"
+  },
+  "planet_endor_description": {
+    "message": "La cecina de Ewok es un bocadillo popular en el Borde Exterior"
+  },
+  "planet_dagobah_name": {
+    "message": "Dagobah"
+  },
+  "planet_dagobah_summary": {
+    "message": "$1, y una $2 muy húmeda"
+  },
+  "planet_dagobah_description": {
+    "message": "Refugio del maestro Yoda, lo es."
+  },
+  "planet_bespin_name": {
+    "message": "Bespin"
+  },
+  "planet_bespin_summary": {
+    "message": "$1, y es una $2 muy ventosa"
+  },
+  "planet_bespin_description": {
+    "message": "Famoso por la Ciudad Nube"
+  },
+  "planet_scarif_name": {
+    "message": "Scarif"
+  },
+  "planet_scarif_summary": {
+    "message": "$1, Es una $2 soleada"
+  },
+  "planet_scarif_description": {
+    "message": "Un planeta tropical remoto en el Borde Exterior"
+  },
+  "planet_naboo_name": {
+    "message": "Naboo"
+  },
+  "planet_naboo_summary": {
+    "message": "$1, Es una $2 fresca"
+  },
+  "planet_naboo_description": {
+    "message": "Hogar de Jar-Jar Binks"
+  },
+  "planet_coruscant_name": {
+    "message": "Coruscant"
+  },
+  "planet_coruscant_summary": {
+    "message": "$1, Es una $2 fría"
+  },
+  "planet_coruscant_description": {
+    "message": "Capital de la galaxia"
+  },
+  "planet_tatooine_name": {
+    "message": "Tatooine"
+  },
+  "planet_tatooine_summary": {
+    "message": "$1, Es una $2 calurosa"
+  },
+  "planet_tatooine_description": {
+    "message": "Ve a Mos Eisley por una bebida"
+  },
+  "planet_mustafar_name": {
+    "message": "Mustafar"
+  },
+  "planet_mustafar_summary": {
+    "message": "$1, Es una $2 muy calurosa"
+  },
+  "planet_mustafar_description": {
+    "message": "Hogar de Darth Vader"
+  },
+  "popup_title": {
+    "message": "Star Wars Weather"
+  },
+  "popup_subtitle": {
+    "message": "Gracias por usar la extensión. Ajusta tus preferencias o explora más recursos."
+  },
+  "popup_units_title": {
+    "message": "Unidades de temperatura"
+  },
+  "popup_units_hint": {
+    "message": "Abre una pestaña nueva o recarga para aplicar el cambio de unidad."
+  },
+  "units_fahrenheit_label": {
+    "message": "Fahrenheit"
+  },
+  "units_celsius_label": {
+    "message": "Celsius"
+  },
+  "popup_language_title": {
+    "message": "Idioma"
+  },
+  "popup_language_hint": {
+    "message": "Las traducciones pueden no ser perfectas. Actualiza la pestaña después de cambiar el idioma."
+  },
+  "language_english_label": {
+    "message": "🇺🇸 Inglés"
+  },
+  "language_spanish_label": {
+    "message": "🇪🇸 Español"
+  },
+  "popup_links_title": {
+    "message": "Mantente conectado"
+  },
+  "popup_manual_location_title": {
+    "message": "Ubicación manual"
+  },
+  "popup_manual_location_hint": {
+    "message": "Si el acceso a la ubicación está bloqueado, busca una ciudad (p. ej., \"París\" o \"París, ES\") y elige un resultado. Abre una pestaña nueva o actualiza para aplicar el cambio."
+  },
+  "popup_manual_location_placeholder": {
+    "message": "Ciudad o Ciudad, País"
+  },
+  "popup_manual_location_search": {
+    "message": "Buscar"
+  },
+  "popup_manual_location_clear": {
+    "message": "Usar ubicación actual"
+  },
+  "popup_manual_location_searching": {
+    "message": "Buscando..."
+  },
+  "popup_manual_location_no_results": {
+    "message": "No se encontraron ciudades coincidentes."
+  },
+  "popup_manual_location_error": {
+    "message": "No se pudieron obtener las ciudades. Inténtalo de nuevo."
+  },
+  "popup_manual_location_selected": {
+    "message": "Ubicación manual establecida en $1."
+  },
+  "popup_manual_location_auto": {
+    "message": "Usando la ubicación automática."
+  },
+  "popup_link_rate": {
+    "message": "¿Te gusta la extensión? Califícala en la <a href=\"https://chrome.google.com/webstore/detail/star-wars-weather/hjphhbgleggdljkdlmlblbamlnkmdgag\" target=\"_blank\" rel=\"noopener\">Chrome Web Store</a>."
+  },
+  "popup_link_bug": {
+    "message": "¿Encontraste un error? Abre un issue en <a href=\"https://github.com/null3000/StarWarsWeatherExtension/issues\" target=\"_blank\" rel=\"noopener\">GitHub</a>."
+  },
+  "popup_link_source": {
+    "message": "Explora el <a href=\"https://github.com/null3000/StarWarsWeatherExtension\" target=\"_blank\" rel=\"noopener\">código fuente</a> o lee las <a href=\"./FAQ.html\" target=\"_blank\" rel=\"noopener\">preguntas frecuentes</a>."
+  },
+  "popup_link_author": {
+    "message": "Creada por <a href=\"https://www.github.com/null3000\" target=\"_blank\" rel=\"noopener\">vwbosu</a>, inspirada en <a href=\"https://www.tomscott.com/weather/starwars/\" target=\"_blank\" rel=\"noopener\">Tom Scott</a>."
+  },
+  "popup_link_survey": {
+    "message": "Completa una breve <a href=\"https://forms.gle/NdQuhGarp7cKoZTp7\" target=\"_blank\" rel=\"noopener\">encuesta</a> o <a href=\"https://www.buymeacoffee.com/null3000\" target=\"_blank\" rel=\"noopener\">invítame un café</a>."
+  }
+}

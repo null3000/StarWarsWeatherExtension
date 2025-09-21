@@ -1,0 +1,221 @@
+{
+  "extensionName": {
+    "message": "Star Wars Weather"
+  },
+  "extensionDescription": {
+    "message": "Open a new tab page display a Star Wars background based on the weather!"
+  },
+  "loading_weather": {
+    "message": "Loading weather..."
+  },
+  "error_weather_unavailable": {
+    "message": "Unable to retrieve weather data right now."
+  },
+  "alert_geolocation_error": {
+    "message": "Unable to retrieve your location. Please enable location services for this extension. Check the FAQ for more information."
+  },
+  "center_heading_prefix": {
+    "message": "IT'S LIKE"
+  },
+  "center_heading_suffix": {
+    "message": "OUTSIDE"
+  },
+  "location_display": {
+    "message": "Showing weather in: $1"
+  },
+  "location_display_unknown": {
+    "message": "Showing weather in: your area"
+  },
+  "last_updated_placeholder": {
+    "message": "Last Updated: --"
+  },
+  "last_updated_time": {
+    "message": "Last Updated: $1"
+  },
+  "last_updated_date_time": {
+    "message": "Last Updated: $1 $2"
+  },
+  "time_of_day_morning": {
+    "message": "Morning"
+  },
+  "time_of_day_afternoon": {
+    "message": "Afternoon"
+  },
+  "time_of_day_evening": {
+    "message": "Evening"
+  },
+  "time_of_day_night": {
+    "message": "Night"
+  },
+  "time_of_day_pre_dawn": {
+    "message": "Late Night"
+  },
+  "planet_hoth_name": {
+    "message": "Hoth"
+  },
+  "planet_hoth_summary": {
+    "message": "$1, It's a Very Cold $2"
+  },
+  "planet_hoth_description": {
+    "message": "A World of Snow and Ice, Surrounded by Numerous Moons, and Home to Deadly Creatures like the Wampa."
+  },
+  "planet_kamino_name": {
+    "message": "Kamino"
+  },
+  "planet_kamino_summary": {
+    "message": "$1, It's a Rainy $2"
+  },
+  "planet_kamino_description": {
+    "message": "A Planet of Endless Oceans, Storms and Clones"
+  },
+  "planet_endor_name": {
+    "message": "Endor"
+  },
+  "planet_endor_summary": {
+    "message": "$1, and a Foggy $2"
+  },
+  "planet_endor_description": {
+    "message": "Ewok Jerky is a Popular Snack in the Outer Rim"
+  },
+  "planet_dagobah_name": {
+    "message": "Dagobah"
+  },
+  "planet_dagobah_summary": {
+    "message": "$1, and a Very Humid $2"
+  },
+  "planet_dagobah_description": {
+    "message": "Refuge of Master Yoda, This is."
+  },
+  "planet_bespin_name": {
+    "message": "Bespin"
+  },
+  "planet_bespin_summary": {
+    "message": "$1, and It's a Very Windy $2"
+  },
+  "planet_bespin_description": {
+    "message": "Famous for the Cloud City"
+  },
+  "planet_scarif_name": {
+    "message": "Scarif"
+  },
+  "planet_scarif_summary": {
+    "message": "$1, It's a Sunny $2"
+  },
+  "planet_scarif_description": {
+    "message": "A Remote, Tropical Planet in the Outer Rim"
+  },
+  "planet_naboo_name": {
+    "message": "Naboo"
+  },
+  "planet_naboo_summary": {
+    "message": "$1, It's a Chilly $2"
+  },
+  "planet_naboo_description": {
+    "message": "This Home of Jar-Jar Binks"
+  },
+  "planet_coruscant_name": {
+    "message": "Coruscant"
+  },
+  "planet_coruscant_summary": {
+    "message": "$1, It's a Cool $2"
+  },
+  "planet_coruscant_description": {
+    "message": "Capital of the Galaxy"
+  },
+  "planet_tatooine_name": {
+    "message": "Tatooine"
+  },
+  "planet_tatooine_summary": {
+    "message": "$1, It's a Hot $2"
+  },
+  "planet_tatooine_description": {
+    "message": "Go to Mos Eisley for a Drink"
+  },
+  "planet_mustafar_name": {
+    "message": "Mustafar"
+  },
+  "planet_mustafar_summary": {
+    "message": "$1, It's a Very Hot $2"
+  },
+  "planet_mustafar_description": {
+    "message": "Home of Darth Vader"
+  },
+  "popup_title": {
+    "message": "Star Wars Weather"
+  },
+  "popup_subtitle": {
+    "message": "Thanks for using the extension! Choose your preferences below or explore more resources."
+  },
+  "popup_units_title": {
+    "message": "Temperature Units"
+  },
+  "popup_units_hint": {
+    "message": "Open a new tab or refresh for the unit change to take effect."
+  },
+  "units_fahrenheit_label": {
+    "message": "Fahrenheit"
+  },
+  "units_celsius_label": {
+    "message": "Celsius"
+  },
+  "popup_language_title": {
+    "message": "Language"
+  },
+  "popup_language_hint": {
+    "message": "Translations may not be perfect. Refresh the tab after changing the language."
+  },
+  "language_english_label": {
+    "message": "🇺🇸 English"
+  },
+  "language_spanish_label": {
+    "message": "🇪🇸 Español"
+  },
+  "popup_links_title": {
+    "message": "Stay Connected"
+  },
+  "popup_manual_location_title": {
+    "message": "Manual Location"
+  },
+  "popup_manual_location_hint": {
+    "message": "If location access is blocked, search for a city (e.g., \"Paris\" or \"Paris, FR\") and choose a result. Open a new tab or refresh to load the change."
+  },
+  "popup_manual_location_placeholder": {
+    "message": "City or City, Country"
+  },
+  "popup_manual_location_search": {
+    "message": "Search"
+  },
+  "popup_manual_location_clear": {
+    "message": "Use Current Location"
+  },
+  "popup_manual_location_searching": {
+    "message": "Searching..."
+  },
+  "popup_manual_location_no_results": {
+    "message": "No matching cities found."
+  },
+  "popup_manual_location_error": {
+    "message": "Could not retrieve cities. Please try again."
+  },
+  "popup_manual_location_selected": {
+    "message": "Manual location set to $1."
+  },
+  "popup_manual_location_auto": {
+    "message": "Using automatic location."
+  },
+  "popup_link_rate": {
+    "message": "Enjoying the extension? Rate it on the <a href=\"https://chrome.google.com/webstore/detail/star-wars-weather/hjphhbgleggdljkdlmlblbamlnkmdgag\" target=\"_blank\" rel=\"noopener\">Chrome Web Store</a>."
+  },
+  "popup_link_bug": {
+    "message": "Found a bug? Open an issue on <a href=\"https://github.com/null3000/StarWarsWeatherExtension/issues\" target=\"_blank\" rel=\"noopener\">GitHub</a>."
+  },
+  "popup_link_source": {
+    "message": "Browse the <a href=\"https://github.com/null3000/StarWarsWeatherExtension\" target=\"_blank\" rel=\"noopener\">source code</a> or read the <a href=\"./FAQ.html\" target=\"_blank\" rel=\"noopener\">FAQ</a>."
+  },
+  "popup_link_author": {
+    "message": "Made by <a href=\"https://www.github.com/null3000\" target=\"_blank\" rel=\"noopener\">vwbosu</a>, inspired by <a href=\"https://www.tomscott.com/weather/starwars/\" target=\"_blank\" rel=\"noopener\">Tom Scott</a>."
+  },
+  "popup_link_survey": {
+    "message": "Take a quick <a href=\"https://forms.gle/NdQuhGarp7cKoZTp7\" target=\"_blank\" rel=\"noopener\">survey</a> or <a href=\"https://www.buymeacoffee.com/null3000\" target=\"_blank\" rel=\"noopener\">buy me a coffee</a>."
+  }
+}

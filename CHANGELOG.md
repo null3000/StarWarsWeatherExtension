@@ -74,3 +74,10 @@
 
 # v1.3.6.2
 - thanks to @martinedelman for fixing spanish translations
+
+# v2.0.0
+- adopted Chrome-standard i18n localization with locale packs for English and Spanish
+- refactored weather workflow (caching, error handling, debug override)
+- refreshed popup/options UI with responsive styling and translation support
+- updated new-tab background overlay and text contrast
+- added manual location search with suggestions and a persistent location display indicator

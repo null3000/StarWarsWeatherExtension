@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Star Wars Weather",
-  "version": "1.3.6.3",
-  "description": "Open a new tab page display a star wars background based on the weather!",
+  "name": "__MSG_extensionName__",
+  "version": "2.0",
+  "default_locale": "en",
+  "description": "__MSG_extensionDescription__",
   "icons": {
     "16": "/public/assets/icons/icon16.png",
     "32": "/public/assets/icons/icon32.png",
@@ -21,7 +22,8 @@
     "geolocation"
   ],
   "action": {
-    "default_popup": "./public/popup.html"
+    "default_popup": "./public/popup.html",
+    "default_title": "__MSG_extensionName__"
   },
   "background": {
     "service_worker": "./src/background.js"
