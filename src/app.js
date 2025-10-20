@@ -195,7 +195,7 @@ const DEFAULT_PLANET_RULE = {
 function showLoadingState(localization, locationName = null) {
   const loadingElement = document.getElementById('loading');
   if (loadingElement) {
-    loadingElement.innerText = localization.getMessage('loading_weather') || 'Loading weather...';
+    loadingElement.innerText = '';
   }
 
   updateLocationLabel(localization, locationName);
