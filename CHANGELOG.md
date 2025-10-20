@@ -81,3 +81,10 @@
 - refreshed popup/options UI with responsive styling and translation support
 - updated new-tab background overlay and text contrast
 - added manual location search with suggestions and a persistent location display indicator
+
+# v2.0.1
+- fixed error message
+
+# v2.0.2
+- updated Scarif summary localization strings to avoid mismatched time-of-day phrases
+- made the hyperspace loading scene responsive and full-screen on ultrawide displays
