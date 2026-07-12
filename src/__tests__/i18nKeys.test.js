@@ -4,7 +4,8 @@ import { join } from 'path';
 
 const localePaths = [
   join(import.meta.dir, '..', '..', '_locales', 'en', 'messages.json'),
-  join(import.meta.dir, '..', '..', '_locales', 'es', 'messages.json')
+  join(import.meta.dir, '..', '..', '_locales', 'es', 'messages.json'),
+  join(import.meta.dir, '..', '..', '_locales', 'zh_TW', 'messages.json')
 ];
 
 const requiredKeys = [
@@ -60,8 +61,10 @@ const requiredKeys = [
   'units_celsius_label',
   'popup_language_title',
   'popup_language_hint',
+  'popup_language_report',
   'language_english_label',
   'language_spanish_label',
+  'language_chinese_label',
   'popup_links_title',
   'popup_manual_location_title',
   'popup_manual_location_hint',

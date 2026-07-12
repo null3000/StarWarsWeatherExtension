@@ -1,5 +1,13 @@
-const SUPPORTED_LANGUAGES = ['en', 'es'];
+const SUPPORTED_LANGUAGES = ['en', 'es', 'zh'];
 const DEFAULT_LANGUAGE = 'en';
+
+// Chrome/Firefox _locales directories must use full locale codes for regional
+// variants; internal language codes stay two letters.
+const LOCALE_DIRECTORIES = Object.freeze({
+  en: 'en',
+  es: 'es',
+  zh: 'zh_TW',
+});
 
 const localeCache = new Map();
 
@@ -39,7 +47,8 @@ export async function loadLocalization(language) {
   }
 
   const runtime = getRuntime();
-  const url = runtime.getURL(`_locales/${normalised}/messages.json`);
+  const localeDirectory = LOCALE_DIRECTORIES[normalised] ?? normalised;
+  const url = runtime.getURL(`_locales/${localeDirectory}/messages.json`);
 
   try {
     const response = await fetch(url);

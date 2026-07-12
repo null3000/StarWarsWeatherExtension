@@ -188,11 +188,17 @@
   "popup_language_hint": {
     "message": "Translations may not be perfect."
   },
+  "popup_language_report": {
+    "message": "Spot a bad translation? <a href=\"https://github.com/vaughnbosu/StarWarsWeatherExtension/issues/new?title=Translation+issue&body=Language%3A%20%0AWhere%20it%20appears%3A%20%0AWhat%20it%20says%3A%20%0ASuggested%20fix%3A%20\" target=\"_blank\" rel=\"noopener\">Report it</a>."
+  },
   "language_english_label": {
     "message": "🇺🇸 English"
   },
   "language_spanish_label": {
     "message": "🇪🇸 Español"
+  },
+  "language_chinese_label": {
+    "message": "🇹🇼 繁體中文"
   },
   "popup_links_title": {
     "message": "Stay Connected"

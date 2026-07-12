@@ -1,0 +1,404 @@
+{
+  "extensionName": {
+    "message": "星際大戰天氣"
+  },
+  "extensionDescription": {
+    "message": "開啟新分頁，即可看到依天氣顯示的星際大戰星球背景！"
+  },
+  "loading_weather": {
+    "message": "正在載入天氣…"
+  },
+  "error_weather_unavailable": {
+    "message": "目前無法取得天氣資料。"
+  },
+  "alert_geolocation_error": {
+    "message": "無法取得你的位置。請為此擴充功能啟用定位服務。詳情請參閱常見問題。"
+  },
+  "center_heading_prefix": {
+    "message": "外面就像"
+  },
+  "center_heading_suffix": {
+    "message": "一樣"
+  },
+  "location_display": {
+    "message": "目前顯示的天氣地區：$1"
+  },
+  "location_display_unknown": {
+    "message": "目前顯示的天氣地區：你所在的地區"
+  },
+  "last_updated_placeholder": {
+    "message": "上次更新：--"
+  },
+  "last_updated_time": {
+    "message": "上次更新：$1"
+  },
+  "last_updated_date_time": {
+    "message": "上次更新：$1 $2"
+  },
+  "time_of_day_morning": {
+    "message": "早上"
+  },
+  "time_of_day_afternoon": {
+    "message": "下午"
+  },
+  "time_of_day_evening": {
+    "message": "傍晚"
+  },
+  "time_of_day_night": {
+    "message": "晚上"
+  },
+  "time_of_day_pre_dawn": {
+    "message": "深夜"
+  },
+  "planet_hoth_name": {
+    "message": "霍斯"
+  },
+  "planet_hoth_summary": {
+    "message": "$1，這是個非常寒冷的$2"
+  },
+  "planet_hoth_description": {
+    "message": "冰雪覆蓋的世界，被眾多衛星環繞，也是丸帕獸等致命生物的家園。"
+  },
+  "planet_kamino_name": {
+    "message": "卡米諾"
+  },
+  "planet_kamino_summary": {
+    "message": "$1，這是個下雨的$2"
+  },
+  "planet_kamino_description": {
+    "message": "充滿無盡海洋、風暴與複製人的星球"
+  },
+  "planet_endor_name": {
+    "message": "恩多"
+  },
+  "planet_endor_summary": {
+    "message": "$1，這是個有霧的$2"
+  },
+  "planet_endor_description": {
+    "message": "伊娃族肉乾是外環星域廣受歡迎的零食"
+  },
+  "planet_dagobah_name": {
+    "message": "達可巴"
+  },
+  "planet_dagobah_summary": {
+    "message": "$1，這是個非常潮濕的$2"
+  },
+  "planet_dagobah_description": {
+    "message": "尤達大師的隱居之地，這裡是。"
+  },
+  "planet_bespin_name": {
+    "message": "貝斯平"
+  },
+  "planet_bespin_summary": {
+    "message": "$1，這是個風很大的$2"
+  },
+  "planet_bespin_description": {
+    "message": "以雲城聞名"
+  },
+  "planet_scarif_name": {
+    "message": "斯卡里夫"
+  },
+  "planet_scarif_summary": {
+    "message": "$1，這是個熱帶風情的$2"
+  },
+  "planet_scarif_description": {
+    "message": "位於外環星域的偏遠熱帶星球"
+  },
+  "planet_naboo_name": {
+    "message": "那卜"
+  },
+  "planet_naboo_summary": {
+    "message": "$1，這是個稍有寒意的$2"
+  },
+  "planet_naboo_description": {
+    "message": "恰恰·賓克斯的家鄉"
+  },
+  "planet_coruscant_name": {
+    "message": "科羅森"
+  },
+  "planet_coruscant_summary": {
+    "message": "$1，這是個涼爽的$2"
+  },
+  "planet_coruscant_description": {
+    "message": "銀河首都"
+  },
+  "planet_tatooine_name": {
+    "message": "塔圖因"
+  },
+  "planet_tatooine_summary": {
+    "message": "$1，這是個炎熱的$2"
+  },
+  "planet_tatooine_description": {
+    "message": "到摩斯艾斯利喝一杯吧"
+  },
+  "planet_mustafar_name": {
+    "message": "穆斯塔法"
+  },
+  "planet_mustafar_summary": {
+    "message": "$1，這是個酷熱的$2"
+  },
+  "planet_mustafar_description": {
+    "message": "達斯·維達的家園"
+  },
+  "search_placeholder": {
+    "message": "搜尋或輸入網址"
+  },
+  "popup_newtab_title": {
+    "message": "新分頁元素"
+  },
+  "popup_newtab_hint": {
+    "message": "選擇要在新分頁上顯示的元素。"
+  },
+  "popup_show_search_bar": {
+    "message": "顯示搜尋列"
+  },
+  "popup_show_shortcuts": {
+    "message": "顯示捷徑"
+  },
+  "popup_show_extras_hyperspace": {
+    "message": "超空間跳躍時顯示搜尋列與捷徑"
+  },
+  "popup_permission_denied_search": {
+    "message": "需要授權。請再次開啟此選項以重新要求權限。"
+  },
+  "popup_permission_denied_shortcuts": {
+    "message": "需要授權。請再次開啟此選項以重新要求權限。"
+  },
+  "popup_title": {
+    "message": "星際大戰天氣"
+  },
+  "popup_subtitle": {
+    "message": "感謝你使用這個擴充功能！請在下方選擇偏好設定，或探索更多資源。"
+  },
+  "popup_units_title": {
+    "message": "溫度單位"
+  },
+  "popup_units_hint": {
+    "message": "選擇你偏好的溫度單位。"
+  },
+  "units_fahrenheit_label": {
+    "message": "華氏"
+  },
+  "units_celsius_label": {
+    "message": "攝氏"
+  },
+  "popup_language_title": {
+    "message": "語言"
+  },
+  "popup_language_hint": {
+    "message": "翻譯內容可能不盡完美。"
+  },
+  "popup_language_report": {
+    "message": "發現翻譯錯誤嗎？歡迎<a href=\"https://github.com/vaughnbosu/StarWarsWeatherExtension/issues/new?title=Translation+issue&body=Language%3A%20%0AWhere%20it%20appears%3A%20%0AWhat%20it%20says%3A%20%0ASuggested%20fix%3A%20\" target=\"_blank\" rel=\"noopener\">回報問題</a>。"
+  },
+  "language_english_label": {
+    "message": "🇺🇸 English"
+  },
+  "language_spanish_label": {
+    "message": "🇪🇸 Español"
+  },
+  "popup_links_title": {
+    "message": "保持聯繫"
+  },
+  "popup_manual_location_title": {
+    "message": "手動設定位置"
+  },
+  "popup_manual_location_hint": {
+    "message": "如果位置存取遭到封鎖，可以搜尋城市（例如「Paris」或「Paris, FR」），再從結果中選擇。"
+  },
+  "popup_manual_location_placeholder": {
+    "message": "城市或「城市, 國家」"
+  },
+  "popup_manual_location_search": {
+    "message": "搜尋"
+  },
+  "popup_manual_location_clear": {
+    "message": "使用目前位置"
+  },
+  "popup_manual_location_searching": {
+    "message": "搜尋中…"
+  },
+  "popup_manual_location_no_results": {
+    "message": "找不到符合的城市。"
+  },
+  "popup_manual_location_error": {
+    "message": "無法取得城市資料。請再試一次。"
+  },
+  "popup_manual_location_selected": {
+    "message": "手動位置已設為 $1。"
+  },
+  "popup_manual_location_auto": {
+    "message": "目前使用自動定位。"
+  },
+  "popup_link_rate": {
+    "message": "喜歡這個擴充功能嗎？歡迎到 <a href=\"https://chrome.google.com/webstore/detail/star-wars-weather/hjphhbgleggdljkdlmlblbamlnkmdgag\" target=\"_blank\" rel=\"noopener\">Chrome 線上應用程式商店</a> 給它評分。"
+  },
+  "popup_link_bug": {
+    "message": "發現錯誤了嗎？請到 <a href=\"https://github.com/vaughnbosu/StarWarsWeatherExtension/issues\" target=\"_blank\" rel=\"noopener\">GitHub</a> 回報問題。"
+  },
+  "popup_link_source": {
+    "message": "瀏覽<a href=\"https://github.com/vaughnbosu/StarWarsWeatherExtension\" target=\"_blank\" rel=\"noopener\">原始碼</a>，或閱讀<a href=\"./FAQ.html\" target=\"_blank\" rel=\"noopener\">常見問題</a>。"
+  },
+  "popup_link_author": {
+    "message": "由 <a href=\"https://www.github.com/vaughnbosu\" target=\"_blank\" rel=\"noopener\">vwbosu</a> 製作，靈感來自 <a href=\"https://www.tomscott.com/weather/starwars/\" target=\"_blank\" rel=\"noopener\">Tom Scott</a>。"
+  },
+  "popup_link_survey": {
+    "message": "填寫簡短的<a href=\"https://forms.gle/NdQuhGarp7cKoZTp7\" target=\"_blank\" rel=\"noopener\">問卷</a>，或<a href=\"https://www.buymeacoffee.com/vaughnbosu\" target=\"_blank\" rel=\"noopener\">請我喝杯咖啡</a>。"
+  },
+  "onboarding_welcome_title": {
+    "message": "歡迎使用星際大戰天氣"
+  },
+  "onboarding_welcome_subtitle": {
+    "message": "你的新分頁將顯示對應星際大戰星球的天氣狀況。讓我們開始設定吧。"
+  },
+  "onboarding_welcome_cta": {
+    "message": "開始設定"
+  },
+  "onboarding_language_label": {
+    "message": "語言"
+  },
+  "onboarding_location_title": {
+    "message": "要如何取得你的天氣資訊？"
+  },
+  "onboarding_location_subtitle": {
+    "message": "選擇擴充功能判斷你所在位置的方式。"
+  },
+  "onboarding_location_auto_label": {
+    "message": "使用我的位置"
+  },
+  "onboarding_location_auto_hint": {
+    "message": "自動偵測你的位置"
+  },
+  "onboarding_location_manual_label": {
+    "message": "搜尋城市"
+  },
+  "onboarding_location_manual_hint": {
+    "message": "輸入城市名稱來設定你的位置"
+  },
+  "onboarding_auto_detecting": {
+    "message": "正在偵測你的位置…"
+  },
+  "onboarding_auto_success": {
+    "message": "已找到位置：$1"
+  },
+  "onboarding_auto_error": {
+    "message": "我們無法存取你的位置，定位服務可能已停用。"
+  },
+  "onboarding_auto_retry": {
+    "message": "再試一次"
+  },
+  "onboarding_auto_switch_manual": {
+    "message": "改為選擇城市"
+  },
+  "onboarding_troubleshoot_toggle": {
+    "message": "如何啟用定位服務"
+  },
+  "onboarding_troubleshoot_chrome_title": {
+    "message": "在 Chrome 中："
+  },
+  "onboarding_troubleshoot_chrome_steps": {
+    "message": "依序前往「設定」>「隱私權和安全性」>「網站設定」>「位置」，然後啟用「網站可以要求取得你的位置資訊」。"
+  },
+  "onboarding_troubleshoot_mac_title": {
+    "message": "在 macOS 上："
+  },
+  "onboarding_troubleshoot_mac_steps": {
+    "message": "開啟「系統設定」>「隱私權與安全性」>「定位服務」，確認定位服務已開啟，且已勾選 Google Chrome。"
+  },
+  "onboarding_troubleshoot_windows_title": {
+    "message": "在 Windows 上："
+  },
+  "onboarding_troubleshoot_windows_steps": {
+    "message": "開啟「設定」>「隱私權」>「位置」，並確認已開啟位置存取權。"
+  },
+  "onboarding_manual_search_placeholder": {
+    "message": "城市或「城市, 國家」"
+  },
+  "onboarding_manual_search_btn": {
+    "message": "搜尋"
+  },
+  "onboarding_manual_no_results": {
+    "message": "找不到符合的城市，請換個關鍵字試試。"
+  },
+  "onboarding_manual_error": {
+    "message": "無法搜尋城市。請再試一次。"
+  },
+  "onboarding_manual_searching": {
+    "message": "搜尋中…"
+  },
+  "onboarding_back_to_choices": {
+    "message": "返回"
+  },
+  "onboarding_prefs_title": {
+    "message": "設定你的偏好"
+  },
+  "onboarding_prefs_subtitle": {
+    "message": "自訂你的新分頁體驗。"
+  },
+  "onboarding_prefs_units_label": {
+    "message": "溫度單位"
+  },
+  "onboarding_prefs_search_label": {
+    "message": "顯示搜尋列"
+  },
+  "onboarding_prefs_search_hint": {
+    "message": "在新分頁中加入搜尋列"
+  },
+  "onboarding_prefs_shortcuts_label": {
+    "message": "顯示捷徑"
+  },
+  "onboarding_prefs_shortcuts_hint": {
+    "message": "在新分頁中顯示你最常造訪的網站"
+  },
+  "onboarding_prefs_continue": {
+    "message": "繼續"
+  },
+  "onboarding_permission_denied": {
+    "message": "需要授權。請再次開啟此選項以重新要求權限。"
+  },
+  "onboarding_done_title": {
+    "message": "一切就緒！"
+  },
+  "onboarding_done_subtitle": {
+    "message": "開啟新分頁，看看你的星際大戰天氣吧。"
+  },
+  "onboarding_done_location_auto": {
+    "message": "使用你目前的位置"
+  },
+  "onboarding_done_location_manual": {
+    "message": "顯示 $1 的天氣"
+  },
+  "onboarding_done_units": {
+    "message": "單位：$1"
+  },
+  "onboarding_done_search_on": {
+    "message": "搜尋列：開啟"
+  },
+  "onboarding_done_search_off": {
+    "message": "搜尋列：關閉"
+  },
+  "onboarding_done_shortcuts_on": {
+    "message": "捷徑：開啟"
+  },
+  "onboarding_done_shortcuts_off": {
+    "message": "捷徑：關閉"
+  },
+  "onboarding_done_hint": {
+    "message": "你隨時可以在擴充功能設定中變更這些選項。"
+  },
+  "onboarding_done_cta": {
+    "message": "開啟新分頁"
+  },
+  "onboarding_troubleshoot_faq_link": {
+    "message": "如需詳細步驟，請參閱<a href=\"./FAQ.html#location-services\" target=\"_blank\" rel=\"noopener\">完整常見問題</a>。"
+  },
+  "onboarding_done_bookmarks_tip": {
+    "message": "看不到書籤列嗎？按下 Ctrl+Shift+B（Mac 為 Cmd+Shift+B）即可顯示。<a href=\"./FAQ.html#bookmarks\" target=\"_blank\" rel=\"noopener\">瞭解詳情</a>"
+  },
+  "onboarding_done_faq_link": {
+    "message": "有任何疑問嗎？請參閱<a href=\"./FAQ.html\" target=\"_blank\" rel=\"noopener\">常見問題</a>，瞭解 Chrome 頁尾、天氣更新等相關提示。"
+  },
+  "language_chinese_label": {
+    "message": "🇹🇼 繁體中文"
+  }
+}

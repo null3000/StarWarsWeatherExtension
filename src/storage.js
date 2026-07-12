@@ -101,7 +101,7 @@ export function getPreferredLanguage() {
   }
 
   const browserLanguage = navigator.language?.slice(0, 2)?.toLowerCase();
-  return browserLanguage === 'es' ? 'es' : 'en';
+  return browserLanguage === 'es' || browserLanguage === 'zh' ? browserLanguage : 'en';
 }
 
 export function setPreferredLanguage(language) {

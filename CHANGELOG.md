@@ -113,3 +113,10 @@
 - improved new-tab search/shortcuts layout responsiveness
 - reviewed and refined Spanish translations across weather, popup, and onboarding copy
 - added Moderok analytics tracking
+
+# v2.3
+- added Traditional Chinese (繁體中文) localization for Taiwan and Hong Kong users
+- Star Wars terminology researched and verified against official Taiwan sources (Disney+ TW, shopDisney TW, LEGO TW)
+- Chinese is auto-selected on first run when the browser language is set to Chinese
+- added a "report a bad translation" link to the language settings in the popup and options pages
+- extended locale key tests to cover the new zh_TW locale

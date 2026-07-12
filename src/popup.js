@@ -52,7 +52,12 @@ function attachLanguageHandlers() {
   languageRadios.forEach((radio) => {
     radio.addEventListener('change', async (event) => {
       const selected = event.target.value.toLowerCase();
-      const language = selected.startsWith('spanish') || selected === 'español' ? 'es' : 'en';
+      let language = 'en';
+      if (selected.startsWith('spanish') || selected === 'español') {
+        language = 'es';
+      } else if (selected.startsWith('chinese') || selected === '中文') {
+        language = 'zh';
+      }
       setPreferredLanguage(language);
       clearWeatherCache();
       Moderok.track('language_changed', { language });
@@ -86,17 +91,13 @@ function synchroniseControls() {
     }
   }
 
-  const englishRadio = document.querySelector('input[name="lang"][value="English"]');
-  const spanishRadio = document.querySelector('input[name="lang"][value="Spanish"]');
-
-  if (englishRadio && spanishRadio) {
-    if (preferredLanguage === 'es') {
-      englishRadio.checked = false;
-      spanishRadio.checked = true;
-    } else {
-      englishRadio.checked = true;
-      spanishRadio.checked = false;
-    }
+  const languageRadioValues = { en: 'English', es: 'Spanish', zh: 'Chinese' };
+  const activeLanguageValue = languageRadioValues[preferredLanguage] || 'English';
+  const languageRadios = document.querySelectorAll('input[name="lang"]');
+  if (languageRadios.length > 0) {
+    languageRadios.forEach((radio) => {
+      radio.checked = radio.value === activeLanguageValue;
+    });
   }
 
   const showSearch = getShowSearchBar();
