@@ -16,7 +16,7 @@ jobs:
         run: bun install
 
       - name: Create env.js
-        run: echo "const API_KEY = '${{ secrets.OPENWEATHER_API_KEY }}';" > src/env.js
+        run: echo "export const API_KEY = '${{ secrets.OPENWEATHER_API_KEY }}';" > src/env.js
 
       - name: Install cws-cli
         run: |

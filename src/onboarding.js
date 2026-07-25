@@ -22,6 +22,7 @@ import {
   GEOLOCATION_OPTIONS
 } from './config.js';
 import { Moderok } from './vendor/moderok.js';
+import { API_KEY } from './env.js';
 
 let currentLocalization = null;
 let locationMode = null; // 'auto' or 'manual'

@@ -17,6 +17,7 @@ import { loadLocalization, invalidateLocalizationCache } from './i18n.js';
 import { stateToAbbreviation } from './geo.js';
 import { GEOCODING_DIRECT_ENDPOINT, GEOCODING_RESULT_LIMIT } from './config.js';
 import { Moderok } from './vendor/moderok.js';
+import { API_KEY } from './env.js';
 
 let currentLocalization = null;
 let manualLocationStatus = null;

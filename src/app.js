@@ -15,6 +15,7 @@ import { stateToAbbreviation } from './geo.js';
 import { PLANET_RULES, DEFAULT_PLANET_RULE } from './planets.js';
 import { WEATHER_ENDPOINT, GEOCODING_REVERSE_ENDPOINT, GEOLOCATION_OPTIONS, DEGREE_SYMBOL } from './config.js';
 import { Moderok } from './vendor/moderok.js';
+import { API_KEY } from './env.js';
 
 const DEBUG = true;
 const DEBUG_FORCE_PLANET_ID = null; // Set to null to disable
