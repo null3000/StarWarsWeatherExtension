@@ -16,7 +16,27 @@ jobs:
         run: bun install
 
       - name: Create env.js
-        run: echo "const API_KEY = '${{ secrets.OPENWEATHER_API_KEY }}';" > src/env.js
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+          MODEROK_APP_KEY: ${{ secrets.MODEROK_APP_KEY }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const apiKey = process.env.OPENWEATHER_API_KEY || '';
+          const moderokKey = process.env.MODEROK_APP_KEY || '';
+          if (!apiKey) {
+            throw new Error('OPENWEATHER_API_KEY secret is missing or empty');
+          }
+          fs.writeFileSync(
+            'src/env.js',
+            [
+              `export const API_KEY = ${JSON.stringify(apiKey)};`,
+              `export const MODEROK_APP_KEY = ${JSON.stringify(moderokKey)};`,
+              'globalThis.API_KEY = API_KEY;',
+              ''
+            ].join('\n')
+          );
+          NODE
 
       - name: Install cws-cli
         run: |

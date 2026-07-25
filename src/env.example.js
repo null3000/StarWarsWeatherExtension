@@ -1,0 +1,3 @@
+export const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY';
+export const MODEROK_APP_KEY = 'YOUR_MODEROK_APP_KEY';
+globalThis.API_KEY = API_KEY;

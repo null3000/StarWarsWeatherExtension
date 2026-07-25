@@ -2,11 +2,15 @@ import { Moderok } from './vendor/moderok.js';
 import { MODEROK_APP_KEY } from './env.js';
 
 try {
-  Moderok.init({
-    appKey: MODEROK_APP_KEY,
-    trackUninstalls: true,
-    uninstallUrl: 'https://forms.gle/TMP8XNbPxNZ55U5J9',
-  });
+  if (MODEROK_APP_KEY) {
+    Moderok.init({
+      appKey: MODEROK_APP_KEY,
+      trackUninstalls: true,
+      uninstallUrl: 'https://forms.gle/TMP8XNbPxNZ55U5J9',
+    });
+  } else if (typeof chrome.runtime.setUninstallURL === 'function') {
+    chrome.runtime.setUninstallURL('https://forms.gle/TMP8XNbPxNZ55U5J9');
+  }
 } catch (error) {
   console.error('[StarWarsWeather] Moderok initialization failed', error);
 }

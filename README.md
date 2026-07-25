@@ -38,6 +38,7 @@ Privacy is incredibly important, that's why this project is open source. This ex
 ### Installation
 ```bash
 bun install  # Install dependencies
+cp src/env.example.js src/env.js  # Add your OpenWeatherMap (and optional Moderok) keys
 ```
 
 ### Running the Extension

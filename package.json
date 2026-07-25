@@ -4,6 +4,7 @@
   "description": "Open a new tab page display a star wars background based on the weather! This extension is for Firefox and Chrome",
   "main": "index.js",
   "scripts": {
+    "pretest": "[ -f src/env.js ] || cp src/env.example.js src/env.js",
     "test": "bun test",
     "dev": "bun run --watch src/app.js",
     "lint": "bun run lint:check",

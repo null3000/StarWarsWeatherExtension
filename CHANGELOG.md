@@ -114,6 +114,9 @@
 - reviewed and refined Spanish translations across weather, popup, and onboarding copy
 - added Moderok analytics tracking
 
+# v2.3.1
+- minor release packaging updates
+
 # v2.3
 - added Traditional Chinese (繁體中文) localization for Taiwan and Hong Kong users
 - Star Wars terminology researched and verified against official Taiwan sources (Disney+ TW, shopDisney TW, LEGO TW)
