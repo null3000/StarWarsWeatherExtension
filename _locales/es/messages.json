@@ -11,6 +11,12 @@
   "error_weather_unavailable": {
     "message": "No se pudieron obtener los datos del clima en este momento."
   },
+  "offline_signal_lost": {
+    "message": "Sensores fuera de línea — último conocido: $1"
+  },
+  "offline_random_planet": {
+    "message": "Sensores fuera de línea — señal perdida. Mostrando un sector aleatorio."
+  },
   "alert_geolocation_error": {
     "message": "No se pudo obtener tu ubicación. Activa los servicios de ubicación para esta extensión. Consulta las preguntas frecuentes para más información."
   },
@@ -104,6 +110,33 @@
   "planet_scarif_description": {
     "message": "Un planeta remoto y tropical del Borde Exterior"
   },
+  "planet_ahchTo_name": {
+    "message": "Ahch-To"
+  },
+  "planet_ahchTo_summary": {
+    "message": "$1, $2 con turbonadas"
+  },
+  "planet_ahchTo_description": {
+    "message": "Hogar del primer templo Jedi, oculto en un océano sin fin"
+  },
+  "planet_geonosis_name": {
+    "message": "Geonosis"
+  },
+  "planet_geonosis_summary": {
+    "message": "$1, $2 con polvo en el aire"
+  },
+  "planet_geonosis_description": {
+    "message": "Donde empezaron las Guerras Clon"
+  },
+  "planet_nevarro_name": {
+    "message": "Nevarro"
+  },
+  "planet_nevarro_summary": {
+    "message": "$1, $2 con bruma y ceniza"
+  },
+  "planet_nevarro_description": {
+    "message": "Arenas negras y llanuras de lava del Borde Exterior"
+  },
   "planet_naboo_name": {
     "message": "Naboo"
   },
@@ -155,6 +188,12 @@
   "popup_show_shortcuts": {
     "message": "Mostrar atajos"
   },
+  "popup_show_google_apps": {
+    "message": "Mostrar apps de Google"
+  },
+  "google_apps_button_label": {
+    "message": "Apps de Google"
+  },
   "popup_show_extras_hyperspace": {
     "message": "Mostrar la barra de búsqueda y los atajos durante el hiperespacio"
   },
@@ -167,8 +206,53 @@
   "popup_title": {
     "message": "Star Wars Weather"
   },
+  "popup_settings_kicker": {
+    "message": "Preferencias"
+  },
+  "popup_github_cta": {
+    "message": "GitHub"
+  },
+  "popup_card_github_desc": {
+    "message": "@vaughnbosu"
+  },
+  "popup_card_rate_title": {
+    "message": "Deja una valoración"
+  },
+  "popup_card_rate_desc": {
+    "message": "Chrome Web Store"
+  },
+  "popup_card_source_title": {
+    "message": "Código fuente"
+  },
+  "popup_card_source_desc": {
+    "message": "StarWarsWeatherExtension"
+  },
+  "popup_card_bug_title": {
+    "message": "Reportar un error"
+  },
+  "popup_card_bug_desc": {
+    "message": "Abrir un issue en GitHub"
+  },
+  "popup_card_faq_title": {
+    "message": "Preguntas frecuentes"
+  },
+  "popup_card_faq_desc": {
+    "message": "Dudas comunes"
+  },
+  "popup_card_survey_title": {
+    "message": "Encuesta"
+  },
+  "popup_card_survey_desc": {
+    "message": "Comparte tu opinión"
+  },
+  "popup_card_coffee_title": {
+    "message": "Invítame un café"
+  },
+  "popup_card_coffee_desc": {
+    "message": "Apoya el proyecto"
+  },
   "popup_subtitle": {
-    "message": "Gracias por usar la extensión. Elige tus preferencias a continuación o explora más recursos."
+    "message": "Ajusta la nueva pestaña a tu gusto: unidades, idioma, ubicación y extras."
   },
   "popup_units_title": {
     "message": "Unidades de temperatura"
@@ -181,6 +265,39 @@
   },
   "units_celsius_label": {
     "message": "Celsius"
+  },
+  "temp_toggle_hint": {
+    "message": "Haz clic para cambiar de unidad"
+  },
+  "popup_tour_title": {
+    "message": "Recorrido por la galaxia"
+  },
+  "popup_tour_hint": {
+    "message": "Explora el arte diurno y nocturno de cada mundo en un recorrido a pantalla completa."
+  },
+  "popup_tour_open": {
+    "message": "Recorrido por la galaxia"
+  },
+  "popup_tour_prev": {
+    "message": "Anterior"
+  },
+  "popup_tour_next": {
+    "message": "Siguiente"
+  },
+  "popup_tour_day": {
+    "message": "Día"
+  },
+  "popup_tour_night": {
+    "message": "Noche"
+  },
+  "tour_back": {
+    "message": "Atrás"
+  },
+  "tour_keyboard_hint": {
+    "message": "Usa ← → para cambiar de mundo"
+  },
+  "tour_time_of_day_label": {
+    "message": "Hora del día"
   },
   "popup_language_title": {
     "message": "Idioma"
@@ -353,6 +470,12 @@
   "onboarding_prefs_shortcuts_hint": {
     "message": "Muestra tus sitios más visitados en tu nueva pestaña"
   },
+  "onboarding_prefs_google_apps_label": {
+    "message": "Mostrar apps de Google"
+  },
+  "onboarding_prefs_google_apps_hint": {
+    "message": "Muestra un lanzador de apps de Google en tu nueva pestaña"
+  },
   "onboarding_prefs_continue": {
     "message": "Continuar"
   },
@@ -386,6 +509,12 @@
   "onboarding_done_shortcuts_off": {
     "message": "Atajos: Desactivados"
   },
+  "onboarding_done_google_apps_on": {
+    "message": "Apps de Google: Activadas"
+  },
+  "onboarding_done_google_apps_off": {
+    "message": "Apps de Google: Desactivadas"
+  },
   "onboarding_done_hint": {
     "message": "Puedes cambiar estos ajustes en cualquier momento desde la configuración de la extensión."
   },
@@ -400,5 +529,119 @@
   },
   "onboarding_done_faq_link": {
     "message": "¿Tienes preguntas? Consulta las <a href=\"./FAQ.html\" target=\"_blank\" rel=\"noopener\">preguntas frecuentes</a> para obtener consejos sobre el pie de página de Chrome, las actualizaciones del clima y mucho más."
+  },
+  "explore_menu_label": {
+    "message": "Explorar"
+  },
+  "explore_menu_settings": {
+    "message": "Ajustes"
+  },
+  "passport_worlds_visited": {
+    "message": "$1/$2 mundos visitados"
+  },
+  "passport_title": {
+    "message": "Pasaporte planetario"
+  },
+  "passport_hint": {
+    "message": "Los sellos se desbloquean cuando el clima local coincide con un mundo."
+  },
+  "passport_close": {
+    "message": "Cerrar"
+  },
+  "passport_stamp_visited": {
+    "message": "$1 visitado"
+  },
+  "passport_stamp_locked": {
+    "message": "$1 bloqueado"
+  },
+  "planet_reason_hoth_snow": {
+    "message": "Coincidencia: nieve → Hoth"
+  },
+  "planet_reason_hoth_cold": {
+    "message": "Coincidencia: temp ≤ 32°F → Hoth"
+  },
+  "planet_reason_kamino_rain": {
+    "message": "Coincidencia: lluvia / tormentas → Kamino"
+  },
+  "planet_reason_endor_fog": {
+    "message": "Coincidencia: niebla → Endor"
+  },
+  "planet_reason_bespin_wind": {
+    "message": "Coincidencia: viento ≥ 35 mph → Bespin"
+  },
+  "planet_reason_scarif_tropical": {
+    "message": "Coincidencia: 70–85°F cielo despejado → Scarif"
+  },
+  "planet_reason_dagobah_humid": {
+    "message": "Coincidencia: humedad ≥ 93% y calor → Dagobah"
+  },
+  "planet_reason_ahchTo_squall": {
+    "message": "Coincidencia: turbonadas → Ahch-To"
+  },
+  "planet_reason_geonosis_sandstorm": {
+    "message": "Coincidencia: arena / polvo → Geonosis"
+  },
+  "planet_reason_nevarro_ash": {
+    "message": "Coincidencia: ceniza / humo / bruma → Nevarro"
+  },
+  "planet_reason_naboo_chilly": {
+    "message": "Coincidencia: 33–54°F → Naboo"
+  },
+  "planet_reason_coruscant_mild": {
+    "message": "Coincidencia: 55–79°F → Coruscant"
+  },
+  "planet_reason_coruscant_default": {
+    "message": "Coincidencia: condiciones por defecto → Coruscant"
+  },
+  "planet_reason_tatooine_hot": {
+    "message": "Coincidencia: 80–95°F → Tatooine"
+  },
+  "planet_reason_mustafar_scorching": {
+    "message": "Coincidencia: temp ≥ 96°F → Mustafar"
+  },
+  "passport_requirement_label": {
+    "message": "Requiere"
+  },
+  "passport_requirement_hoth": {
+    "message": "Nieve, o $1 o menos"
+  },
+  "passport_requirement_kamino": {
+    "message": "Lluvia, llovizna o tormentas"
+  },
+  "passport_requirement_endor": {
+    "message": "Niebla o bruma"
+  },
+  "passport_requirement_bespin": {
+    "message": "Viento de 35 mph o más"
+  },
+  "passport_requirement_scarif": {
+    "message": "$1–$2 con cielo despejado"
+  },
+  "passport_requirement_dagobah": {
+    "message": "Humedad del 93% o más, por encima de $1"
+  },
+  "passport_requirement_ahchTo": {
+    "message": "Turbonadas repentinas"
+  },
+  "passport_requirement_geonosis": {
+    "message": "Tormentas de arena o polvo en suspensión"
+  },
+  "passport_requirement_nevarro": {
+    "message": "Ceniza volcánica, humo o bruma"
+  },
+  "passport_requirement_naboo": {
+    "message": "$1–$2"
+  },
+  "passport_requirement_coruscant": {
+    "message": "$1–$2"
+  },
+  "passport_requirement_tatooine": {
+    "message": "$1–$2"
+  },
+  "passport_requirement_mustafar": {
+    "message": "$1 o más"
+  },
+  "passport_stamp_requirement": {
+    "message": "$1 requiere: $2"
   }
 }

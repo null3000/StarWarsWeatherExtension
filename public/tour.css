@@ -1,0 +1,311 @@
+:root {
+    color-scheme: dark;
+    --tour-ink: #f4efe4;
+    --tour-muted: rgba(244, 239, 228, 0.72);
+    --tour-accent: #e6c35c;
+    --tour-line: rgba(244, 239, 228, 0.18);
+    --tour-panel: rgba(6, 8, 12, 0.42);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    height: 100%;
+    background: #05070d;
+    color: var(--tour-ink);
+    font-family: "Segoe UI", "Trebuchet MS", "Gill Sans", sans-serif;
+    overflow: hidden;
+}
+
+.tour-stage {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: #000;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    animation: tourReveal 700ms ease;
+}
+
+.tour-veil {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.18) 38%, rgba(0, 0, 0, 0.72) 100%),
+        radial-gradient(ellipse at 50% 18%, rgba(0, 0, 0, 0.12), transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tour-chrome,
+.tour-hero {
+    position: relative;
+    z-index: 1;
+}
+
+.tour-chrome {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 28px;
+}
+
+.tour-back {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--tour-line);
+    background: var(--tour-panel);
+    color: var(--tour-ink);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color 180ms ease, background 180ms ease;
+}
+
+.tour-back svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.tour-back:hover,
+.tour-back:focus {
+    outline: none;
+    border-color: rgba(230, 195, 92, 0.55);
+    background: rgba(10, 12, 18, 0.55);
+}
+
+.tour-brand {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--tour-muted);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+}
+
+.tour-hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px clamp(20px, 5vw, 64px) clamp(28px, 6vh, 56px);
+    max-width: 920px;
+}
+
+.tour-stamp {
+    align-self: flex-start;
+    margin: 0 0 14px;
+    padding: 6px 10px;
+    border: 1px solid rgba(230, 195, 92, 0.55);
+    color: var(--tour-accent);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transform: rotate(-4deg);
+    background: rgba(0, 0, 0, 0.35);
+    animation: stampIn 420ms ease;
+}
+
+.tour-counter {
+    margin: 0 0 10px;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--tour-muted);
+}
+
+.tour-planet-name {
+    margin: 0 0 14px;
+    font-size: clamp(48px, 9vw, 92px);
+    line-height: 0.95;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-shadow:
+        0 2px 0 rgba(0, 0, 0, 0.45),
+        0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.tour-planet-description {
+    margin: 0 0 28px;
+    max-width: 42rem;
+    font-size: clamp(15px, 2.2vw, 19px);
+    line-height: 1.55;
+    color: var(--tour-muted);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+}
+
+.tour-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.tour-nav,
+.tour-time__option {
+    appearance: none;
+    border: 1px solid var(--tour-line);
+    background: var(--tour-panel);
+    color: var(--tour-ink);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: border-color 180ms ease, background 180ms ease, transform 120ms ease;
+}
+
+.tour-nav {
+    min-width: 96px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tour-nav:hover,
+.tour-nav:focus,
+.tour-time__option:hover,
+.tour-time__option:focus {
+    outline: none;
+    border-color: rgba(230, 195, 92, 0.5);
+    background: rgba(10, 12, 18, 0.58);
+}
+
+.tour-nav:active,
+.tour-time__option:active {
+    transform: translateY(1px);
+}
+
+.tour-time {
+    display: inline-flex;
+    gap: 8px;
+    flex: 1 1 auto;
+    justify-content: center;
+}
+
+.tour-time__option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.tour-time__option[aria-pressed="true"] {
+    border-color: rgba(230, 195, 92, 0.55);
+    background: rgba(10, 12, 18, 0.58);
+    color: var(--tour-accent);
+}
+
+.tour-hint {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: rgba(244, 239, 228, 0.48);
+}
+
+.hoth { background-image: url("/public/assets/hoth.webp"); }
+.endor { background-image: url("/public/assets/endor.webp"); }
+.kamino { background-image: url("/public/assets/kamino.webp"); }
+.naboo { background-image: url("/public/assets/naboo.webp"); }
+.hothNight { background-image: url("/public/assets/hothNight.webp"); }
+.endorNight { background-image: url("/public/assets/endorNight.webp"); }
+.kaminoNight { background-image: url("/public/assets/kaminoNight.webp"); }
+.nabooNight { background-image: url("/public/assets/nabooNight.webp"); }
+.tatooine { background-image: url("/public/assets/tatooine.webp"); }
+.dagobah { background-image: url("/public/assets/dagobah.webp"); }
+.bespin { background-image: url("/public/assets/bespin.webp"); }
+.coruscant { background-image: url("/public/assets/coruscant.webp"); }
+.scarif { background-image: url("/public/assets/scarif.webp"); }
+.mustafar { background-image: url("/public/assets/mustafar.webp"); }
+.tatooineNight { background-image: url("/public/assets/tatooineNight.webp"); }
+.dagobahNight { background-image: url("/public/assets/dagobahNight.webp"); }
+.bespinNight { background-image: url("/public/assets/bespinNight.webp"); }
+.coruscantNight { background-image: url("/public/assets/coruscantNight.webp"); }
+.scarifNight { background-image: url("/public/assets/scarifNight.webp"); }
+.mustafarNight { background-image: url("/public/assets/mustafarNight.webp"); }
+.ahchTo { background-image: url("/public/assets/ahchTo.webp"); }
+.geonosis { background-image: url("/public/assets/geonosis.webp"); }
+.nevarro { background-image: url("/public/assets/nevarro.webp"); }
+.ahchToNight { background-image: url("/public/assets/ahchToNight.webp"); }
+.geonosisNight { background-image: url("/public/assets/geonosisNight.webp"); }
+.nevarroNight { background-image: url("/public/assets/nevarroNight.webp"); }
+
+@keyframes tourReveal {
+    from {
+        opacity: 0.86;
+        transform: scale(1.02);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes stampIn {
+    from {
+        opacity: 0;
+        transform: rotate(-10deg) scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(-4deg) scale(1);
+    }
+}
+
+@media (max-width: 700px) {
+    .tour-chrome {
+        padding: 16px 16px 8px;
+    }
+
+    .tour-hero {
+        padding: 20px 16px 24px;
+    }
+
+    .tour-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tour-time {
+        order: -1;
+        justify-content: stretch;
+    }
+
+    .tour-time__option,
+    .tour-nav {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .tour-brand {
+        letter-spacing: 0.18em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tour-stage,
+    .tour-stamp {
+        animation: none;
+    }
+}

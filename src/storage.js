@@ -1,5 +1,6 @@
 const STORAGE_KEYS = Object.freeze({
   cache: 'sww.cache',
+  lastKnownWeather: 'sww.lastKnownWeather',
   language: 'language',
   unit: 'unit',
   geolocationAlerted: 'alerted',
@@ -7,7 +8,12 @@ const STORAGE_KEYS = Object.freeze({
   showSearchBar: 'showSearchBar',
   showShortcuts: 'showShortcuts',
   showExtrasInHyperspace: 'showExtrasInHyperspace',
-  onboardingComplete: 'onboardingComplete'
+  showGoogleApps: 'showGoogleApps',
+  onboardingComplete: 'onboardingComplete',
+  visitedPlanets: 'sww.visitedPlanets',
+  geocodeCache: 'sww.geocodeCache',
+  geocodeQueryCache: 'sww.geocodeQueryCache',
+  telemetry: 'sww.telemetry'
 });
 
 const LEGACY_CACHE_KEYS = Object.freeze([
@@ -18,15 +24,50 @@ const LEGACY_CACHE_KEYS = Object.freeze([
   'date'
 ]);
 
-import { CACHE_TTL_MS } from './config.js';
+import {
+  CACHE_TTL_MS,
+  GEOCODE_CACHE_MAX_ENTRIES,
+  GEOCODE_CACHE_PRECISION,
+  GEOCODE_CACHE_TTL_MS,
+  GEOCODE_NEGATIVE_CACHE_TTL_MS,
+  GEOCODE_QUERY_CACHE_MAX_ENTRIES,
+  GEOCODING_RESULT_LIMIT
+} from './config.js';
 
-function isWithinTtl(timestamp) {
+// re-exported so callers read the cap off the store that applies it
+export { GEOCODE_QUERY_CACHE_MAX_ENTRIES };
+
+/**
+ * localStorage writes throw on quota/blocked storage. Everything here is a cache or
+ * preference, and a throw once escaped fetchLocationDetails and lost a fetched place name.
+ */
+function safeSetItem(key, value) {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch (error) {
+    console.warn(`Failed to persist ${key}`, error);
+    return false;
+  }
+}
+
+function safeRemoveItem(key) {
+  try {
+    localStorage.removeItem(key);
+    return true;
+  } catch (error) {
+    console.warn(`Failed to remove ${key}`, error);
+    return false;
+  }
+}
+
+function isWithinTtl(timestamp, ttlMs = CACHE_TTL_MS) {
   if (!timestamp) {
     return false;
   }
 
   const updatedAt = new Date(timestamp);
-  return Number.isFinite(updatedAt.getTime()) && (Date.now() - updatedAt.getTime()) < CACHE_TTL_MS;
+  return Number.isFinite(updatedAt.getTime()) && (Date.now() - updatedAt.getTime()) < ttlMs;
 }
 
 export function readWeatherCache({ language, unit, locationKey } = {}) {
@@ -38,6 +79,13 @@ export function readWeatherCache({ language, unit, locationKey } = {}) {
   try {
     const parsed = JSON.parse(raw);
     if (!isWithinTtl(parsed.lastUpdated)) {
+      clearWeatherCache();
+      return null;
+    }
+
+    // serving an offline fallback as a hit would show "Sensors offline" to a user
+    // who is back online, and suppress the refresh that would fix it
+    if (parsed.offline) {
       clearWeatherCache();
       return null;
     }
@@ -86,12 +134,266 @@ export function writeWeatherCache(payload) {
 }
 
 export function clearWeatherCache() {
-  localStorage.removeItem(STORAGE_KEYS.cache);
+  safeRemoveItem(STORAGE_KEYS.cache);
   clearLegacyCache();
 }
 
+/** Buckets coordinates so nearby positions share one reverse-geocode entry. */
+export function buildGeocodeCacheKey(latitude, longitude) {
+  const lat = Number(latitude);
+  const lon = Number(longitude);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+    return null;
+  }
+
+  const rounded = (value) => Number(value.toFixed(GEOCODE_CACHE_PRECISION));
+  return `${rounded(lat)},${rounded(lon)}`;
+}
+
+/** Newest first. Prunes expired entries from storage as a side effect. */
+function readGeocodeEntries() {
+  const raw = localStorage.getItem(STORAGE_KEYS.geocodeCache);
+  if (!raw) {
+    return [];
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (error) {
+    console.warn('Failed to parse cached geocode payload', error);
+    clearGeocodeCache();
+    return [];
+  }
+
+  if (!Array.isArray(parsed)) {
+    clearGeocodeCache();
+    return [];
+  }
+
+  const live = parsed.filter((entry) => {
+    if (!entry || typeof entry !== 'object' || !entry.key) {
+      return false;
+    }
+
+    const ttl = entry.details ? GEOCODE_CACHE_TTL_MS : GEOCODE_NEGATIVE_CACHE_TTL_MS;
+    return isWithinTtl(entry.lastUpdated, ttl);
+  });
+
+  if (live.length !== parsed.length) {
+    if (live.length === 0) {
+      clearGeocodeCache();
+    } else {
+      // best-effort; a failed prune still returns the live entries
+      safeSetItem(STORAGE_KEYS.geocodeCache, JSON.stringify(live));
+    }
+  }
+
+  return live;
+}
+
+/** null means nothing cached; an entry with null `details` means "cached: no place here". */
+export function readGeocodeCache(latitude, longitude) {
+  const key = buildGeocodeCacheKey(latitude, longitude);
+  if (!key) {
+    return null;
+  }
+
+  return readGeocodeEntries().find((entry) => entry.key === key) ?? null;
+}
+
+/**
+ * Null `details` negatively caches a coordinate that geocoded to nothing (shorter TTL).
+ * Kept as a capped LRU list so a commute does not evict and re-request the other end.
+ */
+export function writeGeocodeCache(latitude, longitude, details) {
+  const key = buildGeocodeCacheKey(latitude, longitude);
+  if (!key) {
+    return null;
+  }
+
+  const record = {
+    key,
+    details: details && typeof details === 'object' ? details : null,
+    lastUpdated: new Date().toISOString()
+  };
+
+  const entries = readGeocodeEntries().filter((entry) => entry.key !== key);
+  entries.unshift(record);
+
+  // guarded: a throw here would discard the place name fetchLocationDetails just paid for
+  safeSetItem(
+    STORAGE_KEYS.geocodeCache,
+    JSON.stringify(entries.slice(0, GEOCODE_CACHE_MAX_ENTRIES))
+  );
+
+  return record;
+}
+
+export function clearGeocodeCache() {
+  safeRemoveItem(STORAGE_KEYS.geocodeCache);
+}
+
+/** Matches (and slightly widens) the trim+lowercase popup.js and onboarding.js already do. */
+export function buildGeocodeQueryKey(query) {
+  if (typeof query !== 'string') {
+    return null;
+  }
+
+  const key = query.trim().replace(/\s+/g, ' ').toLowerCase();
+  return key || null;
+}
+
+/**
+ * OWM /geo results carry a `local_names` map of a few hundred translations each;
+ * storing them verbatim costs tens of kilobytes per search for data nothing renders.
+ */
+function normalizeGeocodeQueryResults(results) {
+  if (!Array.isArray(results)) {
+    return [];
+  }
+
+  return results
+    .filter((result) => result && typeof result === 'object')
+    .map((result) => ({
+      name: typeof result.name === 'string' ? result.name : '',
+      state: typeof result.state === 'string' ? result.state : '',
+      country: typeof result.country === 'string' ? result.country : '',
+      lat: Number(result.lat),
+      lon: Number(result.lon)
+    }))
+    .filter((result) => Number.isFinite(result.lat) && Number.isFinite(result.lon))
+    .slice(0, GEOCODING_RESULT_LIMIT);
+}
+
+/** Newest first. Prunes expired entries from storage as a side effect. */
+function readGeocodeQueryEntries() {
+  const raw = localStorage.getItem(STORAGE_KEYS.geocodeQueryCache);
+  if (!raw) {
+    return [];
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (error) {
+    console.warn('Failed to parse cached geocode query payload', error);
+    clearGeocodeQueryCache();
+    return [];
+  }
+
+  if (!Array.isArray(parsed)) {
+    clearGeocodeQueryCache();
+    return [];
+  }
+
+  const live = parsed.filter((entry) => {
+    if (!entry || typeof entry !== 'object' || !entry.key || !Array.isArray(entry.results)) {
+      return false;
+    }
+
+    const ttl = entry.results.length > 0 ? GEOCODE_CACHE_TTL_MS : GEOCODE_NEGATIVE_CACHE_TTL_MS;
+    return isWithinTtl(entry.lastUpdated, ttl);
+  });
+
+  if (live.length !== parsed.length) {
+    if (live.length === 0) {
+      clearGeocodeQueryCache();
+    } else {
+      safeSetItem(STORAGE_KEYS.geocodeQueryCache, JSON.stringify(live));
+    }
+  }
+
+  return live;
+}
+
+/** null means never searched; an entry with empty `results` means "searched: no such city". */
+export function readGeocodeQueryCache(query) {
+  const key = buildGeocodeQueryKey(query);
+  if (!key) {
+    return null;
+  }
+
+  return readGeocodeQueryEntries().find((entry) => entry.key === key) ?? null;
+}
+
+/**
+ * Empty lists are cached too (short negative TTL) so a typo is not re-requested per keystroke.
+ * The popup is torn down on blur, so this has to outlive the page or repeat searches burn quota.
+ */
+export function writeGeocodeQueryCache(query, results) {
+  const key = buildGeocodeQueryKey(query);
+  if (!key) {
+    return null;
+  }
+
+  const record = {
+    key,
+    results: normalizeGeocodeQueryResults(results),
+    lastUpdated: new Date().toISOString()
+  };
+
+  const entries = readGeocodeQueryEntries().filter((entry) => entry.key !== key);
+  entries.unshift(record);
+
+  safeSetItem(
+    STORAGE_KEYS.geocodeQueryCache,
+    JSON.stringify(entries.slice(0, GEOCODE_QUERY_CACHE_MAX_ENTRIES))
+  );
+
+  return record;
+}
+
+export function clearGeocodeQueryCache() {
+  safeRemoveItem(STORAGE_KEYS.geocodeQueryCache);
+}
+
+/** Offline/stale fallback. Unlike the TTL cache, never expired by age. */
+export function writeLastKnownWeather(payload) {
+  if (!payload || typeof payload !== 'object') {
+    throw new Error('Last known weather payload must be an object');
+  }
+
+  const record = {
+    ...payload,
+    locationKey: payload.locationKey ?? 'auto',
+    lastUpdated: payload.lastUpdated ?? new Date().toISOString()
+  };
+
+  localStorage.setItem(STORAGE_KEYS.lastKnownWeather, JSON.stringify(record));
+}
+
+/**
+ * No TTL check (stale OK). Language/unit mismatches pass on purpose since the caller
+ * re-localizes; a locationKey mismatch describes another city and would mislabel it.
+ */
+export function readLastKnownWeather({ language, unit, locationKey } = {}) {
+  const raw = localStorage.getItem(STORAGE_KEYS.lastKnownWeather);
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') {
+      return null;
+    }
+
+    // records written before locationKey existed were always auto-located
+    if (locationKey && (parsed.locationKey ?? 'auto') !== locationKey) {
+      return null;
+    }
+
+    return parsed;
+  } catch (error) {
+    console.warn('Failed to parse last known weather payload', error);
+    safeRemoveItem(STORAGE_KEYS.lastKnownWeather);
+    return null;
+  }
+}
+
 function clearLegacyCache() {
-  LEGACY_CACHE_KEYS.forEach((key) => localStorage.removeItem(key));
+  LEGACY_CACHE_KEYS.forEach((key) => safeRemoveItem(key));
 }
 
 export function getPreferredLanguage() {
@@ -124,7 +426,7 @@ export function getPreferredUnit() {
     return 'celsius';
   }
 
-  // Maintain backwards compatibility with older typo spelling.
+  // older builds stored the typo "farenheit"
   if (normalised === 'farenheit' || normalised === 'fahrenheit') {
     return 'fahrenheit';
   }
@@ -181,7 +483,7 @@ export function getManualLocation() {
     };
   } catch (error) {
     console.warn('Failed to parse manual location', error);
-    localStorage.removeItem(STORAGE_KEYS.manualLocation);
+    safeRemoveItem(STORAGE_KEYS.manualLocation);
     return null;
   }
 }
@@ -247,12 +549,98 @@ export function setShowExtrasInHyperspace(value) {
   setBooleanSetting(STORAGE_KEYS.showExtrasInHyperspace, value);
 }
 
+export function getShowGoogleApps() {
+  const stored = localStorage.getItem(STORAGE_KEYS.showGoogleApps);
+  if (stored === null) {
+    return true;
+  }
+  return stored === 'true';
+}
+
+export function setShowGoogleApps(value) {
+  setBooleanSetting(STORAGE_KEYS.showGoogleApps, value);
+}
+
 export function isOnboardingComplete() {
   return getBooleanSetting(STORAGE_KEYS.onboardingComplete);
 }
 
 export function markOnboardingComplete() {
   setBooleanSetting(STORAGE_KEYS.onboardingComplete, true);
+}
+
+export function getVisitedPlanets() {
+  // getItem itself throws when storage is blocked, and this runs in the new-tab
+  // render path, so an unreadable list has to degrade to "nothing visited"
+  let raw;
+  try {
+    raw = localStorage.getItem(STORAGE_KEYS.visitedPlanets);
+  } catch (error) {
+    console.warn('Unable to read visited planets', error);
+    return [];
+  }
+
+  if (!raw) {
+    return [];
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) {
+      throw new Error('Visited planets is not an array');
+    }
+
+    return [...new Set(parsed.filter((id) => typeof id === 'string' && id.trim()))];
+  } catch (error) {
+    console.warn('Failed to parse visited planets', error);
+    safeRemoveItem(STORAGE_KEYS.visitedPlanets);
+    return [];
+  }
+}
+
+export function markPlanetVisited(planetId) {
+  if (!planetId || typeof planetId !== 'string') {
+    return getVisitedPlanets();
+  }
+
+  const id = planetId.trim();
+  if (!id) {
+    return getVisitedPlanets();
+  }
+
+  const visited = getVisitedPlanets();
+  if (!visited.includes(id)) {
+    visited.push(id);
+    localStorage.setItem(STORAGE_KEYS.visitedPlanets, JSON.stringify(visited));
+  }
+
+  return visited;
+}
+
+/** Returns {} rather than null so callers can always spread it. */
+export function readTelemetryState() {
+  const raw = localStorage.getItem(STORAGE_KEYS.telemetry);
+  if (!raw) {
+    return {};
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+  } catch (error) {
+    console.warn('Failed to parse telemetry state', error);
+    safeRemoveItem(STORAGE_KEYS.telemetry);
+    return {};
+  }
+}
+
+export function writeTelemetryState(state) {
+  if (!state || typeof state !== 'object') {
+    localStorage.removeItem(STORAGE_KEYS.telemetry);
+    return;
+  }
+
+  localStorage.setItem(STORAGE_KEYS.telemetry, JSON.stringify(state));
 }
 
 export { STORAGE_KEYS };

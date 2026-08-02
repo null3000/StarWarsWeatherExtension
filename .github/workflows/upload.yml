@@ -16,7 +16,22 @@ jobs:
         run: bun install
 
       - name: Create env.js
-        run: echo "const API_KEY = '${{ secrets.OPENWEATHER_API_KEY }}';" > src/env.js
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+          MODEROK_APP_KEY: ${{ secrets.MODEROK_APP_KEY }}
+        run: |
+          cat > src/env.js <<EOF
+          // Generated during packaging. Do not commit this file.
+          const API_KEY = "${OPENWEATHER_API_KEY}";
+          const MODEROK_APP_KEY = "${MODEROK_APP_KEY}";
+          globalThis.API_KEY = API_KEY;
+          globalThis.MODEROK_APP_KEY = MODEROK_APP_KEY;
+          export { API_KEY, MODEROK_APP_KEY };
+          EOF
+
+      # after env.js: background.js imports it, so the tests need it on disk
+      - name: Run tests
+        run: bun test
 
       - name: Install cws-cli
         run: |

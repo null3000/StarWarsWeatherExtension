@@ -1,8 +1,7 @@
 const SUPPORTED_LANGUAGES = ['en', 'es', 'zh'];
 const DEFAULT_LANGUAGE = 'en';
 
-// Chrome/Firefox _locales directories must use full locale codes for regional
-// variants; internal language codes stay two letters.
+// _locales dirs need full locale codes for regional variants; internal codes stay two letters
 const LOCALE_DIRECTORIES = Object.freeze({
   en: 'en',
   es: 'es',

@@ -292,6 +292,21 @@ body {
     color: var(--accent);
 }
 
+.card--tour {
+    grid-column: 1 / -1;
+}
+
+.button--tour {
+    width: 100%;
+    padding: 12px 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.button--tour + .link-list {
+    margin-top: 14px;
+}
+
 a {
     color: var(--accent);
     font-weight: 600;
@@ -318,3 +333,4 @@ a:focus {
         flex-direction: column;
     }
 }
+

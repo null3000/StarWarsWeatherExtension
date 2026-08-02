@@ -44,20 +44,7 @@ function createPopupLocaleResponse(overrides = {}) {
   };
 }
 
-const realFetch = globalThis.fetch;
-const realBrowser = globalThis.browser;
-const realChrome = globalThis.chrome;
-const realNavigator = globalThis.navigator;
-const realApiKey = globalThis.API_KEY;
-
-beforeAll(async () => {
-  popup = await import('../popup.js');
-});
-
-beforeEach(() => {
-  invalidateLocalizationCache();
-  installStorageMock();
-  installDom(`
+const POPUP_DOM = `
     <div data-i18n="popup_title"></div>
     <div data-i18n-html="popup_link_rate"></div>
     <input data-i18n-placeholder="popup_manual_location_placeholder" />
@@ -71,8 +58,42 @@ beforeEach(() => {
     <input type="radio" name="lang" value="Spanish" />
     <label class="checkbox-option"><input id="showSearchBar" type="checkbox"><span>Search bar</span></label>
     <label class="checkbox-option"><input id="showShortcuts" type="checkbox"><span>Shortcuts</span></label>
+    <label class="checkbox-option"><input id="showGoogleApps" type="checkbox"><span>Google apps</span></label>
     <label class="checkbox-option"><input id="showExtrasInHyperspace" type="checkbox"><span>Hyperspace</span></label>
-  `);
+  `;
+
+/**
+ * The popup process dies on every blur: DOM and module state go, localStorage
+ * survives. Rebuilding around a storage snapshot proves what actually persisted.
+ */
+function simulatePopupTeardown() {
+  const persisted = Object.fromEntries(globalThis.localStorage._store);
+  teardownDom();
+  installStorageMock(persisted);
+  installDom(POPUP_DOM);
+  installNavigator(globalThis.window, { language: 'en-US' });
+  globalThis.window.open = () => {};
+}
+
+function geocodeCallsRecorded() {
+  const raw = globalThis.localStorage.getItem('sww.telemetry');
+  return raw ? (JSON.parse(raw).geocodeCalls ?? 0) : 0;
+}
+
+const realFetch = globalThis.fetch;
+const realBrowser = globalThis.browser;
+const realChrome = globalThis.chrome;
+const realNavigator = globalThis.navigator;
+const realApiKey = globalThis.API_KEY;
+
+beforeAll(async () => {
+  popup = await import('../popup.js');
+});
+
+beforeEach(() => {
+  invalidateLocalizationCache();
+  installStorageMock();
+  installDom(POPUP_DOM);
   installNavigator(globalThis.window, { language: 'en-US' });
   globalThis.browser = {
     runtime: {
@@ -80,6 +101,7 @@ beforeEach(() => {
     }
   };
   delete globalThis.chrome;
+  globalThis.window.open = () => {};
   globalThis.API_KEY = 'test-key';
 });
 
@@ -123,6 +145,7 @@ describe('popup translations', () => {
     popup.applyTranslations(localization);
 
     expect(document.querySelector('[data-i18n="popup_title"]').innerText).toBe('Star Wars Weather');
+    expect(document.title).toBe('Star Wars Weather');
     expect(document.querySelector('[data-i18n-html="popup_link_rate"]').innerHTML).toBe('<strong>Rate</strong>');
     expect(document.querySelector('[data-i18n-placeholder]').getAttribute('placeholder')).toBe('City');
   });
@@ -221,6 +244,99 @@ describe('manual location flow', () => {
 
     const message = document.querySelector('#manualLocationResults .selection-message').textContent;
     expect(message.includes('No matching cities')).toBe(true);
+  });
+
+  test('repeating a search reuses the cached suggestions', async () => {
+    const fetchMock = createFetchMock([
+      {
+        json: [{ name: 'Naboo City', country: 'NB', lat: 10.5, lon: 20.5 }]
+      }
+    ]);
+    globalThis.fetch = fetchMock;
+
+    const input = document.getElementById('manualLocationInput');
+    input.value = 'Naboo City';
+    await popup.handleManualLocationSearch(input);
+
+    // same city, different casing and padding, still one geocoding call
+    input.value = '  naboo city  ';
+    await popup.handleManualLocationSearch(input);
+
+    expect(fetchMock.calls.length).toBe(1);
+    expect(document.querySelectorAll('button.selection-option').length).toBe(1);
+  });
+
+  test('a repeat search after the popup is torn down issues no second request', async () => {
+    globalThis.fetch = createFetchMock([
+      {
+        json: [{ name: 'Naboo City', country: 'NB', lat: 10.5, lon: 20.5 }]
+      }
+    ]);
+
+    const firstInput = document.getElementById('manualLocationInput');
+    firstInput.value = 'Naboo City';
+    await popup.handleManualLocationSearch(firstInput);
+    expect(document.querySelectorAll('button.selection-option').length).toBe(1);
+    expect(geocodeCallsRecorded()).toBe(1);
+
+    simulatePopupTeardown();
+
+    // empty queue, so any fetch throws
+    const fetchMock = createFetchMock([]);
+    globalThis.fetch = fetchMock;
+
+    const secondInput = document.getElementById('manualLocationInput');
+    secondInput.value = 'naboo city';
+    await popup.handleManualLocationSearch(secondInput);
+
+    expect(fetchMock.calls.length).toBe(0);
+    const options = document.querySelectorAll('button.selection-option');
+    expect(options.length).toBe(1);
+    expect(options[0].textContent).toBe('Naboo City, NB');
+    // telemetry has to keep reflecting real /geo volume
+    expect(geocodeCallsRecorded()).toBe(1);
+  });
+
+  test('a search that matched nothing is not repeated after teardown', async () => {
+    globalThis.fetch = createFetchMock([{ json: [] }]);
+
+    const firstInput = document.getElementById('manualLocationInput');
+    firstInput.value = 'Alderaan';
+    await popup.handleManualLocationSearch(firstInput);
+
+    simulatePopupTeardown();
+
+    const fetchMock = createFetchMock([]);
+    globalThis.fetch = fetchMock;
+
+    const secondInput = document.getElementById('manualLocationInput');
+    secondInput.value = 'Alderaan';
+    await popup.handleManualLocationSearch(secondInput);
+
+    expect(fetchMock.calls.length).toBe(0);
+    expect(geocodeCallsRecorded()).toBe(1);
+    const message = document.querySelector('#manualLocationResults .selection-message').textContent;
+    expect(message.includes('No matching cities')).toBe(true);
+  });
+
+  test('a failed search is not cached and retries on the next attempt', async () => {
+    const fetchMock = createFetchMock([
+      { ok: false, status: 500, json: {} },
+      { json: [{ name: 'Naboo City', country: 'NB', lat: 10.5, lon: 20.5 }] }
+    ]);
+    globalThis.fetch = fetchMock;
+
+    const input = document.getElementById('manualLocationInput');
+    input.value = 'Naboo City';
+    await popup.handleManualLocationSearch(input);
+
+    const failureMessage = document.querySelector('#manualLocationResults .selection-message').textContent;
+    expect(failureMessage.includes('Could not retrieve cities')).toBe(true);
+
+    await popup.handleManualLocationSearch(input);
+
+    expect(fetchMock.calls.length).toBe(2);
+    expect(document.querySelectorAll('button.selection-option').length).toBe(1);
   });
 
   test('renderManualLocationOptions ignores invalid entries', () => {
@@ -349,5 +465,17 @@ describe('newtab handlers', () => {
 
     expect(permissionSpy.calls.length).toBe(0);
     expect(localStorage.getItem('showShortcuts')).toBe('false');
+  });
+
+  test('google apps toggle stores preference', () => {
+    popup.attachNewtabHandlers();
+    const checkbox = document.getElementById('showGoogleApps');
+    checkbox.checked = false;
+    checkbox.dispatchEvent(new Event('change'));
+    expect(localStorage.getItem('showGoogleApps')).toBe('false');
+
+    checkbox.checked = true;
+    checkbox.dispatchEvent(new Event('change'));
+    expect(localStorage.getItem('showGoogleApps')).toBe('true');
   });
 });

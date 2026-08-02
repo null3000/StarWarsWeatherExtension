@@ -11,6 +11,12 @@
   "error_weather_unavailable": {
     "message": "目前無法取得天氣資料。"
   },
+  "offline_signal_lost": {
+    "message": "感應器離線 — 上次已知：$1"
+  },
+  "offline_random_planet": {
+    "message": "感應器離線 — 訊號中斷。正在顯示隨機星系區域。"
+  },
   "alert_geolocation_error": {
     "message": "無法取得你的位置。請為此擴充功能啟用定位服務。詳情請參閱常見問題。"
   },
@@ -104,6 +110,33 @@
   "planet_scarif_description": {
     "message": "位於外環星域的偏遠熱帶星球"
   },
+  "planet_ahchTo_name": {
+    "message": "阿克托"
+  },
+  "planet_ahchTo_summary": {
+    "message": "$1，這是個狂風驟起的$2"
+  },
+  "planet_ahchTo_description": {
+    "message": "第一座絕地聖殿，藏身於無盡海洋之中"
+  },
+  "planet_geonosis_name": {
+    "message": "吉諾西斯"
+  },
+  "planet_geonosis_summary": {
+    "message": "$1，這是個沙塵滾滾的$2"
+  },
+  "planet_geonosis_description": {
+    "message": "複製人戰爭開打的地方"
+  },
+  "planet_nevarro_name": {
+    "message": "內瓦羅"
+  },
+  "planet_nevarro_summary": {
+    "message": "$1，這是個煙塵彌漫的$2"
+  },
+  "planet_nevarro_description": {
+    "message": "外環星域的黑沙與熔岩平原"
+  },
   "planet_naboo_name": {
     "message": "那卜"
   },
@@ -155,6 +188,12 @@
   "popup_show_shortcuts": {
     "message": "顯示捷徑"
   },
+  "popup_show_google_apps": {
+    "message": "顯示 Google 應用程式"
+  },
+  "google_apps_button_label": {
+    "message": "Google 應用程式"
+  },
   "popup_show_extras_hyperspace": {
     "message": "超空間跳躍時顯示搜尋列與捷徑"
   },
@@ -167,8 +206,53 @@
   "popup_title": {
     "message": "星際大戰天氣"
   },
+  "popup_settings_kicker": {
+    "message": "偏好設定"
+  },
+  "popup_github_cta": {
+    "message": "GitHub"
+  },
+  "popup_card_github_desc": {
+    "message": "@vaughnbosu"
+  },
+  "popup_card_rate_title": {
+    "message": "留下評分"
+  },
+  "popup_card_rate_desc": {
+    "message": "Chrome 線上應用程式商店"
+  },
+  "popup_card_source_title": {
+    "message": "原始碼"
+  },
+  "popup_card_source_desc": {
+    "message": "StarWarsWeatherExtension"
+  },
+  "popup_card_bug_title": {
+    "message": "回報錯誤"
+  },
+  "popup_card_bug_desc": {
+    "message": "在 GitHub 開啟 issue"
+  },
+  "popup_card_faq_title": {
+    "message": "常見問題"
+  },
+  "popup_card_faq_desc": {
+    "message": "常見疑問"
+  },
+  "popup_card_survey_title": {
+    "message": "問卷"
+  },
+  "popup_card_survey_desc": {
+    "message": "分享快速回饋"
+  },
+  "popup_card_coffee_title": {
+    "message": "請我喝杯咖啡"
+  },
+  "popup_card_coffee_desc": {
+    "message": "支持這個專案"
+  },
   "popup_subtitle": {
-    "message": "感謝你使用這個擴充功能！請在下方選擇偏好設定，或探索更多資源。"
+    "message": "依喜好調整新分頁：單位、語言、位置與介面元素。"
   },
   "popup_units_title": {
     "message": "溫度單位"
@@ -181,6 +265,39 @@
   },
   "units_celsius_label": {
     "message": "攝氏"
+  },
+  "temp_toggle_hint": {
+    "message": "點一下即可切換單位"
+  },
+  "popup_tour_title": {
+    "message": "銀河巡遊"
+  },
+  "popup_tour_hint": {
+    "message": "以全螢幕巡遊探索每顆星球的日間與夜間圖像。"
+  },
+  "popup_tour_open": {
+    "message": "銀河巡遊"
+  },
+  "popup_tour_prev": {
+    "message": "上一顆"
+  },
+  "popup_tour_next": {
+    "message": "下一顆"
+  },
+  "popup_tour_day": {
+    "message": "日間"
+  },
+  "popup_tour_night": {
+    "message": "夜間"
+  },
+  "tour_back": {
+    "message": "返回"
+  },
+  "tour_keyboard_hint": {
+    "message": "使用 ← → 切換星球"
+  },
+  "tour_time_of_day_label": {
+    "message": "時段"
   },
   "popup_language_title": {
     "message": "語言"
@@ -350,6 +467,12 @@
   "onboarding_prefs_shortcuts_hint": {
     "message": "在新分頁中顯示你最常造訪的網站"
   },
+  "onboarding_prefs_google_apps_label": {
+    "message": "顯示 Google 應用程式"
+  },
+  "onboarding_prefs_google_apps_hint": {
+    "message": "在新分頁中顯示 Google 應用程式啟動器"
+  },
   "onboarding_prefs_continue": {
     "message": "繼續"
   },
@@ -383,6 +506,12 @@
   "onboarding_done_shortcuts_off": {
     "message": "捷徑：關閉"
   },
+  "onboarding_done_google_apps_on": {
+    "message": "Google 應用程式：開啟"
+  },
+  "onboarding_done_google_apps_off": {
+    "message": "Google 應用程式：關閉"
+  },
   "onboarding_done_hint": {
     "message": "你隨時可以在擴充功能設定中變更這些選項。"
   },
@@ -400,5 +529,119 @@
   },
   "language_chinese_label": {
     "message": "🇹🇼 繁體中文"
+  },
+  "explore_menu_label": {
+    "message": "探索"
+  },
+  "explore_menu_settings": {
+    "message": "設定"
+  },
+  "passport_worlds_visited": {
+    "message": "已造訪 $1/$2 個星球"
+  },
+  "passport_title": {
+    "message": "星球護照"
+  },
+  "passport_hint": {
+    "message": "當當地天氣符合某個星球時，即可解鎖戳章。"
+  },
+  "passport_close": {
+    "message": "關閉"
+  },
+  "passport_stamp_visited": {
+    "message": "已造訪 $1"
+  },
+  "passport_stamp_locked": {
+    "message": "尚未解鎖 $1"
+  },
+  "planet_reason_hoth_snow": {
+    "message": "符合：下雪 → 霍斯"
+  },
+  "planet_reason_hoth_cold": {
+    "message": "符合：氣溫 ≤ 32°F → 霍斯"
+  },
+  "planet_reason_kamino_rain": {
+    "message": "符合：下雨／暴風雨 → 卡米諾"
+  },
+  "planet_reason_endor_fog": {
+    "message": "符合：霧 → 恩多"
+  },
+  "planet_reason_bespin_wind": {
+    "message": "符合：風速 ≥ 35 mph → 貝斯平"
+  },
+  "planet_reason_scarif_tropical": {
+    "message": "符合：70–85°F 晴朗 → 斯卡里夫"
+  },
+  "planet_reason_dagobah_humid": {
+    "message": "符合：濕度 ≥ 93% 且炎熱 → 達哥巴"
+  },
+  "planet_reason_ahchTo_squall": {
+    "message": "符合：颮（強陣風）→ 阿克托"
+  },
+  "planet_reason_geonosis_sandstorm": {
+    "message": "符合：沙塵 → 吉諾西斯"
+  },
+  "planet_reason_nevarro_ash": {
+    "message": "符合：火山灰 / 煙霧 / 霾 → 內瓦羅"
+  },
+  "planet_reason_naboo_chilly": {
+    "message": "符合：33–54°F → 納布"
+  },
+  "planet_reason_coruscant_mild": {
+    "message": "符合：55–79°F → 科洛桑"
+  },
+  "planet_reason_coruscant_default": {
+    "message": "符合：預設條件 → 科洛桑"
+  },
+  "planet_reason_tatooine_hot": {
+    "message": "符合：80–95°F → 塔圖因"
+  },
+  "planet_reason_mustafar_scorching": {
+    "message": "符合：氣溫 ≥ 96°F → 穆斯塔法"
+  },
+  "passport_requirement_label": {
+    "message": "條件"
+  },
+  "passport_requirement_hoth": {
+    "message": "降雪，或 $1 以下"
+  },
+  "passport_requirement_kamino": {
+    "message": "雨、毛毛雨或雷雨"
+  },
+  "passport_requirement_endor": {
+    "message": "霧或薄霧"
+  },
+  "passport_requirement_bespin": {
+    "message": "風速 35 mph 以上"
+  },
+  "passport_requirement_scarif": {
+    "message": "$1–$2 且天氣晴朗"
+  },
+  "passport_requirement_dagobah": {
+    "message": "濕度 93% 以上，且高於 $1"
+  },
+  "passport_requirement_ahchTo": {
+    "message": "突發的強陣風（颮）"
+  },
+  "passport_requirement_geonosis": {
+    "message": "沙塵暴或揚塵"
+  },
+  "passport_requirement_nevarro": {
+    "message": "火山灰、煙霧或霾"
+  },
+  "passport_requirement_naboo": {
+    "message": "$1–$2"
+  },
+  "passport_requirement_coruscant": {
+    "message": "$1–$2"
+  },
+  "passport_requirement_tatooine": {
+    "message": "$1–$2"
+  },
+  "passport_requirement_mustafar": {
+    "message": "$1 以上"
+  },
+  "passport_stamp_requirement": {
+    "message": "$1 條件：$2"
   }
 }

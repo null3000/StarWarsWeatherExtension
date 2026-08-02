@@ -3,15 +3,21 @@ import {
   getManualLocation,
   getPreferredLanguage,
   getPreferredUnit,
+  getShowGoogleApps,
   getShowSearchBar,
   getShowShortcuts,
   isOnboardingComplete,
   markOnboardingComplete,
+  readGeocodeCache,
+  readGeocodeQueryCache,
   setManualLocation,
   setPreferredLanguage,
   setPreferredUnit,
+  setShowGoogleApps,
   setShowSearchBar,
-  setShowShortcuts
+  setShowShortcuts,
+  writeGeocodeCache,
+  writeGeocodeQueryCache
 } from './storage.js';
 import { loadLocalization, invalidateLocalizationCache } from './i18n.js';
 import { stateToAbbreviation } from './geo.js';
@@ -21,12 +27,13 @@ import {
   GEOCODING_RESULT_LIMIT,
   GEOLOCATION_OPTIONS
 } from './config.js';
-import { Moderok } from './vendor/moderok.js';
+import { recordGeocodeCall, track } from './telemetry.js';
 
 let currentLocalization = null;
 let locationMode = null; // 'auto' or 'manual'
 let locationDisplayName = '';
 let geolocating = false;
+let onboardingStartedAt = 0;
 
 const SHOULD_INIT = !(typeof globalThis !== 'undefined' && globalThis.__SWW_SKIP_INIT__ === true);
 
@@ -35,6 +42,7 @@ if (SHOULD_INIT && typeof document !== 'undefined') {
 }
 
 async function initialize() {
+  onboardingStartedAt = Date.now();
   const language = getPreferredLanguage();
   currentLocalization = await loadLocalization(language);
   applyTranslations(currentLocalization);
@@ -47,8 +55,6 @@ async function initialize() {
 
   attachEventListeners();
 }
-
-// --- Step navigation ---
 
 function showStep(n) {
   document.querySelectorAll('.onboarding-step').forEach((step) => {
@@ -64,8 +70,6 @@ function showStep(n) {
     dot.classList.toggle('dot--active', dotStep <= n);
   });
 }
-
-// --- Translations ---
 
 function applyTranslations(localization) {
   if (!localization) return;
@@ -99,33 +103,26 @@ function syncLanguageRadio(language) {
   });
 }
 
-// --- Event listeners ---
-
 function attachEventListeners() {
-  // Step 1: Language
   document.querySelectorAll('input[name="onboarding-lang"]').forEach((radio) => {
     radio.addEventListener('change', (e) => handleLanguageChange(e.target.value));
   });
 
-  // Step 1: Get Started
   const startBtn = document.getElementById('startSetup');
   if (startBtn) {
     startBtn.addEventListener('click', () => showStep(2));
   }
 
-  // Step 2: Auto location
   const autoBtn = document.getElementById('chooseAutoLocation');
   if (autoBtn) {
     autoBtn.addEventListener('click', handleAutoLocation);
   }
 
-  // Step 2: Manual location
   const manualBtn = document.getElementById('chooseManualLocation');
   if (manualBtn) {
     manualBtn.addEventListener('click', showManualSearch);
   }
 
-  // Step 2: Manual search
   const searchBtn = document.getElementById('manualSearchBtn');
   const searchInput = document.getElementById('manualLocationInput');
   if (searchBtn && searchInput) {
@@ -137,7 +134,6 @@ function attachEventListeners() {
     });
   }
 
-  // Step 2: Back buttons
   const autoBack = document.getElementById('autoBackToChoices');
   if (autoBack) {
     autoBack.addEventListener('click', resetLocationStep);
@@ -147,7 +143,6 @@ function attachEventListeners() {
     manualBack.addEventListener('click', resetLocationStep);
   }
 
-  // Step 2: Troubleshoot toggle
   const troubleshootToggle = document.getElementById('troubleshootToggle');
   if (troubleshootToggle) {
     troubleshootToggle.addEventListener('click', () => {
@@ -158,39 +153,48 @@ function attachEventListeners() {
     });
   }
 
-  // Step 3: Units
   document.querySelectorAll('input[name="onboarding-unit"]').forEach((radio) => {
     radio.addEventListener('change', (e) => {
       setPreferredUnit(e.target.value);
       clearWeatherCache();
-      Moderok.track('unit_changed', { unit: e.target.value });
+      track('setting_changed', { setting: 'unit', value: e.target.value, surface: 'onboarding' });
     });
   });
 
-  // Step 3: Search bar
   const searchBarCheckbox = document.getElementById('onboardingSearchBar');
   if (searchBarCheckbox) {
     searchBarCheckbox.addEventListener('change', (e) => handleSearchBarToggle(e.target));
   }
 
-  // Step 3: Shortcuts
   const shortcutsCheckbox = document.getElementById('onboardingShortcuts');
   if (shortcutsCheckbox) {
     shortcutsCheckbox.addEventListener('change', (e) => handleShortcutsToggle(e.target));
   }
 
-  // Step 3: Continue
+  const googleAppsCheckbox = document.getElementById('onboardingGoogleApps');
+  if (googleAppsCheckbox) {
+    googleAppsCheckbox.checked = getShowGoogleApps();
+    googleAppsCheckbox.addEventListener('change', (e) => handleGoogleAppsToggle(e.target));
+  }
+
   const prefsNext = document.getElementById('prefsNext');
   if (prefsNext) {
     prefsNext.addEventListener('click', () => {
       markOnboardingComplete();
-      Moderok.track('onboarding_completed');
+      // Pairs with the SDK's __install for the activation funnel; settings show which defaults stick.
+      track('onboarding_completed', {
+        durationMs: onboardingStartedAt ? Date.now() - onboardingStartedAt : 0,
+        unit: getPreferredUnit(),
+        language: getPreferredLanguage(),
+        searchBar: getShowSearchBar(),
+        shortcuts: getShowShortcuts(),
+        googleApps: getShowGoogleApps()
+      });
       renderSummary();
       showStep(4);
     });
   }
 
-  // Step 4: Open New Tab
   const openTab = document.getElementById('openNewTab');
   if (openTab) {
     openTab.addEventListener('click', () => {
@@ -201,17 +205,13 @@ function attachEventListeners() {
   }
 }
 
-// --- Step 1: Language ---
-
 async function handleLanguageChange(lang) {
   setPreferredLanguage(lang);
-  Moderok.track('language_changed', { language: lang });
+  track('setting_changed', { setting: 'language', value: lang, surface: 'onboarding' });
   invalidateLocalizationCache(lang);
   currentLocalization = await loadLocalization(lang);
   applyTranslations(currentLocalization);
 }
-
-// --- Step 2: Auto location ---
 
 function handleAutoLocation() {
   if (geolocating) return;
@@ -255,7 +255,7 @@ function handleAutoLocation() {
       try {
         cityName = await reverseGeocode(latitude, longitude);
       } catch {
-        // Reverse geocoding failed, but location itself succeeded
+        // location is usable without a city name
       }
 
       locationMode = 'auto';
@@ -328,7 +328,16 @@ function showAutoError() {
   }
 }
 
+/**
+ * Shares the new tab page's coordinate cache: setup and the first render resolve
+ * the same GPS fix minutes apart, so that render costs no geocoding call.
+ */
 async function reverseGeocode(lat, lon) {
+  const cached = readGeocodeCache(lat, lon);
+  if (cached) {
+    return cached.details ? formatLocationDisplay(cached.details) : '';
+  }
+
   if (typeof API_KEY === 'undefined') {
     return '';
   }
@@ -339,20 +348,21 @@ async function reverseGeocode(lat, lon) {
   url.searchParams.set('limit', '1');
   url.searchParams.set('appid', API_KEY);
 
+  recordGeocodeCall();
   const response = await fetch(url.toString());
   if (!response.ok) {
+    // a failed request says nothing about the coordinate, so leave it uncached
     return '';
   }
 
   const data = await response.json();
-  if (!Array.isArray(data) || data.length === 0) {
-    return '';
-  }
+  const details = Array.isArray(data) && data.length > 0 ? data[0] : null;
 
-  return formatLocationDisplay(data[0]);
+  // Cache empty lookups too (shorter TTL) so a nameless coordinate doesn't re-request every load.
+  writeGeocodeCache(lat, lon, details);
+
+  return details ? formatLocationDisplay(details) : '';
 }
-
-// --- Step 2: Manual location ---
 
 function showManualSearch() {
   const choices = document.getElementById('locationChoices');
@@ -391,7 +401,17 @@ async function handleManualSearch(query) {
   }
 }
 
+/**
+ * Own query-keyed store (shared with the settings popup) because the cache above
+ * is keyed by coordinates, which a city-name search lacks until it returns.
+ */
 async function fetchGeocodingSuggestions(query) {
+  const cached = readGeocodeQueryCache(query);
+  if (cached) {
+    // an empty stored entry is a remembered "no such city", so don't re-request it
+    return cached.results;
+  }
+
   if (typeof API_KEY === 'undefined') {
     throw new Error('API key is not available');
   }
@@ -401,12 +421,17 @@ async function fetchGeocodingSuggestions(query) {
   url.searchParams.set('limit', String(GEOCODING_RESULT_LIMIT));
   url.searchParams.set('appid', API_KEY);
 
+  recordGeocodeCall();
   const response = await fetch(url.toString());
   if (!response.ok) {
+    // a failed request says nothing about the query, so leave it uncached
     throw new Error(`Geocoding request failed with status ${response.status}`);
   }
 
-  return response.json();
+  const results = await response.json();
+  // Cache empty lists too (shorter negative TTL) so a typo doesn't re-request on every retry.
+  writeGeocodeQueryCache(query, results);
+  return results;
 }
 
 function renderManualResults(results) {
@@ -485,8 +510,6 @@ function formatLocationDisplay(result) {
   return parts.join(', ');
 }
 
-// --- Step 2: Reset ---
-
 function resetLocationStep() {
   const choices = document.getElementById('locationChoices');
   const autoStatus = document.getElementById('autoLocationStatus');
@@ -499,8 +522,6 @@ function resetLocationStep() {
   const results = document.getElementById('manualSearchResults');
   if (results) results.innerHTML = '';
 }
-
-// --- Step 3: Permission handling ---
 
 async function handleSearchBarToggle(checkbox) {
   clearPermissionHint(checkbox);
@@ -520,7 +541,7 @@ async function handleSearchBarToggle(checkbox) {
     }
   }
   setShowSearchBar(checkbox.checked);
-  Moderok.track('search_bar_toggled', { enabled: checkbox.checked });
+  track('setting_changed', { setting: 'searchBar', enabled: checkbox.checked, surface: 'onboarding' });
 }
 
 async function handleShortcutsToggle(checkbox) {
@@ -541,7 +562,12 @@ async function handleShortcutsToggle(checkbox) {
     }
   }
   setShowShortcuts(checkbox.checked);
-  Moderok.track('shortcuts_toggled', { enabled: checkbox.checked });
+  track('setting_changed', { setting: 'shortcuts', enabled: checkbox.checked, surface: 'onboarding' });
+}
+
+function handleGoogleAppsToggle(checkbox) {
+  setShowGoogleApps(checkbox.checked);
+  track('setting_changed', { setting: 'googleApps', enabled: checkbox.checked, surface: 'onboarding' });
 }
 
 function showPermissionHint(checkbox) {
@@ -561,15 +587,12 @@ function clearPermissionHint(checkbox) {
   if (existing) existing.remove();
 }
 
-// --- Step 4: Summary ---
-
 function renderSummary() {
   const container = document.getElementById('summary');
   if (!container) return;
 
   container.innerHTML = '';
 
-  // Location
   const manualLoc = getManualLocation();
   let locationText;
   if (manualLoc) {
@@ -583,7 +606,6 @@ function renderSummary() {
   }
   addSummaryItem(container, locationText);
 
-  // Units
   const unit = getPreferredUnit();
   const unitLabel = unit === 'celsius'
     ? (currentLocalization?.getMessage('units_celsius_label') || 'Celsius')
@@ -591,17 +613,20 @@ function renderSummary() {
   const unitsText = currentLocalization?.getMessage('onboarding_done_units', [unitLabel]) || `Units: ${unitLabel}`;
   addSummaryItem(container, unitsText);
 
-  // Search bar
   const searchOn = getShowSearchBar();
   const searchKey = searchOn ? 'onboarding_done_search_on' : 'onboarding_done_search_off';
   const searchText = currentLocalization?.getMessage(searchKey) || (searchOn ? 'Search bar: On' : 'Search bar: Off');
   addSummaryItem(container, searchText);
 
-  // Shortcuts
   const shortcutsOn = getShowShortcuts();
   const shortcutsKey = shortcutsOn ? 'onboarding_done_shortcuts_on' : 'onboarding_done_shortcuts_off';
   const shortcutsText = currentLocalization?.getMessage(shortcutsKey) || (shortcutsOn ? 'Shortcuts: On' : 'Shortcuts: Off');
   addSummaryItem(container, shortcutsText);
+
+  const googleAppsOn = getShowGoogleApps();
+  const googleAppsKey = googleAppsOn ? 'onboarding_done_google_apps_on' : 'onboarding_done_google_apps_off';
+  const googleAppsText = currentLocalization?.getMessage(googleAppsKey) || (googleAppsOn ? 'Google apps: On' : 'Google apps: Off');
+  addSummaryItem(container, googleAppsText);
 }
 
 function addSummaryItem(container, text) {
@@ -611,7 +636,7 @@ function addSummaryItem(container, text) {
   container.appendChild(p);
 }
 
-// --- Exports for testing ---
+// exported for tests
 
 export {
   addSummaryItem,
@@ -623,6 +648,7 @@ export {
   handleAutoLocation,
   handleLanguageChange,
   handleManualSearch,
+  handleGoogleAppsToggle,
   handleSearchBarToggle,
   handleShortcutsToggle,
   initialize,

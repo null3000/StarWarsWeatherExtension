@@ -69,6 +69,9 @@ const ONBOARDING_DOM = `
     <div class="preference-group" id="shortcutsGroup">
       <label class="checkbox-row"><input type="checkbox" id="onboardingShortcuts"></label>
     </div>
+    <div class="preference-group" id="googleAppsGroup">
+      <label class="checkbox-row"><input type="checkbox" id="onboardingGoogleApps"></label>
+    </div>
     <button id="prefsNext"></button>
   </section>
   <section class="onboarding-step" data-step="4">
@@ -284,6 +287,30 @@ describe('preferences', () => {
     expect(checkbox.checked).toBe(true);
     expect(localStorage.getItem('showSearchBar')).toBe('true');
   });
+
+  test('google apps checkbox defaults to checked when unset', () => {
+    onboarding.attachEventListeners();
+    const checkbox = document.getElementById('onboardingGoogleApps');
+    expect(checkbox.checked).toBe(true);
+  });
+
+  test('google apps toggle stores preference without requesting permissions', () => {
+    const permissionSpy = createSpy(() => Promise.resolve(true));
+    globalThis.chrome = { permissions: { request: permissionSpy } };
+
+    onboarding.attachEventListeners();
+    const checkbox = document.getElementById('onboardingGoogleApps');
+    checkbox.checked = false;
+    checkbox.dispatchEvent(new Event('change'));
+
+    expect(localStorage.getItem('showGoogleApps')).toBe('false');
+    expect(permissionSpy.calls.length).toBe(0);
+
+    checkbox.checked = true;
+    checkbox.dispatchEvent(new Event('change'));
+    expect(localStorage.getItem('showGoogleApps')).toBe('true');
+    expect(permissionSpy.calls.length).toBe(0);
+  });
 });
 
 describe('onboarding completion', () => {
@@ -301,8 +328,9 @@ describe('summary', () => {
   test('renders auto location summary', () => {
     onboarding.renderSummary();
     const items = document.querySelectorAll('#summary .summary__item');
-    expect(items.length).toBe(4);
+    expect(items.length).toBe(5);
     expect(items[0].textContent).toContain('current location');
+    expect(items[4].textContent).toContain('Google apps');
   });
 
   test('renders manual location summary', () => {
@@ -310,6 +338,13 @@ describe('summary', () => {
     onboarding.renderSummary();
     const items = document.querySelectorAll('#summary .summary__item');
     expect(items[0].textContent).toContain('Tokyo');
+  });
+
+  test('summary reflects google apps off state', () => {
+    localStorage.setItem('showGoogleApps', 'false');
+    onboarding.renderSummary();
+    const items = document.querySelectorAll('#summary .summary__item');
+    expect(items[4].textContent).toContain('Off');
   });
 });
 

@@ -6,6 +6,8 @@ try {
     appKey: MODEROK_APP_KEY,
     trackUninstalls: true,
     uninstallUrl: 'https://forms.gle/TMP8XNbPxNZ55U5J9',
+    // defaults on in SDK 1.0.1; every __error is quota we'd rather spend on daily_activity
+    trackErrors: false,
   });
 } catch (error) {
   console.error('[StarWarsWeather] Moderok initialization failed', error);

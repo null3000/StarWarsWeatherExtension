@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>__MSG_popup_title__</title>
+    <title>Star Wars Weather</title>
     <meta http-equiv="Content-Security-Policy" script-src='unsafe-inline';>
     <link rel="stylesheet" href="/public/popup.css">
 </head>
@@ -16,6 +16,29 @@
         </header>
 
         <div class="card-grid">
+            <section class="card">
+                <h2 class="card__title" data-i18n="popup_newtab_title"></h2>
+                <div class="checkbox-group">
+                    <label class="checkbox-option">
+                        <input id="showSearchBar" type="checkbox">
+                        <span data-i18n="popup_show_search_bar"></span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input id="showShortcuts" type="checkbox">
+                        <span data-i18n="popup_show_shortcuts"></span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input id="showGoogleApps" type="checkbox">
+                        <span data-i18n="popup_show_google_apps"></span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input id="showExtrasInHyperspace" type="checkbox">
+                        <span data-i18n="popup_show_extras_hyperspace"></span>
+                    </label>
+                </div>
+                <p class="hint" data-i18n="popup_newtab_hint"></p>
+            </section>
+
             <section class="card">
                 <h2 class="card__title" data-i18n="popup_units_title"></h2>
                 <div class="radio-group">
@@ -49,25 +72,6 @@
                 </div>
                 <p class="hint" data-i18n="popup_language_hint"></p>
                 <p class="hint" data-i18n-html="popup_language_report"></p>
-            </section>
-
-            <section class="card">
-                <h2 class="card__title" data-i18n="popup_newtab_title"></h2>
-                <div class="checkbox-group">
-                    <label class="checkbox-option">
-                        <input id="showSearchBar" type="checkbox">
-                        <span data-i18n="popup_show_search_bar"></span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input id="showShortcuts" type="checkbox">
-                        <span data-i18n="popup_show_shortcuts"></span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input id="showExtrasInHyperspace" type="checkbox">
-                        <span data-i18n="popup_show_extras_hyperspace"></span>
-                    </label>
-                </div>
-                <p class="hint" data-i18n="popup_newtab_hint"></p>
             </section>
 
             <section class="card">

@@ -47,7 +47,6 @@ body {
     gap: 24px;
 }
 
-/* Step indicator */
 .step-indicator {
     display: flex;
     gap: 10px;
@@ -65,7 +64,6 @@ body {
     background: var(--accent);
 }
 
-/* Steps */
 .onboarding-step {
     display: none;
     flex-direction: column;
@@ -85,7 +83,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Logo */
 .onboarding__logo {
     width: 140px;
     height: 140px;
@@ -96,7 +93,6 @@ body {
     object-fit: cover;
 }
 
-/* Typography */
 .onboarding__title {
     margin: 0;
     font-size: 22px;
@@ -114,7 +110,6 @@ body {
     max-width: 460px;
 }
 
-/* Language selector on step 1 */
 .language-selector {
     display: flex;
     gap: 12px;
@@ -147,7 +142,6 @@ body {
     font-weight: 600;
 }
 
-/* Buttons */
 .onboarding__btn {
     appearance: none;
     border: 1px solid var(--border);
@@ -206,7 +200,6 @@ body {
     border-bottom-color: var(--accent-strong);
 }
 
-/* Location choice cards */
 .location-choices {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -261,7 +254,6 @@ body {
     line-height: 1.3;
 }
 
-/* Auto-location status */
 .auto-location-status {
     width: 100%;
     display: flex;
@@ -292,7 +284,6 @@ body {
     justify-content: center;
 }
 
-/* Spinner */
 .spinner {
     width: 28px;
     height: 28px;
@@ -306,7 +297,6 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* Troubleshooting */
 .troubleshoot {
     width: 100%;
     text-align: left;
@@ -383,7 +373,6 @@ body {
     border-bottom-color: var(--accent-strong);
 }
 
-/* Manual search */
 .manual-search {
     width: 100%;
     display: flex;
@@ -455,7 +444,6 @@ body {
     padding: 4px 0;
 }
 
-/* Preferences */
 .preference-groups {
     width: 100%;
     display: flex;
@@ -562,7 +550,6 @@ body {
     padding-left: 12px;
 }
 
-/* Done / summary */
 .summary {
     width: 100%;
     background: var(--surface-alt);
@@ -599,12 +586,10 @@ body {
     border-bottom-color: var(--accent-strong);
 }
 
-/* Hidden utility */
 .hidden {
     display: none !important;
 }
 
-/* Responsive */
 @media (max-width: 500px) {
     body {
         padding: 16px;

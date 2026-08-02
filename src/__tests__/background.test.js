@@ -42,9 +42,9 @@ describe('background service worker', () => {
 
     await import('../background.js');
 
-    // SDK registers its own onInstalled listener + the extension registers one
+    // SDK registers its own onInstalled listener first, the extension's is second
     expect(addListenerSpy.calls.length).toBe(2);
-    installHandler = addListenerSpy.calls[1][0]; // Extension's handler is second
+    installHandler = addListenerSpy.calls[1][0];
     expect(typeof installHandler).toBe('function');
     expect(onMessageSpy.calls.length).toBe(1);
     expect(typeof messageHandler).toBe('function');

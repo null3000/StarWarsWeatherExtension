@@ -45,6 +45,7 @@ p{
 
 #background p,
 #background span,
+#background button,
 #background h1,
 #background h2,
 #background h3,
@@ -57,6 +58,27 @@ p{
         -0.5px  0.5px 0 rgba(0, 0, 0, 0.8),
          0.5px  0.5px 0 rgba(0, 0, 0, 0.8),
          0px  1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.temp-toggle {
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s ease, border-color 0.15s ease;
+}
+
+.temp-toggle:hover,
+.temp-toggle:focus {
+    outline: none;
+    opacity: 0.82;
+    border-bottom-color: rgba(255, 255, 255, 0.55);
 }
 
 .loading {
@@ -100,6 +122,10 @@ p{
     background: url("/public/assets/naboo.webp");
     animation: opacityUp 3s ease;
 }
+.ahchTo{
+    background: url("/public/assets/ahchTo.webp");
+    animation: opacityUp 3s ease;
+}
 
 /* cold/rain/fog night */
 .hothNight{
@@ -118,8 +144,12 @@ p{
     background: url("/public/assets/nabooNight.webp");
     animation: opacityUp 3s ease;
 }
+.ahchToNight{
+    background: url("/public/assets/ahchToNight.webp");
+    animation: opacityUp 3s ease;
+}
 
-/* warm/ high  day*/
+/* warm/high day */
 
 .tatooine{
     background: url("/public/assets/tatooine.webp");
@@ -144,6 +174,14 @@ p{
 
 .mustafar{
     background: url("/public/assets/mustafar.webp");
+    animation: opacityUp 3s ease;
+}
+.geonosis{
+    background: url("/public/assets/geonosis.webp");
+    animation: opacityUp 3s ease;
+}
+.nevarro{
+    background: url("/public/assets/nevarro.webp");
     animation: opacityUp 3s ease;
 }
 
@@ -172,8 +210,15 @@ p{
     background: url("/public/assets/mustafarNight.webp");
     animation: opacityUp 3s ease;
 }
+.geonosisNight{
+    background: url("/public/assets/geonosisNight.webp");
+    animation: opacityUp 3s ease;
+}
+.nevarroNight{
+    background: url("/public/assets/nevarroNight.webp");
+    animation: opacityUp 3s ease;
+}
 
-/* animation slowly increases opcaity from 0 to 1 */
 @keyframes opacityUp {
     0% {
         opacity: .9;
@@ -240,6 +285,13 @@ p{
     padding-left: 8px;
 }
 
+.planet-heading {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
 
 .center3Text {
     float: right;
@@ -285,17 +337,14 @@ p{
     color: rgba(255, 255, 255, 0.7);
 }
 
- /* make link highlight when hovered */
 a:hover {
     color: blue;
 }
 
-/* if link visted, make purple */
 a:visited {
     color: darkmagenta;
 }
 
-/* New tab extras (search bar + shortcuts below weather) */
 .newtab-extras {
     display: flex;
     flex-direction: column;
@@ -312,7 +361,6 @@ a:visited {
     display: none;
 }
 
-/* Search bar */
 .search-form {
     position: relative;
     width: 100%;
@@ -347,7 +395,6 @@ a:visited {
     background: rgba(0, 0, 0, 0.5);
 }
 
-/* Search suggestions dropdown */
 .search-suggestions {
     position: absolute;
     top: 100%;
@@ -415,7 +462,6 @@ a:visited {
     text-shadow: none;
 }
 
-/* Shortcuts grid */
 .shortcuts-grid {
     display: flex;
     flex-wrap: nowrap;
@@ -484,11 +530,728 @@ a:visited {
     opacity: 0.85;
 }
 
-/* Responsive: hide shortcuts on short viewports */
 @media (max-height: 600px) {
     .shortcuts-grid {
         display: none;
     }
 }
 
-/* legacy footer styles removed */
+.google-apps-launcher {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 20;
+}
+
+/* two independent hide flags; the hyperspace animation must not clobber the user's */
+.google-apps-launcher.hidden,
+.google-apps-launcher.hyperspace-hidden {
+    display: none;
+}
+
+.google-apps-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.35);
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.google-apps-button:hover,
+.google-apps-button:focus-visible {
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    outline: none;
+}
+
+.google-apps-waffle {
+    width: 22px;
+    height: 22px;
+}
+
+.google-apps-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 288px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(20, 20, 24, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px);
+}
+
+.google-apps-panel.hidden {
+    display: none;
+}
+
+.google-apps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+
+.google-apps-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 6px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.google-apps-item:hover,
+.google-apps-item:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.google-apps-item:visited {
+    color: #fff;
+}
+
+.google-apps-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.google-apps-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+}
+
+.google-apps-initial {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.google-apps-label {
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    opacity: 0.9;
+    max-width: 72px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: none;
+}
+
+.explore-menu {
+    --explore-brass: #e6c35c;
+    --explore-edge: rgba(255, 255, 255, 0.13);
+    --explore-surface: rgba(6, 10, 18, 0.66);
+    --explore-surface-strong: rgba(6, 10, 18, 0.86);
+    --explore-fog: #f2ebe0;
+
+    position: fixed;
+    left: 18px;
+    bottom: 16px;
+    z-index: 4;
+    font-family: "Open Sans", sans-serif;
+}
+
+.explore-menu.hidden,
+.explore-menu.hyperspace-hidden {
+    display: none;
+}
+
+/* scrim so the disc keeps an edge on sunlit planet backgrounds */
+.explore-menu::before {
+    content: "";
+    position: absolute;
+    left: -22px;
+    bottom: -20px;
+    width: 130px;
+    height: 100px;
+    background: radial-gradient(
+        ellipse at 32% 72%,
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.12) 44%,
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.explore-menu-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 40px;
+    min-width: 40px;
+    padding: 0 10px;
+    border: 1px solid var(--explore-edge);
+    border-radius: 999px;
+    background: var(--explore-surface);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+    color: var(--explore-fog);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease,
+        padding 0.22s ease, box-shadow 0.2s ease;
+}
+
+/* disc stays 40px visually, tap target 48px */
+.explore-menu-button::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+}
+
+.explore-menu-button:hover,
+.explore-menu-button:focus-visible,
+.explore-menu-button[aria-expanded="true"] {
+    background: var(--explore-surface-strong);
+    border-color: rgba(255, 255, 255, 0.22);
+    padding-right: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.38);
+    outline: none;
+}
+
+.explore-menu-button:focus-visible {
+    outline: 2px solid var(--explore-brass);
+    outline-offset: 3px;
+    box-shadow:
+        0 0 0 5px rgba(0, 0, 0, 0.45),
+        0 4px 16px rgba(0, 0, 0, 0.38);
+}
+
+.explore-menu-icon {
+    flex: 0 0 auto;
+    width: 19px;
+    height: 19px;
+    color: var(--explore-fog);
+    opacity: 0.82;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.explore-menu-button:hover .explore-menu-icon,
+.explore-menu-button:focus-visible .explore-menu-icon,
+.explore-menu-button[aria-expanded="true"] .explore-menu-icon {
+    color: var(--explore-brass);
+    opacity: 1;
+}
+
+.explore-menu-orbit {
+    opacity: 0.72;
+    transition: opacity 0.2s ease;
+}
+
+.explore-menu-button:hover .explore-menu-orbit,
+.explore-menu-button:focus-visible .explore-menu-orbit,
+.explore-menu-button[aria-expanded="true"] .explore-menu-orbit {
+    opacity: 0.9;
+}
+
+/* kept in the DOM for screen readers and localisation, collapsed until engaged */
+.explore-menu-button-label {
+    max-width: 0;
+    margin-left: 0;
+    overflow: hidden;
+    opacity: 0;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    transition: max-width 0.22s ease, margin-left 0.22s ease, opacity 0.18s ease;
+}
+
+.explore-menu-button:hover .explore-menu-button-label,
+.explore-menu-button:focus-visible .explore-menu-button-label,
+.explore-menu-button[aria-expanded="true"] .explore-menu-button-label {
+    max-width: 140px;
+    margin-left: 8px;
+    opacity: 0.92;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .explore-menu-button,
+    .explore-menu-icon,
+    .explore-menu-orbit,
+    .explore-menu-button-label {
+        transition: none;
+    }
+}
+
+.explore-menu-panel {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 10px);
+    min-width: 190px;
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid rgba(230, 195, 92, 0.22);
+    background: rgba(6, 10, 18, 0.74);
+    backdrop-filter: blur(14px) saturate(125%);
+    -webkit-backdrop-filter: blur(14px) saturate(125%);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.explore-menu-panel.hidden {
+    display: none;
+}
+
+.explore-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.8rem;
+    letter-spacing: 0.2px;
+    text-align: left;
+    padding: 9px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    text-shadow: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.explore-menu-item-icon {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    opacity: 0.9;
+    /* Lucide stroke SVGs render black as <img>; invert for the dark menu */
+    filter: brightness(0) invert(1);
+}
+
+.explore-menu-item-label {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.explore-menu-item:hover,
+.explore-menu-item:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.explore-menu-item:hover .explore-menu-item-icon,
+.explore-menu-item:focus-visible .explore-menu-item-icon {
+    opacity: 1;
+}
+
+.explore-menu-item.hidden,
+.explore-menu-item[hidden] {
+    display: none;
+}
+
+.explore-menu-separator {
+    height: 1px;
+    margin: 4px 6px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.passport {
+    --dossier-ink: #0c1016;
+    --dossier-field: #151c26;
+    --dossier-brass: #c4a46a;
+    --dossier-brass-soft: rgba(196, 164, 106, 0.45);
+    --dossier-fog: #e6e0d2;
+    --dossier-mute: rgba(230, 224, 210, 0.62);
+
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    pointer-events: none;
+    background: transparent;
+    font-family: "Open Sans", "Segoe UI", sans-serif;
+    transition: background 0.22s ease;
+}
+
+.passport p,
+.passport h2,
+.passport button,
+.passport span {
+    text-shadow: none;
+}
+
+.passport.hidden {
+    display: none;
+}
+
+.passport.is-open {
+    pointer-events: auto;
+    background: rgba(4, 6, 10, 0.62);
+}
+
+.passport-panel {
+    pointer-events: auto;
+    width: min(560px, calc(100vw - 40px));
+    max-height: min(86vh, 720px);
+    overflow: auto;
+    transform: translateY(10px) scale(0.985);
+    opacity: 0;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.passport-panel:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.passport-panel.hidden {
+    display: none;
+}
+
+.passport-dossier {
+    position: relative;
+    padding: 22px 22px 18px;
+    border-radius: 4px;
+    border: 1px solid var(--dossier-brass-soft);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 28%),
+        radial-gradient(ellipse at 20% 0%, rgba(196, 164, 106, 0.08), transparent 45%),
+        linear-gradient(160deg, #1a2230 0%, var(--dossier-field) 48%, var(--dossier-ink) 100%);
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.55),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+        inset 0 0 40px rgba(0, 0, 0, 0.25);
+    text-shadow: none;
+}
+
+.passport-dossier::before,
+.passport-dossier::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1px solid rgba(196, 164, 106, 0.55);
+    pointer-events: none;
+}
+
+.passport-dossier::before {
+    top: 8px;
+    left: 8px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.passport-dossier::after {
+    right: 8px;
+    bottom: 8px;
+    border-left: none;
+    border-top: none;
+}
+
+.passport-panel-header {
+    margin-bottom: 16px;
+}
+
+.passport-heading-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.passport-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.passport-title {
+    margin: 0;
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    text-transform: none;
+    color: var(--dossier-fog);
+    text-shadow: none;
+}
+
+.passport-count {
+    margin: 0;
+    width: auto;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--dossier-mute);
+    text-shadow: none;
+}
+
+.passport-progress {
+    margin-top: 12px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.passport-progress-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #8a7340, var(--dossier-brass));
+    transition: width 0.35s ease;
+}
+
+.passport-close {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(230, 224, 210, 0.22);
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.2);
+    color: rgba(230, 224, 210, 0.78);
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.passport-close:hover,
+.passport-close:focus-visible {
+    color: #fff;
+    border-color: var(--dossier-brass-soft);
+    background: rgba(196, 164, 106, 0.12);
+    outline: none;
+}
+
+.passport-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.passport-stamp {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background-color: #1a222c;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+/* src is set per-tile by renderPassportGrid; fades up over the tile's slate */
+.passport-stamp-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.passport-stamp-art.loaded {
+    opacity: 1;
+}
+
+.passport-stamp.visited {
+    border-color: rgba(196, 164, 106, 0.78);
+    box-shadow:
+        0 0 0 1px rgba(196, 164, 106, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.passport-stamp.visited::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--dossier-brass);
+    box-shadow: 0 0 0 2px rgba(12, 16, 22, 0.55);
+    z-index: 2;
+}
+
+.passport-stamp.locked {
+    filter: grayscale(0.7) saturate(0.55);
+}
+
+.passport-stamp.locked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(8, 10, 14, 0.25), rgba(8, 10, 14, 0.72));
+    pointer-events: none;
+}
+
+.passport-stamp-name {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 18px 6px 7px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.78) 55%);
+}
+
+.passport-stamp.locked .passport-stamp-name {
+    color: rgba(230, 224, 210, 0.78);
+}
+
+/* lives inside the stamp because .passport-stamp clips overflow */
+.passport-stamp-requirement {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 5px;
+    background: rgba(8, 11, 16, 0.93);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.16s ease;
+}
+
+.passport-stamp:hover .passport-stamp-requirement,
+.passport-stamp:focus-visible .passport-stamp-requirement,
+.passport-stamp:focus-within .passport-stamp-requirement {
+    opacity: 1;
+}
+
+.passport-stamp:hover .passport-stamp-name,
+.passport-stamp:focus-visible .passport-stamp-name,
+.passport-stamp:focus-within .passport-stamp-name {
+    opacity: 0;
+}
+
+.passport-stamp-name {
+    transition: opacity 0.16s ease;
+}
+
+.passport-stamp:focus-visible {
+    outline: 2px solid var(--dossier-brass, #c4a46a);
+    outline-offset: 2px;
+}
+
+.passport-stamp-requirement-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dossier-brass, #c4a46a);
+    line-height: 1;
+}
+
+.passport-stamp-requirement-text {
+    font-size: 9.5px;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.95);
+    overflow-wrap: anywhere;
+    hyphens: auto;
+}
+
+/* locked grayscale/scrim would wash out the readout */
+.passport-stamp.locked:hover,
+.passport-stamp.locked:focus-visible,
+.passport-stamp.locked:focus-within {
+    filter: none;
+}
+
+.passport-stamp.locked:hover::after,
+.passport-stamp.locked:focus-visible::after,
+.passport-stamp.locked:focus-within::after {
+    opacity: 0;
+}
+
+.passport-hint {
+    margin: 14px 0 0;
+    width: auto;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    color: var(--dossier-mute);
+    text-shadow: none;
+}
+
+@media (max-width: 560px) {
+    .passport {
+        padding: 12px;
+        align-items: flex-end;
+    }
+
+    .passport-panel {
+        width: 100%;
+        max-height: min(88vh, 680px);
+    }
+
+    .passport-title {
+        font-size: 1.3rem;
+    }
+
+    .passport-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .passport-stamp {
+        aspect-ratio: 4 / 3;
+    }
+
+    .passport-stamp-name {
+        font-size: 12px;
+        padding-top: 28px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .passport,
+    .passport-panel,
+    .passport-progress-bar,
+    .passport-stamp-art,
+    .passport-stamp-requirement,
+    .passport-stamp-name {
+        transition: none;
+    }
+
+    .passport-panel {
+        transform: none;
+    }
+}
+

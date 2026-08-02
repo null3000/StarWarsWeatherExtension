@@ -120,3 +120,18 @@
 - Chinese is auto-selected on first run when the browser language is set to Chinese
 - added a "report a bad translation" link to the language settings in the popup and options pages
 - extended locale key tests to cover the new zh_TW locale
+
+# v2.4
+- added three new worlds with day and night artwork: Ahch-To for squalls, Geonosis for sand and dust storms, and Nevarro for ash, smoke, and haze
+- added Tour the Galaxy, a full-page tour of every planet with day and night artwork and arrow-key navigation
+- added the Planet Passport, which stamps each world your local weather has sent you to and tracks your progress
+- hover or tab to a passport stamp to see the weather conditions that unlock that world
+- added an Explore menu on the new tab for the Tour, the Passport, and Settings
+- added a Google apps launcher (Gmail, Drive, Maps, Calendar, and more) to the new tab, with toggles in onboarding and settings
+- day and night backgrounds now follow the real sunrise and sunset times for your location
+- click the temperature on the new tab to switch between Fahrenheit and Celsius
+- added an offline "signal lost" screen so a failed weather or location lookup no longer leaves you stuck in hyperspace
+- settings now open as a full page with a redesigned layout
+- your city name is now remembered for up to 30 days instead of being looked up on every new tab, roughly halving the requests made to the weather service
+- repeating a location search in the popup or during setup now brings the suggestions back instantly
+- updated localization strings (EN + ES + zh_TW)

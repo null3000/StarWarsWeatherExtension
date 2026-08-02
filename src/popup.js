@@ -4,19 +4,23 @@ import {
   getPreferredLanguage,
   getPreferredUnit,
   getShowExtrasInHyperspace,
+  getShowGoogleApps,
   getShowSearchBar,
   getShowShortcuts,
+  readGeocodeQueryCache,
   setManualLocation,
   setPreferredLanguage,
   setPreferredUnit,
   setShowExtrasInHyperspace,
+  setShowGoogleApps,
   setShowSearchBar,
-  setShowShortcuts
+  setShowShortcuts,
+  writeGeocodeQueryCache
 } from './storage.js';
 import { loadLocalization, invalidateLocalizationCache } from './i18n.js';
 import { stateToAbbreviation } from './geo.js';
 import { GEOCODING_DIRECT_ENDPOINT, GEOCODING_RESULT_LIMIT } from './config.js';
-import { Moderok } from './vendor/moderok.js';
+import { recordGeocodeCall, track } from './telemetry.js';
 
 let currentLocalization = null;
 let manualLocationStatus = null;
@@ -42,7 +46,7 @@ function attachUnitHandlers() {
       const value = event.target.value === 'celsius' ? 'celsius' : 'fahrenheit';
       setPreferredUnit(value);
       clearWeatherCache();
-      Moderok.track('unit_changed', { unit: value });
+      track('setting_changed', { setting: 'unit', value, surface: 'popup' });
     });
   });
 }
@@ -60,7 +64,7 @@ function attachLanguageHandlers() {
       }
       setPreferredLanguage(language);
       clearWeatherCache();
-      Moderok.track('language_changed', { language });
+      track('setting_changed', { setting: 'language', value: language, surface: 'popup' });
       invalidateLocalizationCache(language);
       await refreshLocalization(language);
     });
@@ -102,15 +106,20 @@ function synchroniseControls() {
 
   const showSearch = getShowSearchBar();
   const showShortcutsVal = getShowShortcuts();
+  const showGoogleAppsVal = getShowGoogleApps();
 
   const searchBarCheckbox = document.getElementById('showSearchBar');
   const shortcutsCheckbox = document.getElementById('showShortcuts');
+  const googleAppsCheckbox = document.getElementById('showGoogleApps');
 
   if (searchBarCheckbox) {
     searchBarCheckbox.checked = showSearch;
   }
   if (shortcutsCheckbox) {
     shortcutsCheckbox.checked = showShortcutsVal;
+  }
+  if (googleAppsCheckbox) {
+    googleAppsCheckbox.checked = showGoogleAppsVal;
   }
 
   syncHyperspaceCheckboxUi(showSearch || showShortcutsVal);
@@ -132,6 +141,7 @@ function syncHyperspaceCheckboxUi(eitherVisible) {
 function attachNewtabHandlers() {
   const searchBarCheckbox = document.getElementById('showSearchBar');
   const shortcutsCheckbox = document.getElementById('showShortcuts');
+  const googleAppsCheckbox = document.getElementById('showGoogleApps');
   const extrasInHyperspaceCheckbox = document.getElementById('showExtrasInHyperspace');
 
   if (searchBarCheckbox) {
@@ -152,7 +162,7 @@ function attachNewtabHandlers() {
         }
       }
       setShowSearchBar(event.target.checked);
-      Moderok.track('search_bar_toggled', { enabled: event.target.checked });
+      track('setting_changed', { setting: 'searchBar', enabled: event.target.checked, surface: 'popup' });
       syncHyperspaceCheckboxUi(getShowSearchBar() || getShowShortcuts());
     });
   }
@@ -175,14 +185,22 @@ function attachNewtabHandlers() {
         }
       }
       setShowShortcuts(event.target.checked);
-      Moderok.track('shortcuts_toggled', { enabled: event.target.checked });
+      track('setting_changed', { setting: 'shortcuts', enabled: event.target.checked, surface: 'popup' });
       syncHyperspaceCheckboxUi(getShowSearchBar() || getShowShortcuts());
+    });
+  }
+
+  if (googleAppsCheckbox) {
+    googleAppsCheckbox.addEventListener('change', (event) => {
+      setShowGoogleApps(event.target.checked);
+      track('setting_changed', { setting: 'googleApps', enabled: event.target.checked, surface: 'popup' });
     });
   }
 
   if (extrasInHyperspaceCheckbox) {
     extrasInHyperspaceCheckbox.addEventListener('change', (event) => {
       setShowExtrasInHyperspace(event.target.checked);
+      track('setting_changed', { setting: 'extrasInHyperspace', enabled: event.target.checked, surface: 'popup' });
     });
   }
 }
@@ -260,7 +278,7 @@ async function handleManualLocationSearch(input) {
 function handleManualLocationClear() {
   setManualLocation(null);
   clearWeatherCache();
-  Moderok.track('manual_location_cleared');
+  track('manual_location_changed', { action: 'cleared' });
   populateManualLocationInput();
   renderManualLocationMessage('auto');
 }
@@ -281,7 +299,15 @@ function populateManualLocationInput() {
   }
 }
 
+// Can't share the reverse-geocode cache: that one is keyed by coordinates, and a
+// city-name search has none until it returns. Own query-keyed store instead.
 async function fetchManualLocationSuggestions(query) {
+  const cached = readGeocodeQueryCache(query);
+  if (cached) {
+    // a cached empty list is a remembered "no such city", so don't re-request it
+    return cached.results;
+  }
+
   if (typeof API_KEY === 'undefined') {
     throw new Error('API key is not available');
   }
@@ -291,12 +317,17 @@ async function fetchManualLocationSuggestions(query) {
   url.searchParams.set('limit', String(GEOCODING_RESULT_LIMIT));
   url.searchParams.set('appid', API_KEY);
 
+  recordGeocodeCall();
   const response = await fetch(url.toString());
   if (!response.ok) {
+    // a failure says nothing about the query, so leave it uncached
     throw new Error(`Geocoding request failed with status ${response.status}`);
   }
 
-  return response.json();
+  const results = await response.json();
+  // empty lists cached too (shorter negative TTL) so retyping a typo doesn't re-request
+  writeGeocodeQueryCache(query, results);
+  return results;
 }
 
 function renderManualLocationOptions(results) {
@@ -338,7 +369,7 @@ function renderManualLocationOptions(results) {
         displayName
       });
       clearWeatherCache();
-      Moderok.track('manual_location_set', { country: result.country || 'unknown' });
+      track('manual_location_changed', { action: 'set', country: result.country || 'unknown' });
       populateManualLocationInput();
       renderManualLocationMessage('selected', displayName);
     });
@@ -387,6 +418,22 @@ function applyTranslations(localization) {
     const message = localization.getMessage(key) || '';
     element.setAttribute('placeholder', message);
   });
+
+  document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
+    const key = element.getAttribute('data-i18n-aria-label');
+    if (!key) {
+      return;
+    }
+
+    const message = localization.getMessage(key) || '';
+    element.setAttribute('aria-label', message);
+  });
+
+  // Full-tab settings (and popup) don't always expand __MSG_*__ in <title>.
+  const title = localization.getMessage('popup_title');
+  if (title && typeof document !== 'undefined') {
+    document.title = title;
+  }
 
   if (manualLocationStatus) {
     renderManualLocationMessage(manualLocationStatus.type, manualLocationStatus.value);

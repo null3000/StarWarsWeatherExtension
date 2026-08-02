@@ -1,29 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>__MSG_popup_title__</title>
+    <title>Star Wars Weather</title>
     <meta http-equiv="Content-Security-Policy" script-src='unsafe-inline';>
-    <link rel="stylesheet" href="/public/popup.css">
+    <link rel="stylesheet" href="/public/settings.css">
 </head>
-<body>
-    <div class="main">
-        <header class="hero">
-            <h1 class="hero__title" data-i18n="popup_title"></h1>
-            <p class="hero__subtitle" id="test" data-i18n="popup_subtitle"></p>
+<body class="settings-page">
+    <div class="settings-sky" aria-hidden="true"></div>
+
+    <div class="settings-shell">
+        <header class="settings-hero">
+            <p class="settings-kicker" data-i18n="popup_settings_kicker">Preferences</p>
+            <h1 class="settings-title" data-i18n="popup_title">Star Wars Weather</h1>
+            <p class="settings-subtitle" id="test" data-i18n="popup_subtitle"></p>
         </header>
 
-        <div class="card-grid">
-            <section class="card">
-                <h2 class="card__title" data-i18n="popup_units_title"></h2>
-                <div class="radio-group">
-                    <label class="radio-option">
+        <div class="settings-stack">
+            <section class="settings-section">
+                <h2 class="settings-section__title" data-i18n="popup_newtab_title"></h2>
+                <div class="choice-group choice-group--stack">
+                    <label class="choice">
+                        <input id="showSearchBar" type="checkbox">
+                        <span data-i18n="popup_show_search_bar"></span>
+                    </label>
+                    <label class="choice">
+                        <input id="showShortcuts" type="checkbox">
+                        <span data-i18n="popup_show_shortcuts"></span>
+                    </label>
+                    <label class="choice">
+                        <input id="showGoogleApps" type="checkbox">
+                        <span data-i18n="popup_show_google_apps"></span>
+                    </label>
+                    <label class="choice">
+                        <input id="showExtrasInHyperspace" type="checkbox">
+                        <span data-i18n="popup_show_extras_hyperspace"></span>
+                    </label>
+                </div>
+                <p class="hint" data-i18n="popup_newtab_hint"></p>
+            </section>
+
+            <section class="settings-section">
+                <h2 class="settings-section__title" data-i18n="popup_units_title"></h2>
+                <div class="choice-group">
+                    <label class="choice">
                         <input id="fahrenheit" type="radio" name="temp" value="fahrenheit" checked>
                         <span data-i18n="units_fahrenheit_label"></span>
                     </label>
-                    <label class="radio-option">
+                    <label class="choice">
                         <input id="celsius" type="radio" name="temp" value="celsius">
                         <span data-i18n="units_celsius_label"></span>
                     </label>
@@ -31,18 +57,18 @@
                 <p class="hint" data-i18n="popup_units_hint"></p>
             </section>
 
-            <section class="card">
-                <h2 class="card__title" data-i18n="popup_language_title"></h2>
-                <div class="radio-group">
-                    <label class="radio-option">
+            <section class="settings-section">
+                <h2 class="settings-section__title" data-i18n="popup_language_title"></h2>
+                <div class="choice-group">
+                    <label class="choice">
                         <input id="en" type="radio" name="lang" value="English" checked>
                         <span data-i18n="language_english_label"></span>
                     </label>
-                    <label class="radio-option">
+                    <label class="choice">
                         <input id="es" type="radio" name="lang" value="Spanish">
                         <span data-i18n="language_spanish_label"></span>
                     </label>
-                    <label class="radio-option">
+                    <label class="choice">
                         <input id="zh" type="radio" name="lang" value="Chinese">
                         <span data-i18n="language_chinese_label"></span>
                     </label>
@@ -51,27 +77,8 @@
                 <p class="hint" data-i18n-html="popup_language_report"></p>
             </section>
 
-            <section class="card">
-                <h2 class="card__title" data-i18n="popup_newtab_title"></h2>
-                <div class="checkbox-group">
-                    <label class="checkbox-option">
-                        <input id="showSearchBar" type="checkbox">
-                        <span data-i18n="popup_show_search_bar"></span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input id="showShortcuts" type="checkbox">
-                        <span data-i18n="popup_show_shortcuts"></span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input id="showExtrasInHyperspace" type="checkbox">
-                        <span data-i18n="popup_show_extras_hyperspace"></span>
-                    </label>
-                </div>
-                <p class="hint" data-i18n="popup_newtab_hint"></p>
-            </section>
-
-            <section class="card">
-                <h2 class="card__title" data-i18n="popup_manual_location_title"></h2>
+            <section class="settings-section">
+                <h2 class="settings-section__title" data-i18n="popup_manual_location_title"></h2>
                 <div class="input-group">
                     <div class="input-row">
                         <input id="manualLocationInput" type="text" class="text-input" data-i18n-placeholder="popup_manual_location_placeholder">
@@ -83,8 +90,8 @@
                 <p class="hint" data-i18n="popup_manual_location_hint"></p>
             </section>
 
-            <section class="card">
-                <h2 class="card__title" data-i18n="popup_links_title"></h2>
+            <section class="settings-section settings-section--links">
+                <h2 class="settings-section__title" data-i18n="popup_links_title"></h2>
                 <ul class="link-list">
                     <li data-i18n-html="popup_link_rate"></li>
                     <li data-i18n-html="popup_link_bug"></li>
@@ -95,6 +102,7 @@
             </section>
         </div>
     </div>
+
     <script type="module" src="/src/env.js"></script>
     <script type="module" src="/src/popup.js"></script>
 </body>

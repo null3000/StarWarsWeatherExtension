@@ -1,6 +1,6 @@
 import { getFaviconUrl } from './newtab.js';
 import { SUGGESTION_LIMIT, DEBOUNCE_MS } from './config.js';
-import { Moderok } from './vendor/moderok.js';
+import { track } from './telemetry.js';
 
 const SHOULD_INIT = !(typeof globalThis !== 'undefined' && globalThis.__SWW_SKIP_INIT__ === true);
 
@@ -9,7 +9,7 @@ export function looksLikeUrl(input) {
   const trimmed = input.trim();
   if (/^https?:\/\//i.test(trimmed)) return true;
   if (/^www\./i.test(trimmed)) return true;
-  // Bare domain: at least one dot, no spaces, valid-looking TLD
+  // bare domain: a dot, no spaces, plausible TLD
   if (/^[^\s/]+\.[a-z]{2,}(\/\S*)?$/i.test(trimmed)) return true;
   return false;
 }
@@ -50,7 +50,6 @@ export async function fetchHistorySuggestions(query) {
   }
   if (!Array.isArray(results)) return [];
 
-  // Deduplicate by hostname+pathname
   const seen = new Set();
   const unique = [];
   for (const item of results) {
@@ -66,7 +65,6 @@ export async function fetchHistorySuggestions(query) {
     }
   }
 
-  // Sort by visit count descending, return top 5
   unique.sort((a, b) => b.visitCount - a.visitCount);
   return unique.slice(0, SUGGESTION_LIMIT);
 }
@@ -112,7 +110,7 @@ export function renderSuggestions(suggestions, container, { onSelect } = {}) {
 
     li.appendChild(textWrapper);
 
-    // Use mousedown + preventDefault so blur doesn't hide dropdown before click fires
+    // mousedown + preventDefault so blur doesn't hide the dropdown before click fires
     li.addEventListener('mousedown', (e) => {
       e.preventDefault();
       if (onSelect) onSelect(suggestion.url);
@@ -178,7 +176,7 @@ export function handleSearchSubmit(event, { searchInput, selectedUrl }) {
   const query = searchInput.value.trim();
   if (!query) return;
 
-  Moderok.track('search_performed');
+  track('search_performed', { kind: looksLikeUrl(query) ? 'url' : 'query' });
 
   if (looksLikeUrl(query)) {
     window.location.href = normalizeUrl(query);

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour the Galaxy</title>
+    <link rel="stylesheet" href="/public/tour.css">
+</head>
+<body>
+    <div id="tourStage" class="tour-stage" role="img" aria-live="polite">
+        <div class="tour-veil" aria-hidden="true"></div>
+
+        <header class="tour-chrome">
+            <button
+                type="button"
+                id="tourClose"
+                class="tour-back"
+                data-i18n-aria-label="tour_back"
+                aria-label="Back"
+            >
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                    <path
+                        fill="currentColor"
+                        d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                    />
+                </svg>
+            </button>
+            <p class="tour-brand" data-i18n="popup_tour_title">Tour the Galaxy</p>
+        </header>
+
+        <main class="tour-hero">
+            <p id="tourVisitedStamp" class="tour-stamp" hidden></p>
+            <p id="tourCounter" class="tour-counter" aria-hidden="true"></p>
+            <h1 id="tourPlanetName" class="tour-planet-name"></h1>
+            <p id="tourPlanetDescription" class="tour-planet-description"></p>
+
+            <div class="tour-controls">
+                <button type="button" id="tourPrev" class="tour-nav" data-i18n="popup_tour_prev">Prev</button>
+
+                <div class="tour-time" role="group" data-i18n-aria-label="tour_time_of_day_label" aria-label="Time of day">
+                    <button
+                        type="button"
+                        id="tourDay"
+                        class="tour-time__option"
+                        data-tour-time="day"
+                        aria-pressed="true"
+                    >
+                        <span data-i18n="popup_tour_day">Day</span>
+                    </button>
+                    <button
+                        type="button"
+                        id="tourNight"
+                        class="tour-time__option"
+                        data-tour-time="night"
+                        aria-pressed="false"
+                    >
+                        <span data-i18n="popup_tour_night">Night</span>
+                    </button>
+                </div>
+
+                <button type="button" id="tourNext" class="tour-nav" data-i18n="popup_tour_next">Next</button>
+            </div>
+
+            <p class="tour-hint" data-i18n="tour_keyboard_hint">Use ← → to change worlds</p>
+        </main>
+    </div>
+
+    <script type="module" src="/src/env.js"></script>
+    <script type="module" src="/src/tourPage.js"></script>
+</body>
+</html>

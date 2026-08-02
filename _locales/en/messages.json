@@ -11,6 +11,12 @@
   "error_weather_unavailable": {
     "message": "Unable to retrieve weather data right now."
   },
+  "offline_signal_lost": {
+    "message": "Sensors offline — last known: $1"
+  },
+  "offline_random_planet": {
+    "message": "Sensors offline — signal lost. Displaying a random sector."
+  },
   "alert_geolocation_error": {
     "message": "Unable to retrieve your location. Please enable location services for this extension. Check the FAQ for more information."
   },
@@ -104,6 +110,33 @@
   "planet_scarif_description": {
     "message": "A Remote, Tropical Planet in the Outer Rim"
   },
+  "planet_ahchTo_name": {
+    "message": "Ahch-To"
+  },
+  "planet_ahchTo_summary": {
+    "message": "$1, and a Squally $2"
+  },
+  "planet_ahchTo_description": {
+    "message": "Home of the First Jedi Temple, Hidden in an Endless Ocean"
+  },
+  "planet_geonosis_name": {
+    "message": "Geonosis"
+  },
+  "planet_geonosis_summary": {
+    "message": "$1, and a Dusty $2"
+  },
+  "planet_geonosis_description": {
+    "message": "Where the Clone Wars Began"
+  },
+  "planet_nevarro_name": {
+    "message": "Nevarro"
+  },
+  "planet_nevarro_summary": {
+    "message": "$1, and a Hazy $2"
+  },
+  "planet_nevarro_description": {
+    "message": "Black Sands and Lava Flats of the Outer Rim"
+  },
   "planet_naboo_name": {
     "message": "Naboo"
   },
@@ -155,6 +188,12 @@
   "popup_show_shortcuts": {
     "message": "Show Shortcuts"
   },
+  "popup_show_google_apps": {
+    "message": "Show Google apps"
+  },
+  "google_apps_button_label": {
+    "message": "Google apps"
+  },
   "popup_show_extras_hyperspace": {
     "message": "Show search & shortcuts during hyperspace"
   },
@@ -167,8 +206,53 @@
   "popup_title": {
     "message": "Star Wars Weather"
   },
+  "popup_settings_kicker": {
+    "message": "Preferences"
+  },
+  "popup_github_cta": {
+    "message": "GitHub"
+  },
+  "popup_card_github_desc": {
+    "message": "@vaughnbosu"
+  },
+  "popup_card_rate_title": {
+    "message": "Leave a rating"
+  },
+  "popup_card_rate_desc": {
+    "message": "Chrome Web Store"
+  },
+  "popup_card_source_title": {
+    "message": "Source code"
+  },
+  "popup_card_source_desc": {
+    "message": "StarWarsWeatherExtension"
+  },
+  "popup_card_bug_title": {
+    "message": "Report a bug"
+  },
+  "popup_card_bug_desc": {
+    "message": "Open a GitHub issue"
+  },
+  "popup_card_faq_title": {
+    "message": "FAQ"
+  },
+  "popup_card_faq_desc": {
+    "message": "Common questions"
+  },
+  "popup_card_survey_title": {
+    "message": "Survey"
+  },
+  "popup_card_survey_desc": {
+    "message": "Share quick feedback"
+  },
+  "popup_card_coffee_title": {
+    "message": "Buy me a coffee"
+  },
+  "popup_card_coffee_desc": {
+    "message": "Support the project"
+  },
   "popup_subtitle": {
-    "message": "Thanks for using the extension! Choose your preferences below or explore more resources."
+    "message": "Tune the new tab to your taste — units, language, location, and chrome."
   },
   "popup_units_title": {
     "message": "Temperature Units"
@@ -181,6 +265,39 @@
   },
   "units_celsius_label": {
     "message": "Celsius"
+  },
+  "temp_toggle_hint": {
+    "message": "Click to switch units"
+  },
+  "popup_tour_title": {
+    "message": "Tour the Galaxy"
+  },
+  "popup_tour_hint": {
+    "message": "Explore every world's day and night artwork in a full-screen tour."
+  },
+  "popup_tour_open": {
+    "message": "Tour the Galaxy"
+  },
+  "popup_tour_prev": {
+    "message": "Prev"
+  },
+  "popup_tour_next": {
+    "message": "Next"
+  },
+  "popup_tour_day": {
+    "message": "Day"
+  },
+  "popup_tour_night": {
+    "message": "Night"
+  },
+  "tour_back": {
+    "message": "Back"
+  },
+  "tour_keyboard_hint": {
+    "message": "Use ← → to change worlds"
+  },
+  "tour_time_of_day_label": {
+    "message": "Time of day"
   },
   "popup_language_title": {
     "message": "Language"
@@ -353,6 +470,12 @@
   "onboarding_prefs_shortcuts_hint": {
     "message": "Show your most visited sites on your new tab page"
   },
+  "onboarding_prefs_google_apps_label": {
+    "message": "Show Google Apps"
+  },
+  "onboarding_prefs_google_apps_hint": {
+    "message": "Show a Google apps launcher on your new tab page"
+  },
   "onboarding_prefs_continue": {
     "message": "Continue"
   },
@@ -386,6 +509,12 @@
   "onboarding_done_shortcuts_off": {
     "message": "Shortcuts: Off"
   },
+  "onboarding_done_google_apps_on": {
+    "message": "Google apps: On"
+  },
+  "onboarding_done_google_apps_off": {
+    "message": "Google apps: Off"
+  },
   "onboarding_done_hint": {
     "message": "You can change these anytime from the extension settings."
   },
@@ -400,5 +529,119 @@
   },
   "onboarding_done_faq_link": {
     "message": "Have questions? Check the <a href=\"./FAQ.html\" target=\"_blank\" rel=\"noopener\">FAQ</a> for tips on the Chrome footer, weather updates, and more."
+  },
+  "explore_menu_label": {
+    "message": "Explore"
+  },
+  "explore_menu_settings": {
+    "message": "Settings"
+  },
+  "passport_worlds_visited": {
+    "message": "$1/$2 worlds visited"
+  },
+  "passport_title": {
+    "message": "Planet Passport"
+  },
+  "passport_hint": {
+    "message": "Stamps unlock when local weather matches a world."
+  },
+  "passport_close": {
+    "message": "Close"
+  },
+  "passport_stamp_visited": {
+    "message": "$1 visited"
+  },
+  "passport_stamp_locked": {
+    "message": "$1 locked"
+  },
+  "planet_reason_hoth_snow": {
+    "message": "Matched: snow → Hoth"
+  },
+  "planet_reason_hoth_cold": {
+    "message": "Matched: temp ≤ 32°F → Hoth"
+  },
+  "planet_reason_kamino_rain": {
+    "message": "Matched: rain / storms → Kamino"
+  },
+  "planet_reason_endor_fog": {
+    "message": "Matched: fog / mist → Endor"
+  },
+  "planet_reason_bespin_wind": {
+    "message": "Matched: wind ≥ 35 mph → Bespin"
+  },
+  "planet_reason_scarif_tropical": {
+    "message": "Matched: 70–85°F clear skies → Scarif"
+  },
+  "planet_reason_dagobah_humid": {
+    "message": "Matched: humidity ≥ 93% and hot → Dagobah"
+  },
+  "planet_reason_ahchTo_squall": {
+    "message": "Matched: squalls → Ahch-To"
+  },
+  "planet_reason_geonosis_sandstorm": {
+    "message": "Matched: sand / dust → Geonosis"
+  },
+  "planet_reason_nevarro_ash": {
+    "message": "Matched: ash / smoke / haze → Nevarro"
+  },
+  "planet_reason_naboo_chilly": {
+    "message": "Matched: 33–54°F → Naboo"
+  },
+  "planet_reason_coruscant_mild": {
+    "message": "Matched: 55–79°F → Coruscant"
+  },
+  "planet_reason_coruscant_default": {
+    "message": "Matched: default conditions → Coruscant"
+  },
+  "planet_reason_tatooine_hot": {
+    "message": "Matched: 80–95°F → Tatooine"
+  },
+  "planet_reason_mustafar_scorching": {
+    "message": "Matched: temp ≥ 96°F → Mustafar"
+  },
+  "passport_requirement_label": {
+    "message": "Requires"
+  },
+  "passport_requirement_hoth": {
+    "message": "Snow, or $1 and colder"
+  },
+  "passport_requirement_kamino": {
+    "message": "Rain, drizzle, or thunderstorms"
+  },
+  "passport_requirement_endor": {
+    "message": "Fog or mist"
+  },
+  "passport_requirement_bespin": {
+    "message": "Wind 35 mph or faster"
+  },
+  "passport_requirement_scarif": {
+    "message": "$1–$2 with clear skies"
+  },
+  "passport_requirement_dagobah": {
+    "message": "Humidity 93% or higher, above $1"
+  },
+  "passport_requirement_ahchTo": {
+    "message": "Sudden squalls"
+  },
+  "passport_requirement_geonosis": {
+    "message": "Sandstorms or blowing dust"
+  },
+  "passport_requirement_nevarro": {
+    "message": "Volcanic ash, smoke, or haze"
+  },
+  "passport_requirement_naboo": {
+    "message": "$1–$2"
+  },
+  "passport_requirement_coruscant": {
+    "message": "$1–$2"
+  },
+  "passport_requirement_tatooine": {
+    "message": "$1–$2"
+  },
+  "passport_requirement_mustafar": {
+    "message": "$1 or hotter"
+  },
+  "passport_stamp_requirement": {
+    "message": "$1 requires: $2"
   }
 }

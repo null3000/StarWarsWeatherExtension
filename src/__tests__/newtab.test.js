@@ -290,10 +290,9 @@ describe('applyHyperspaceHidden', () => {
     newtab.applyHyperspaceHidden(newtabExtras, background);
     expect(newtabExtras.classList.contains('hyperspace-hidden')).toBe(true);
 
-    // Simulate background transitioning to a planet
     background.className = 'tatooine';
 
-    // MutationObserver is async — wait a tick for it to fire
+    // MutationObserver is async, so wait a tick
     return new Promise((resolve) => {
       setTimeout(() => {
         expect(newtabExtras.classList.contains('hyperspace-hidden')).toBe(false);

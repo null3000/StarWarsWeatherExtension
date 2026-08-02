@@ -1,4 +1,11 @@
-import { getPreferredLanguage, getShowSearchBar, getShowShortcuts, getShowExtrasInHyperspace, STORAGE_KEYS } from './storage.js';
+import {
+  getPreferredLanguage,
+  getShowSearchBar,
+  getShowShortcuts,
+  getShowExtrasInHyperspace,
+  getShowGoogleApps,
+  STORAGE_KEYS
+} from './storage.js';
 import { loadLocalization } from './i18n.js';
 import {
   FAVICON_SIZE,
@@ -7,7 +14,8 @@ import {
   SHORTCUT_ROW_MAX_WIDTH,
   SHORTCUT_TILE_WIDTH
 } from './config.js';
-import { Moderok } from './vendor/moderok.js';
+import { track } from './telemetry.js';
+import { applyGoogleAppsVisibility, initGoogleApps } from './googleApps.js';
 
 const SHOULD_INIT = !(typeof globalThis !== 'undefined' && globalThis.__SWW_SKIP_INIT__ === true);
 
@@ -73,7 +81,7 @@ export function renderShortcuts(sites, container) {
   container.innerHTML = '';
   const limited = sites.slice(0, getVisibleShortcutCount(container));
 
-  for (const site of limited) {
+  for (const [index, site] of limited.entries()) {
     if (!site.url) continue;
 
     const tile = document.createElement('a');
@@ -109,7 +117,7 @@ export function renderShortcuts(sites, container) {
     label.className = 'shortcut-label';
     label.textContent = getShortcutLabel(site);
 
-    tile.addEventListener('click', () => Moderok.track('shortcut_clicked'));
+    tile.addEventListener('click', () => track('shortcut_clicked', { slot: index + 1 }));
     tile.appendChild(iconWrapper);
     tile.appendChild(label);
     container.appendChild(tile);
@@ -127,29 +135,44 @@ export function applySearchPlaceholder(input, localization) {
   }
 }
 
+// Launcher and Explore menu are fixed-position siblings of .newtab-extras, so they need
+// naming or they stay painted over hyperspace. `hidden` is taken by visibility settings.
+function getHyperspaceTargets(newtabExtras) {
+  return [
+    newtabExtras,
+    document.getElementById('googleAppsLauncher'),
+    document.getElementById('exploreMenu')
+  ].filter(Boolean);
+}
+
 export function applyHyperspaceHidden(newtabExtras, background) {
-  if (!newtabExtras) {
+  const targets = getHyperspaceTargets(newtabExtras);
+  if (targets.length === 0) {
     return;
   }
 
+  const setHidden = (hidden) => {
+    targets.forEach((target) => target.classList.toggle('hyperspace-hidden', hidden));
+  };
+
   if (getShowExtrasInHyperspace()) {
-    newtabExtras.classList.remove('hyperspace-hidden');
+    setHidden(false);
     return;
   }
 
   if (background && background.classList.contains('hyperspace')) {
-    newtabExtras.classList.add('hyperspace-hidden');
+    setHidden(true);
 
     const observer = new MutationObserver(() => {
       if (!background.classList.contains('hyperspace')) {
-        newtabExtras.classList.remove('hyperspace-hidden');
+        setHidden(false);
         observer.disconnect();
       }
     });
 
     observer.observe(background, { attributes: true, attributeFilter: ['class'] });
   } else {
-    newtabExtras.classList.remove('hyperspace-hidden');
+    setHidden(false);
   }
 }
 
@@ -193,10 +216,16 @@ if (SHOULD_INIT) {
     const newtabExtras = document.querySelector('.newtab-extras');
 
     const background = document.getElementById('background');
+    const googleAppsLauncher = document.getElementById('googleAppsLauncher');
 
     applyVisibility({ searchForm, shortcutsGrid, newtabExtras, showSearch, showShortcuts });
     applyHyperspaceHidden(newtabExtras, background);
     applySearchPlaceholder(searchInput, localization);
+
+    let googleAppsController = initGoogleApps({
+      launcher: googleAppsLauncher,
+      localization
+    });
 
     let shortcutSites = [];
 
@@ -252,9 +281,18 @@ if (SHOULD_INIT) {
         applyHyperspaceHidden(newtabExtras, background);
       }
 
+      if (event.key === STORAGE_KEYS.showGoogleApps) {
+        applyGoogleAppsVisibility(googleAppsLauncher, getShowGoogleApps());
+      }
+
       if (event.key === STORAGE_KEYS.language) {
         const updatedLocalization = await loadLocalization(getPreferredLanguage());
         applySearchPlaceholder(searchInput, updatedLocalization);
+        googleAppsController.destroy();
+        googleAppsController = initGoogleApps({
+          launcher: googleAppsLauncher,
+          localization: updatedLocalization
+        });
       }
     });
   })();
